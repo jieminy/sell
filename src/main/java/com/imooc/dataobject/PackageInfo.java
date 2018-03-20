@@ -35,6 +35,7 @@ public class PackageInfo {
     @Length(max = 1)
     private Integer categoryType;
 
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "productId")
     private List<ProductInfo> productInfos;
 
     private Date createTime;

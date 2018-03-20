@@ -3,14 +3,17 @@ package com.imooc.controller;
 import com.imooc.VO.ProductInfoVO;
 import com.imooc.VO.ProductVO;
 import com.imooc.VO.ResultVO;
+import com.imooc.dataobject.PackageCategory;
 import com.imooc.dataobject.ProductCategory;
 import com.imooc.dataobject.ProductInfo;
 import com.imooc.service.CategoryService;
 import com.imooc.service.ProductService;
+import com.imooc.service.impl.PackageCategoryService;
 import com.imooc.utils.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +35,9 @@ public class BuyerProductController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private PackageCategoryService packageCategoryService;
 
     @GetMapping("/list")
     public ResultVO list() {
@@ -73,5 +79,11 @@ public class BuyerProductController {
 
         List<ProductCategory> productCategories = categoryService.findAll();
         return ResultVOUtil.success(productCategories);
+    }
+
+    @GetMapping("/allPackages")
+    public ResultVO allPackageCategory(){
+        List<PackageCategory> packageCategories = packageCategoryService.findAll();
+        return ResultVOUtil.success(packageCategories);
     }
 }
