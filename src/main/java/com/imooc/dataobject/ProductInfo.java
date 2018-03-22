@@ -5,6 +5,7 @@ import com.imooc.enums.ProductStatusEnum;
 import com.imooc.utils.EnumUtil;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -42,7 +43,8 @@ public class ProductInfo {
     private Integer productStatus = ProductStatusEnum.UP.getCode();
 
     /** 类目编号. */
-    private Integer categoryType;
+    @Length(max = 11)
+    private Integer smallCategoryType;
 
     private Date createTime;
 

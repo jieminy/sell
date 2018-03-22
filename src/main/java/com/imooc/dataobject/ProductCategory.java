@@ -33,10 +33,9 @@ public class ProductCategory {
     private Date updateTime;
 
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoryType")
-    private List<ProductInfo> productInfos;
+    private List<ProductSmallCategory> productSmallCategories;
 
     public ProductCategory() {
-
     }
 
     public ProductCategory(String categoryName, Integer categoryType) {
