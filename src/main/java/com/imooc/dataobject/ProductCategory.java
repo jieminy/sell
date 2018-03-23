@@ -4,6 +4,8 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @Data
-public class ProductCategory {
+public class ProductCategory{
 
     /** 类目id. */
     @Id
@@ -32,8 +34,8 @@ public class ProductCategory {
 
     private Date updateTime;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoryType")
-    private List<ProductSmallCategory> productSmallCategories;
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "categoryId")
+    private List<ProductSmallCategory> productSmallCategories = new ArrayList<>();
 
     public ProductCategory() {
     }

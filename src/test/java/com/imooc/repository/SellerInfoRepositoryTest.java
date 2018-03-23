@@ -1,7 +1,8 @@
 package com.imooc.repository;
 
 import com.imooc.dataobject.SellerInfo;
-import com.imooc.utils.KeyUtil;
+import com.imooc.seller.repository.SellerInfoRepository;
+import com.imooc.common.utils.KeyUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

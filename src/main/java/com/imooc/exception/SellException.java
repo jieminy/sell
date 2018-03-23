@@ -1,6 +1,6 @@
 package com.imooc.exception;
 
-import com.imooc.enums.ResultEnum;
+import com.imooc.common.enums.ResultEnum;
 
 /**
  * Created by 廖师兄

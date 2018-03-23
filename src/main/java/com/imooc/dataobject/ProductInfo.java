@@ -1,8 +1,9 @@
 package com.imooc.dataobject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.imooc.enums.ProductStatusEnum;
-import com.imooc.utils.EnumUtil;
+import com.imooc.common.enums.ProductStatusEnum;
+import com.imooc.common.utils.EnumUtil;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Length;
@@ -44,11 +45,14 @@ public class ProductInfo {
 
     /** 类目编号. */
     @Length(max = 11)
-    private Integer smallCategoryType;
+    private Integer smallCategoryId;
 
     private Date createTime;
 
     private Date updateTime;
+
+    @Transient
+    private int count = 0;
 
     @JsonIgnore
     public ProductStatusEnum getProductStatusEnum() {

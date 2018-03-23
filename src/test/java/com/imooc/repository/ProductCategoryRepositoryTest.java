@@ -1,6 +1,7 @@
 package com.imooc.repository;
 
 import com.imooc.dataobject.ProductCategory;
+import com.imooc.seller.repository.ProductCategoryRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

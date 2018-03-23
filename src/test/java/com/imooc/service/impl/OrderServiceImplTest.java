@@ -1,9 +1,10 @@
 package com.imooc.service.impl;
 
 import com.imooc.dataobject.OrderDetail;
-import com.imooc.dto.OrderDTO;
-import com.imooc.enums.OrderStatusEnum;
-import com.imooc.enums.PayStatusEnum;
+import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.enums.OrderStatusEnum;
+import com.imooc.common.enums.PayStatusEnum;
+import com.imooc.seller.service.impl.OrderServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;

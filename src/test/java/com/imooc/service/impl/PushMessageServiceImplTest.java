@@ -1,7 +1,8 @@
 package com.imooc.service.impl;
 
-import com.imooc.dto.OrderDTO;
-import com.imooc.service.OrderService;
+import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.seller.service.OrderService;
+import com.imooc.seller.service.impl.PushMessageServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

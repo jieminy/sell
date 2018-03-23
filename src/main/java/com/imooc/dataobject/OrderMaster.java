@@ -1,7 +1,7 @@
 package com.imooc.dataobject;
 
-import com.imooc.enums.OrderStatusEnum;
-import com.imooc.enums.PayStatusEnum;
+import com.imooc.common.enums.OrderStatusEnum;
+import com.imooc.common.enums.PayStatusEnum;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 

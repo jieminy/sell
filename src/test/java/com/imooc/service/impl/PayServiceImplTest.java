@@ -1,8 +1,8 @@
 package com.imooc.service.impl;
 
-import com.imooc.dto.OrderDTO;
-import com.imooc.service.OrderService;
-import com.imooc.service.PayService;
+import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.seller.service.OrderService;
+import com.imooc.seller.service.PayService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

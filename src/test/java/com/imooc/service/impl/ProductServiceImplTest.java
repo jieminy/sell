@@ -1,7 +1,8 @@
 package com.imooc.service.impl;
 
 import com.imooc.dataobject.ProductInfo;
-import com.imooc.enums.ProductStatusEnum;
+import com.imooc.common.enums.ProductStatusEnum;
+import com.imooc.seller.service.impl.ProductServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

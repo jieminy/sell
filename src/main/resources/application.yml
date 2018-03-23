@@ -46,3 +46,6 @@ projectUrl:
   wechatMpAuthorize: https://51vr.mynatapp.cc
   wechatOpenAuthorize: https://sell.natapp4.cc
   sell: https://sell.natapp4.cc
+logging:
+  level:
+    com.imooc: debug
