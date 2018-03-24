@@ -24,4 +24,19 @@ public class SmallCategoryService implements ISmallCategoryService {
     public List<ProductSmallCategory> findByProdcutCategory(Integer categoryId){
         return smallCategoryRepository.findByCategoryId(categoryId);
     }
+
+    @Override
+    public ProductSmallCategory findOne(Integer id) {
+        return smallCategoryRepository.findOne(id);
+    }
+
+    @Override
+    public void save(ProductSmallCategory productSmallCategory){
+        smallCategoryRepository.save(productSmallCategory);
+    }
+
+    @Override
+    public void delete(Integer smallCategoryId){
+        smallCategoryRepository.delete(smallCategoryId);
+    }
 }

@@ -1,5 +1,8 @@
 package com.imooc.seller.controller;
 
+import com.imooc.common.VO.ResultVO;
+import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.dataobject.ProductCategory;
 import com.imooc.dataobject.ProductInfo;
 import com.imooc.exception.SellException;
@@ -16,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,8 +30,9 @@ import java.util.Map;
  * Created by 廖师兄
  * 2017-07-23 15:12
  */
-@Controller
+@RestController
 @RequestMapping("/seller/product")
+@ApiIgnore
 public class SellerProductController {
 
     @Autowired
@@ -40,104 +45,69 @@ public class SellerProductController {
      * 列表
      * @param page
      * @param size
-     * @param map
      * @return
      */
-    @GetMapping("/lists")
-    @ResponseBody
-    public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                             @RequestParam(value = "size", defaultValue = "10") Integer size,
-                             Map<String, Object> map) {
-        PageRequest request = new PageRequest(page - 1, size);
-        Page<ProductInfo> productInfoPage = productService.findAll(request);
-//        map.put("productInfoPage", productInfoPage);
-//        map.put("currentPage", page);
-//        map.put("size", size);
-        return new ModelAndView("product/list", map);
-    }
-
     @GetMapping("/list")
-    @ResponseBody
-    public Page<ProductInfo> list(@RequestParam(value = "page", defaultValue = "1") Integer page,
+    public ResultVO list(@RequestParam(value = "page", defaultValue = "1") Integer page,
                              @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PageRequest request = new PageRequest(page - 1, size);
-        Page<ProductInfo> productInfoPage = productService.findAll(request);
-        return productInfoPage;
+            PageRequest request = new PageRequest(page - 1, size);
+            Page<ProductInfo> productInfoPage = productService.findAll(request);
+            return ResultVOUtil.success(productInfoPage);
     }
 
     /**
      * 商品上架
      * @param productId
-     * @param map
      * @return
      */
-    @RequestMapping("/on_sale")
-    public ModelAndView onSale(@RequestParam("productId") String productId,
-                               Map<String, Object> map) {
+    @GetMapping("/on_sale")
+    public ResultVO onSale(@RequestParam("productId") String productId) {
         try {
-            productService.onSale(productId);
+            ProductInfo productInfo = productService.onSale(productId);
+            return ResultVOUtil.success(productInfo);
         } catch (SellException e) {
-            map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/product/list");
-            return new ModelAndView("common/error", map);
+            return ResultVOUtil.error(ResultEnum.PRODUCT_NOT_EXIST.getCode(),ResultEnum.PRODUCT_NOT_EXIST.getMessage());
         }
-
-        map.put("url", "/sell/seller/product/list");
-        return new ModelAndView("common/success", map);
     }
     /**
      * 商品下架
      * @param productId
-     * @param map
      * @return
      */
-    @RequestMapping("/off_sale")
-    public ModelAndView offSale(@RequestParam("productId") String productId,
-                               Map<String, Object> map) {
+    @GetMapping("/off_sale")
+    public ResultVO offSale(@RequestParam("productId") String productId) {
         try {
-            productService.offSale(productId);
+            ProductInfo productInfo = productService.offSale(productId);
+            return ResultVOUtil.success(productInfo);
         } catch (SellException e) {
-            map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/product/list");
-            return new ModelAndView("common/error", map);
+            return ResultVOUtil.error(ResultEnum.PRODUCT_NOT_EXIST.getCode(),ResultEnum.PRODUCT_NOT_EXIST.getMessage());
         }
-
-        map.put("url", "/sell/seller/product/list");
-        return new ModelAndView("common/success", map);
     }
 
     @GetMapping("/index")
-    public ModelAndView index(@RequestParam(value = "productId", required = false) String productId,
-                      Map<String, Object> map) {
+    public ResultVO index(@RequestParam(value = "productId", required = false) String productId) {
         if (!StringUtils.isEmpty(productId)) {
             ProductInfo productInfo = productService.findOne(productId);
-            map.put("productInfo", productInfo);
+            return ResultVOUtil.success(productInfo);
         }
 
         //查询所有的类目
         List<ProductCategory> categoryList = categoryService.findAll();
-        map.put("categoryList", categoryList);
-
-        return new ModelAndView("product/index", map);
+        return ResultVOUtil.success(categoryList);
     }
 
     /**
      * 保存/更新
      * @param form
      * @param bindingResult
-     * @param map
      * @return
      */
     @PostMapping("/save")
-    public ModelAndView save(@Valid ProductForm form,
-                             BindingResult bindingResult,
-                             Map<String, Object> map) {
+    public ResultVO save(@Valid ProductForm form,
+                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            map.put("msg", bindingResult.getFieldError().getDefaultMessage());
-            map.put("url", "/sell/seller/product/index");
-            return new ModelAndView("common/error", map);
-        }
 
+        }
         ProductInfo productInfo = new ProductInfo();
         try {
             //如果productId为空, 说明是新增
@@ -148,13 +118,9 @@ public class SellerProductController {
             }
             BeanUtils.copyProperties(form, productInfo);
             productService.save(productInfo);
+            return ResultVOUtil.success();
         } catch (SellException e) {
-            map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/product/index");
-            return new ModelAndView("common/error", map);
+            return ResultVOUtil.error(ResultEnum.PARAM_ERROR.getCode(),ResultEnum.PARAM_ERROR.getMessage());
         }
-
-        map.put("url", "/sell/seller/product/list");
-        return new ModelAndView("common/success", map);
     }
 }

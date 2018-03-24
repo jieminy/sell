@@ -30,12 +30,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<ProductCategory> findByCategoryTypeIn(List<Integer> categoryTypeList) {
-        return repository.findByCategoryTypeIn(categoryTypeList);
+    public List<ProductCategory> findByCategoryIdIn(List<Integer> categoryIdList) {
+        return repository.findByCategoryIdIn(categoryIdList);
     }
 
     @Override
     public ProductCategory save(ProductCategory productCategory) {
         return repository.save(productCategory);
+    }
+
+    @Override
+    public void delete(Integer categoryId) {
+        repository.delete(categoryId);
     }
 }

@@ -6,13 +6,13 @@ spring:
 #    url: jdbc:mysql://192.168.30.113/sell?characterEncoding=utf-8&useSSL=false
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/sell?characterEncoding=utf-8&useSSL=false
-#  jpa:
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        hbm2ddl:
-#          auto: update
+    url: jdbc:mysql://localhost:3306/oracl?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
   jackson:
     default-property-inclusion: non_null
   redis:

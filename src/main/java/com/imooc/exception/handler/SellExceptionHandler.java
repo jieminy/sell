@@ -1,10 +1,13 @@
 package com.imooc.exception.handler;
 
+import com.imooc.common.VO.ResultVO;
 import com.imooc.config.ProjectUrlConfig;
+import com.imooc.exception.SellException;
 import com.imooc.exception.SellerAuthorizeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -28,4 +31,6 @@ public class SellExceptionHandler {
         .concat(projectUrlConfig.getSell())
         .concat("/sell/seller/login"));
     }
+
+
 }

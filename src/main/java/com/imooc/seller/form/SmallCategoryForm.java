@@ -1,30 +1,33 @@
 package com.imooc.seller.form;
 
-import com.imooc.dataobject.ProductInfo;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 /**
- * Created by JM @Date
+ * Created by JM
  */
+@Data
+@ApiModel(value = "SmallCategoryForm", description = "小类目对象")
 public class SmallCategoryForm {
 
     /** 小类目Id */
+    @ApiModelProperty(value = "小类目id")
     private Integer smallCategoryId;
     /** 小类目名称 */
+    @ApiModelProperty(value = "小类目名称")
     private String smallCategoryName;
-    /** 小类目编号 */
-    private Integer smallCategoryType;
     /** 小类目图标 */
+    @ApiModelProperty(value = "小类目图片")
     private String smallPic;
     /** 所属大类目类别 */
+    @ApiModelProperty(value = "所属类目id")
+    @NotNull
     private Integer categoryId;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "smallCategoryId")
-    private List<ProductInfo> productInfos = new ArrayList<>();
 
 }

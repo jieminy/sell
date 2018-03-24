@@ -40,8 +40,8 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void findByCategoryTypeIn() throws Exception {
-        List<ProductCategory> productCategoryList = categoryService.findByCategoryTypeIn(Arrays.asList(1,2,3,4));
+    public void findByCategoryIdIn() throws Exception {
+        List<ProductCategory> productCategoryList = categoryService.findByCategoryIdIn(Arrays.asList(1,2,3,4));
         Assert.assertNotEquals(0, productCategoryList.size());
     }
 
