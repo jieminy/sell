@@ -13,7 +13,7 @@ public enum ResultEnum {
 
     PARAM_ERROR(1, "参数不正确"),
 
-    CATEOGRY_NOT_EXIST(2, "类别不存在"),
+    SYSTEM_ERROR(2, "系统错误"),
 
     PRODUCT_NOT_EXIST(10, "商品不存在"),
 
@@ -48,6 +48,12 @@ public enum ResultEnum {
     LOGIN_FAIL(25, "登录失败, 登录信息不正确"),
 
     LOGOUT_SUCCESS(26, "登出成功"),
+
+    CATEOGRY_NOT_EXIST(27, "类别不存在"),
+
+    USER_NOT_EXIST(28, "用户不存在"),
+
+    USER_EXIST(29, "用户已存在")
 
     ;
 

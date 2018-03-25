@@ -2,9 +2,7 @@ package com.imooc.dataobject;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -13,11 +11,13 @@ import java.util.Date;
  */
 @Data
 @Entity
+@Table(name = "seller_info",uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class SellerInfo {
 
     @Id
     @Column(length = 32)
     private String sellerId;
+
 
     @Column(length = 64)
     private String username;

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "SellerInfoForm", description = "用户")
 public class SellerInfoForm {
 
-        @ApiModelProperty("id")
+        @ApiModelProperty("用户id")
         private String sellerId;
 
         @ApiModelProperty("用户名")

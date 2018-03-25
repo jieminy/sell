@@ -1,17 +1,17 @@
 package com.imooc.seller.controller;
 
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.utils.KeyUtil;
 import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.config.ProjectUrlConfig;
-import com.imooc.common.constant.CookieConstant;
-import com.imooc.common.constant.RedisConstant;
 import com.imooc.dataobject.SellerInfo;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.seller.form.SellerInfoForm;
 import com.imooc.seller.service.SellerService;
-import com.imooc.common.utils.CookieUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -19,30 +19,20 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import springfox.documentation.annotations.ApiIgnore;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.awt.*;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
+
 
 /**
  * 卖家用户
  * Created by
  * 2017-07-30 15:28
  */
-@Controller
+@RestController
 @RequestMapping("/seller/user")
-@ApiIgnore
+@Api(description = "用户接口")
 public class SellerUserController {
 
     @Autowired
@@ -62,8 +52,17 @@ public class SellerUserController {
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
         SellerInfo sellerInfo = new SellerInfo();
-        if(StringUtils.isEmpty(sellerInfoForm.getSellerId())){
-            sellerInfo = sellerService.findSellerUsername(sellerInfoForm.getSellerId());
+        if(StringUtils.isEmpty(sellerInfoForm.getUsername()) == false){
+            sellerInfo = sellerService.findSellerUsername(sellerInfoForm.getUsername());
+            if(sellerInfo == null){
+                throw new SellException(ResultEnum.USER_NOT_EXIST);
+            }else{
+                if(StringUtils.isEmpty(sellerInfoForm.getSellerId())){
+                    throw new SellException(ResultEnum.USER_EXIST);
+                }
+            }
+        }else{
+            sellerInfoForm.setSellerId(KeyUtil.genUniqueKey());
         }
         BeanUtils.copyProperties(sellerInfoForm,sellerInfo);
         try{
@@ -75,6 +74,23 @@ public class SellerUserController {
     }
 
 
+    @GetMapping("/del")
+    @ApiOperation(value = "删除", notes = "根据用户id删除", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO del(@ApiParam("用户id") @RequestParam("userId") String userId){
+        try {
+            sellerService.delete(userId);
+            return ResultVOUtil.success();
+        }catch (SellException e){
+            throw new SellException(ResultEnum.USER_NOT_EXIST);
+        }
+    }
+
+    @GetMapping("/list")
+    @ApiOperation(value = "查询", notes = "查询所有用户", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO<List<SellerInfoForm>> index(){
+        List<SellerInfoForm> infoList = sellerService.findall();
+        return ResultVOUtil.success(infoList);
+    }
 
 
 

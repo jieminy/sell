@@ -1,6 +1,9 @@
 package com.imooc.seller.service;
 
 import com.imooc.dataobject.SellerInfo;
+import com.imooc.seller.form.SellerInfoForm;
+
+import java.util.List;
 
 /**
  * 卖家端
@@ -19,4 +22,6 @@ public interface SellerService {
     SellerInfo save(SellerInfo sellerInfo);
 
     void delete(String sellerId);
+
+    List<SellerInfoForm> findall();
 }
