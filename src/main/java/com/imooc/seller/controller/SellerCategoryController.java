@@ -104,7 +104,7 @@ public class SellerCategoryController {
      * @return
      */
     @PostMapping("/category/save")
-    @ApiOperation(value = "新增类目", notes = "新增类目",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "新增/更新类目", notes = "新增类目",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO saveCategory(@ApiParam("类目对象") @Valid CategoryForm form,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -131,7 +131,7 @@ public class SellerCategoryController {
      * @return
      */
     @PostMapping("/smallCategory/save")
-    @ApiOperation(value = "新增小类目", notes = "新增小类目",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "新增/更新小类目", notes = "新增小类目",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO saveSmCategory(@ApiParam("小类目对象")  @Valid SmallCategoryForm form,
                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

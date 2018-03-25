@@ -26,4 +26,11 @@ public class ResultVOUtil {
         resultVO.setMsg(msg);
         return resultVO;
     }
+
+    public static ResultVO success(Integer code, String msg) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(code);
+        resultVO.setMsg(msg);
+        return resultVO;
+    }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * 买家商品
- * Created by 廖师兄
+ * Created by
  * 2017-05-12 14:08
  */
 @RestController
@@ -51,5 +51,4 @@ public class BuyerProductController {
         List<ProductSmallCategory> productSmallCategories = smallCategoryService.findByProdcutCategory(categoryId);
         return ResultVOUtil.success(productSmallCategories);
     }
-
 }

@@ -17,7 +17,17 @@ public class SellerServiceImpl implements SellerService {
     private SellerInfoRepository repository;
 
     @Override
-    public SellerInfo findSellerInfoByOpenid(String openid) {
-        return repository.findByOpenid(openid);
+    public SellerInfo findSellerUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
+    @Override
+    public SellerInfo save(SellerInfo sellerInfo) {
+        return repository.save(sellerInfo);
+    }
+
+    @Override
+    public void delete(String sellerId){
+         repository.delete(sellerId);
     }
 }

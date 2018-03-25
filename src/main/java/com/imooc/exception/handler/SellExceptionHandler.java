@@ -1,6 +1,7 @@
 package com.imooc.exception.handler;
 
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.config.ProjectUrlConfig;
 import com.imooc.exception.SellException;
 import com.imooc.exception.SellerAuthorizeException;
@@ -30,6 +31,12 @@ public class SellExceptionHandler {
         .concat("?returnUrl=")
         .concat(projectUrlConfig.getSell())
         .concat("/sell/seller/login"));
+    }
+
+    @ExceptionHandler(value = SellException.class)
+    @ResponseBody
+    public ResultVO handlerSellException(SellException e) {
+        return ResultVOUtil.error(e.getCode(),e.getMessage());
     }
 
 

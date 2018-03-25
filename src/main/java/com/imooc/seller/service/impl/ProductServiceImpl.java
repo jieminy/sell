@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void increaseStock(List<CartDTO> cartDTOList) {
+    public void increaseSales(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO: cartDTOList) {
             ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
             if (productInfo == null) {
@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void decreaseStock(List<CartDTO> cartDTOList) {
+    public void decreaseSales(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO: cartDTOList) {
             ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
             if (productInfo == null) {
@@ -109,5 +109,10 @@ public class ProductServiceImpl implements ProductService {
         //更新
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
         return repository.save(productInfo);
+    }
+
+    @Override
+    public void delete(String productId){
+        repository.delete(productId);
     }
 }

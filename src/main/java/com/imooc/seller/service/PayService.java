@@ -6,7 +6,7 @@ import com.lly835.bestpay.model.RefundResponse;
 
 /**
  * 支付
- * Created by 廖师兄
+ * Created by Jiemin
  * 2017-07-04 00:53
  */
 public interface PayService {

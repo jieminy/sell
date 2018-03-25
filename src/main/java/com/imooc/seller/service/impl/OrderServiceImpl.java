@@ -93,11 +93,11 @@ public class OrderServiceImpl implements OrderService {
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMasterRepository.save(orderMaster);
 
-        //4. 扣库存
+        //4. 加销量
         List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream().map(e ->
                 new CartDTO(e.getProductId(), e.getProductQuantity())
         ).collect(Collectors.toList());
-        productService.decreaseStock(cartDTOList);
+        productService.increaseSales(cartDTOList);
 
         //发送websocket消息
         webSocket.sendMessage(orderDTO.getOrderId());
@@ -131,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
 
-        return new PageImpl<OrderDTO>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+        return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
 
     @Override
@@ -155,14 +155,14 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //返回库存
-        if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
-            log.error("【取消订单】订单中无商品详情, orderDTO={}", orderDTO);
-            throw new SellException(ResultEnum.ORDER_DETAIL_EMPTY);
-        }
-        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
-                .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
-                .collect(Collectors.toList());
-        productService.increaseStock(cartDTOList);
+//        if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
+//            log.error("【取消订单】订单中无商品详情, orderDTO={}", orderDTO);
+//            throw new SellException(ResultEnum.ORDER_DETAIL_EMPTY);
+//        }
+//        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
+//                .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
+//                .collect(Collectors.toList());
+//        productService.increaseStock(cartDTOList);
 
         //如果已支付, 需要退款
         if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
