@@ -17,9 +17,14 @@ export class HttpProxyInterceptorService implements HttpInterceptor {
     let secureReq = req;
     if (!environment.production) {// 判断是否为非生产环境
       secureReq = req.clone({
-        url: '/api' + req.url
+        url: '/api/' + req.url
       });
     }
+
+    secureReq = secureReq.clone({
+      setParams: {_time: Date.now().toString()}
+    });
+
     return next.handle(secureReq);
   }
 

@@ -1,30 +1,32 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BrowserModule} from "@angular/platform-browser";
 import {httpInterceptorProviders} from "./http-proxy.interceptor";
 import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgZorroAntdModule} from "ng-zorro-antd";
+import {AuthService} from "./auth.service";
+import {AuthGuardService} from "./auth-guard.service";
+import {StatusPipe} from './status.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    BrowserModule,
     NgZorroAntdModule,
-    BrowserAnimationsModule
   ],
-  declarations: [],
+  declarations: [StatusPipe],
   providers: [
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    AuthService,
+    AuthGuardService
   ],
   exports: [
     CommonModule, FormsModule,
-    HttpClientModule, BrowserModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     NgZorroAntdModule,
-    BrowserAnimationsModule,
   ]
 })
 export class SharedModule {
