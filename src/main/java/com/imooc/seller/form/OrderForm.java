@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
 /**
  * Created by 廖师兄
  * 2017-06-18 23:31
@@ -46,4 +49,10 @@ public class OrderForm {
      */
     @NotEmpty(message = "购物车不能为空")
     private String items;
+
+    /**
+     * 总金额
+     */
+    @NotNull(message = "总金额不能为空")
+    private BigDecimal orderAmount;
 }

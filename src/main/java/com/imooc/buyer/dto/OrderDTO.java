@@ -58,12 +58,12 @@ public class OrderDTO {
     private Integer payStatus;
 
     /** 创建时间. */
-    @JsonSerialize(using = Date2LongSerializer.class)
+//    @JsonSerialize(using = Date2LongSerializer.class)
     @ApiModelProperty(hidden = true)
     private Date createTime;
 
     /** 更新时间. */
-    @JsonSerialize(using = Date2LongSerializer.class)
+//    @JsonSerialize(using = Date2LongSerializer.class)
     @ApiModelProperty(hidden = true)
     private Date updateTime;
 

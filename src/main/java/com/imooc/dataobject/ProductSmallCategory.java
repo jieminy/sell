@@ -23,8 +23,7 @@ public class ProductSmallCategory {
     /** 所属大类目类别 */
     private Integer categoryId;
 
-//    @Transient
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "smallCategoryId")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "smallCategoryId")
     private List<ProductInfo> productInfos = new ArrayList<>();
 
     private Date createTime;

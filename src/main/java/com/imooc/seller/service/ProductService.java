@@ -22,6 +22,8 @@ public interface ProductService {
      */
     List<ProductInfo> findUpAll();
 
+    List<ProductInfo> findOffAll();
+
     Page<ProductInfo> findAll(Pageable pageable);
 
     ProductInfo save(ProductInfo productInfo);

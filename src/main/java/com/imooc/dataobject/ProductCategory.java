@@ -33,8 +33,7 @@ public class ProductCategory{
     @ApiModelProperty(hidden = true)
     private Date updateTime;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "categoryId")
-//    @Transient
+    @OneToMany(cascade={CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "categoryId")
     @ApiModelProperty(hidden = true)
     private List<ProductSmallCategory> productSmallCategories = new ArrayList<>();
 

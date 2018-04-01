@@ -45,7 +45,7 @@ public class OrderDetail {
 
     /** 商品数量. */
     @ApiModelProperty("数量")
-    private Integer productQuantity;
+    private Integer count;
 
     /** 商品小图. */
     @Column(length = 512)

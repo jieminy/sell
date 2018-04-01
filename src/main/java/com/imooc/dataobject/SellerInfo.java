@@ -25,6 +25,8 @@ public class SellerInfo {
     @Column(length = 32)
     private String password;
 
+    private boolean admin;
+
     private Date createTime;
     private Date updateTime;
 }

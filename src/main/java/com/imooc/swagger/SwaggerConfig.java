@@ -26,7 +26,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInf())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.imooc.seller.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.imooc"))
                 .paths(PathSelectors.any())
                 .build();
     }

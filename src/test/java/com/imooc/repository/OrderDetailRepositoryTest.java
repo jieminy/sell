@@ -32,7 +32,7 @@ public class OrderDetailRepositoryTest {
         orderDetail.setProductId("11111112");
         orderDetail.setProductName("皮蛋粥");
         orderDetail.setProductPrice(new BigDecimal(2.2));
-        orderDetail.setProductQuantity(3);
+//        orderDetail.setProductQuantity(3);
 
         OrderDetail result = repository.save(orderDetail);
         Assert.assertNotNull(result);

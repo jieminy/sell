@@ -26,5 +26,8 @@ public class SellerInfoForm {
         @NotNull
         private String password;
 
+        @ApiModelProperty("是否为超级管理员")
+        private boolean admin;
+
 
 }

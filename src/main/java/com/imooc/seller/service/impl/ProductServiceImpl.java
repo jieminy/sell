@@ -36,6 +36,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductInfo> findOffAll() {
+        return repository.findByProductStatus(ProductStatusEnum.DOWN.getCode());
+    }
+
+    @Override
     public Page<ProductInfo> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }

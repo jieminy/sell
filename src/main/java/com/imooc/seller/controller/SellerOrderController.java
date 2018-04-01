@@ -78,7 +78,7 @@ public class SellerOrderController {
      */
     @GetMapping("/detail")
     @ApiOperation(value = "订单查询", notes = "根据订单id查询订单详情", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO detail(@ApiParam("订单id") @RequestParam("orderId") String orderId) {
+    public ResultVO<OrderDTO> detail(@ApiParam("订单id") @RequestParam("orderId") String orderId) {
         try {
             OrderDTO  orderDTO = orderService.findOne(orderId);
             return ResultVOUtil.success(orderDTO);

@@ -1,5 +1,4 @@
-package com.imooc.seller.form;
-
+package com.imooc.seller.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,13 +7,13 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * Created by JieMIn
- * 2017-07-23 17:20
+ * @Author: JieMin
+ * @Description:
+ * @Date: created in 17:38 2018/3/31
  */
 @Data
 @ApiModel(value = "ProductInfo", description = "商品")
-public class ProductForm {
-
+public class ProductInfoVO {
     @ApiModelProperty("商品id")
     private String productId;
 
@@ -38,13 +37,13 @@ public class ProductForm {
     @ApiModelProperty("商品图标地址")
     private String productIcon;
 
-    /** 状态, 0正常1下架. */
-    @ApiModelProperty("商品上下架")
-    private Integer productStatus;
-
-    /** 类目编号. */
-    @ApiModelProperty("小类目id")
     private Integer smallCategoryId;
 
+    private Integer categoryId;
 
+    @ApiModelProperty("小类目")
+    private String smallCategoryName;
+
+    @ApiModelProperty("类目")
+    private String categoryName;
 }

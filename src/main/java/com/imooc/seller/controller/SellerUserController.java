@@ -47,19 +47,15 @@ public class SellerUserController {
 
     @PostMapping("/save")
     @ApiOperation(value = "添加/修改", notes = "新增或者修改用户 参数带有id时判定为修改", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO save(@Valid SellerInfoForm sellerInfoForm, BindingResult bindingResult){
+    public ResultVO save(@Valid @RequestBody SellerInfoForm sellerInfoForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
         SellerInfo sellerInfo = new SellerInfo();
-        if(StringUtils.isEmpty(sellerInfoForm.getUsername()) == false){
+        if(StringUtils.isEmpty(sellerInfoForm.getSellerId()) == false){
             sellerInfo = sellerService.findSellerUsername(sellerInfoForm.getUsername());
             if(sellerInfo == null){
                 throw new SellException(ResultEnum.USER_NOT_EXIST);
-            }else{
-                if(StringUtils.isEmpty(sellerInfoForm.getSellerId())){
-                    throw new SellException(ResultEnum.USER_EXIST);
-                }
             }
         }else{
             sellerInfoForm.setSellerId(KeyUtil.genUniqueKey());

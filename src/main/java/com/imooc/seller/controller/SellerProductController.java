@@ -1,15 +1,19 @@
 package com.imooc.seller.controller;
 
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.enums.ProductStatusEnum;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.dataobject.ProductCategory;
 import com.imooc.dataobject.ProductInfo;
+import com.imooc.dataobject.ProductSmallCategory;
 import com.imooc.exception.SellException;
+import com.imooc.seller.dto.ProductInfoVO;
 import com.imooc.seller.form.ProductForm;
 import com.imooc.seller.service.CategoryService;
 import com.imooc.seller.service.ProductService;
 import com.imooc.common.utils.KeyUtil;
+import com.imooc.seller.service.impl.SmallCategoryService;
 import com.lly835.bestpay.rest.type.Get;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +32,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,19 +47,43 @@ public class SellerProductController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private SmallCategoryService smallCategoryService;
+
     /**
      * 列表
-     * @param page
-     * @param size
+
      * @return
      */
     @GetMapping("/list")
-    @ApiOperation(value = "查询商品", notes = "分页查询默认 page = 1, size = 10", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO<Page<ProductInfo>> list(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                             @RequestParam(value = "size", defaultValue = "10") Integer size) {
-            PageRequest request = new PageRequest(page - 1, size);
-            Page<ProductInfo> productInfoPage = productService.findAll(request);
-            return ResultVOUtil.success(productInfoPage);
+    @ApiOperation(value = "查询商品", notes = "type = 0上架 1下架", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO<List<ProductInfoVO>> list(@RequestParam(value = "type", defaultValue = "0") Integer productStatus) {
+        List<ProductInfo> productInfos;
+        List<ProductCategory> productCategories = categoryService.findAll();
+        List<ProductSmallCategory> productSmallCategories = smallCategoryService.findAll();
+        Map<Integer,ProductSmallCategory> smallCategoryMap = new HashMap<>();
+        productSmallCategories.forEach(smallCategory-> {
+            smallCategoryMap.put(smallCategory.getSmallCategoryId(), smallCategory);
+        });
+        Map<Integer, ProductCategory> productCategoryMap = new HashMap<>();
+        productCategories.forEach(category -> {
+            productCategoryMap.put(category.getCategoryId(),category);
+        });
+        if(productStatus == 0){
+            productInfos  = productService.findUpAll();
+        }else{
+            productInfos  = productService.findOffAll();
+        }
+        List<ProductInfoVO> productInfoVOS = new ArrayList<>();
+        productInfos.forEach(productInfo -> {
+            ProductInfoVO productInfoVO = new ProductInfoVO();
+            BeanUtils.copyProperties(productInfo, productInfoVO);
+            productInfoVO.setSmallCategoryName(smallCategoryMap.get(productInfoVO.getSmallCategoryId()).getSmallCategoryName());
+            productInfoVO.setCategoryId(smallCategoryMap.get(productInfoVO.getSmallCategoryId()).getCategoryId());
+            productInfoVO.setCategoryName(productCategoryMap.get(productInfoVO.getCategoryId()).getCategoryName());
+            productInfoVOS.add(productInfoVO);
+        });
+        return ResultVOUtil.success(productInfoVOS);
     }
 
     /**
@@ -103,7 +132,7 @@ public class SellerProductController {
      */
     @PostMapping("/save")
     @ApiOperation(value = "新增/更新", notes = "新增商品/更新商品", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO save(@Valid ProductForm form,
+    public ResultVO save(@Valid @RequestBody ProductForm form,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new SellException(ResultEnum.PARAM_ERROR.getCode(),bindingResult.getFieldError().getDefaultMessage());
@@ -117,6 +146,7 @@ public class SellerProductController {
                 form.setProductId(KeyUtil.genUniqueKey());
             }
             BeanUtils.copyProperties(form, productInfo);
+            productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
             productService.save(productInfo);
             return ResultVOUtil.success();
         } catch (SellException e) {

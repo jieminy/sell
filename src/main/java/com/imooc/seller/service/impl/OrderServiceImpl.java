@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO create(OrderDTO orderDTO) {
 
         String orderId = KeyUtil.genUniqueKey();
-        BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
+//        BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
 
 //        List<CartDTO> cartDTOList = new ArrayList<>();
 
@@ -69,14 +69,14 @@ public class OrderServiceImpl implements OrderService {
             }
 
             //2. 计算订单总价
-            orderAmount = productInfo.getProductPrice()
-                    .multiply(new BigDecimal(orderDetail.getProductQuantity()))
-                    .add(orderAmount);
+//            orderAmount = productInfo.getProductPrice()
+//                    .multiply(new BigDecimal(orderDetail.getProductQuantity()))
+//                    .add(orderAmount);
 
             //订单详情入库
             orderDetail.setDetailId(KeyUtil.genUniqueKey());
             orderDetail.setOrderId(orderId);
-            BeanUtils.copyProperties(productInfo, orderDetail);
+//            BeanUtils.copyProperties(productInfo, orderDetail);
             orderDetailRepository.save(orderDetail);
 
 //            CartDTO cartDTO = new CartDTO(orderDetail.getProductId(), orderDetail.getProductQuantity());
@@ -88,14 +88,14 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster orderMaster = new OrderMaster();
         orderDTO.setOrderId(orderId);
         BeanUtils.copyProperties(orderDTO, orderMaster);
-        orderMaster.setOrderAmount(orderAmount);
+        orderMaster.setOrderAmount(orderDTO.getOrderAmount());
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMasterRepository.save(orderMaster);
 
         //4. 加销量
         List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream().map(e ->
-                new CartDTO(e.getProductId(), e.getProductQuantity())
+                new CartDTO(e.getProductId(), e.getCount())
         ).collect(Collectors.toList());
         productService.increaseSales(cartDTOList);
 

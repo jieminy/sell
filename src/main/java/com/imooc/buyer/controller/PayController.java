@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * 支付
- * Created by 廖师兄
+ * Created by JieMin
  * 2017-07-04 00:49
  */
 @Controller
