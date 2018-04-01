@@ -1,0 +1,62 @@
+<form nz-form [formGroup]="validateForm" autocomplete="off"
+      (ngSubmit)="_submitForm()">
+  <ng-container *ngIf="category">
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label for="categoryName" nz-form-item-required>类目名称</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+        <nz-input [nzSize]="'large'" formControlName="categoryName" [nzId]="'categoryName'"></nz-input>
+        <div nz-form-explain
+             *ngIf="getFormControl('categoryName').dirty&&getFormControl('categoryName').hasError('required')">
+          请输入类目名称！
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="smallCategory">
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label>大类目</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+        <nz-input [nzSize]="'large'" formControlName="categoryName"
+                  [nzReadonly]="true"
+                  [nzId]="'categoryName'"></nz-input>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label for="smallCategoryName" nz-form-item-required>类目名称</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+        <nz-input [nzSize]="'large'" formControlName="smallCategoryName" [nzId]="'smallCategoryName'"></nz-input>
+        <div nz-form-explain
+             *ngIf="getFormControl('smallCategoryName').dirty&&getFormControl('smallCategoryName').hasError('required')">
+          请输入类目名称！
+        </div>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label for="smallPic" nz-form-item-required>类目名称</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+        <nz-input [nzSize]="'large'" formControlName="smallPic" [nzId]="'smallPic'"></nz-input>
+        <div nz-form-explain
+             *ngIf="getFormControl('smallPic').dirty&&getFormControl('smallPic').hasError('required')">
+          请输入类目名称！
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="text-right">
+    <button nz-button nzType="primary" type="submit" nzSize="large" [nzLoading]="">
+      保 存
+    </button>
+    <button nz-button nzType="default" nzSize="large" (click)="handleCancel($event)">
+      取 消
+    </button>
+  </div>
+</form>

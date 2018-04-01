@@ -1,0 +1,36 @@
+<nz-table #nzTable
+          [nzDataSource]="dataList"
+          [nzPageSize]="10"
+          [nzLoading]="_loading"
+          nzShowTitle="true" nzBordered="true" nzIsPagination="true" nzSize="small">
+  <div nz-table-title class="text-right">
+    <button nz-button nzType="primary"
+            type="button" (click)="createShop()">添加商品
+    </button>
+  </div>
+  <thead nz-thead>
+  <tr>
+    <th nz-th nzWidth="70px"><span>商品图标</span></th>
+    <th nz-th><span>商品名称</span></th>
+    <th nz-th><span>商品描述</span></th>
+    <th nz-th><span>商品价格</span></th>
+    <th nz-th><span>商品销量</span></th>
+    <th nz-th><span>商品类目</span></th>
+    <th nz-th nzWidth="150px"><span>操作</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+    <td nz-td><img [src]="data.productIcon" width="70"></td>
+    <td nz-td>{{data.productName}}</td>
+    <td nz-td>{{data.productDescription}}</td>
+    <td nz-td>{{data.productPrice | currency:'￥' }}</td>
+    <td nz-td>{{data.productSales}}</td>
+    <td nz-td>{{data.smallCategoryName}}</td>
+    <td nz-td>
+      <a href="javascript:" (click)="editShop(data)">修改商品</a>
+      <a href="javascript:" (click)="onShop(data)">上架商品</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

@@ -1,0 +1,81 @@
+<form nz-form layout="row" layout-wrap nzType="horizontal">
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>订单ID</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.orderId}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>订单价格</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.orderAmount | currency:'￥'}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>支付状态</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.payStatus}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>订单状态</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.orderStatus}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>客户名称</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.buyerName}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>客户电话</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.buyerPhone}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="100" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>客户地址</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.buyerAddress}}</span>
+    </div>
+  </div>
+</form>
+
+<nz-table #nzTable
+          [nzDataSource]="orderDetailList"
+          [nzPageSize]="10"
+          nzBordered="true" nzIsPagination="true" nzSize="small">
+  <thead nz-thead>
+  <tr>
+    <th nz-th nzWidth="70px"><span>商品图片</span></th>
+    <th nz-th><span>商品名称</span></th>
+    <th nz-th><span>商品单价</span></th>
+    <th nz-th><span>商品数量</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+    <td nz-td><img [src]="data.productIcon" width="70"></td>
+    <td nz-td>{{data.productName}}</td>
+    <td nz-td>{{data.productPrice | currency:'￥'}}</td>
+    <td nz-td>{{data.count}}</td>
+  </tr>
+  </tbody>
+</nz-table>
+
