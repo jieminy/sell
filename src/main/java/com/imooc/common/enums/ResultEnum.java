@@ -53,7 +53,13 @@ public enum ResultEnum {
 
     USER_NOT_EXIST(28, "用户不存在"),
 
-    USER_EXIST(29, "用户已存在")
+    USER_EXIST(29, "用户已存在"),
+
+    IMAGE_NOT_EXIST(30, "图片不存在"),
+
+    IMAGE_FORMAT_ERROR(31, "图片格式化错误"),
+
+    IMAGE_UPLOAD_FAILED(32,"上传失败")
 
     ;
 

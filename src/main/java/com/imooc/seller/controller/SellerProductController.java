@@ -15,11 +15,14 @@ import com.imooc.seller.service.ProductService;
 import com.imooc.common.utils.KeyUtil;
 import com.imooc.seller.service.impl.SmallCategoryService;
 import com.lly835.bestpay.rest.type.Get;
+import com.mysql.jdbc.Constants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
@@ -27,18 +30,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping("/seller/product")
 @Api(description = "商品接口")
+@Slf4j
 public class SellerProductController {
 
     @Autowired
@@ -49,6 +55,7 @@ public class SellerProductController {
 
     @Autowired
     private SmallCategoryService smallCategoryService;
+
 
     /**
      * 列表
@@ -163,6 +170,35 @@ public class SellerProductController {
         }catch (SellException e){
             return ResultVOUtil.error(ResultEnum.PRODUCT_NOT_EXIST.getCode(),ResultEnum.PRODUCT_NOT_EXIST.getMessage());
         }
+    }
 
+    @PutMapping("/upload")
+    @ApiOperation(value = "上传图片", notes = "上传图片", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResultVO upload(@RequestParam("multipartFile")MultipartFile multipartFile){
+        if (multipartFile.isEmpty() || StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
+            throw new SellException(ResultEnum.IMAGE_NOT_EXIST);
+        }
+        String contentType = multipartFile.getContentType();
+        if (!contentType.contains("")) {
+            throw new SellException(ResultEnum.IMAGE_FORMAT_ERROR);
+        }
+        String fileName = multipartFile.getOriginalFilename();
+        log.info("上传图片：name={},contentType={}",fileName,contentType);
+        try {
+            FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream();
+            String suffix = fileName.substring(fileName.indexOf('.'),fileName.length());
+            fileName = UUID.randomUUID().toString();
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("F:/IdeaProjects/sell/src/main/resources/public/images/"+fileName+suffix));
+            byte[] bs = new byte[1024];
+            int len;
+            while ((len = fileInputStream.read(bs)) != -1){
+                bufferedOutputStream.write(bs, 0, len);
+            }
+            bufferedOutputStream.flush();
+            bufferedOutputStream.close();
+        }catch (IOException e){
+            throw new SellException(ResultEnum.IMAGE_UPLOAD_FAILED);
+        }
+        return ResultVOUtil.success(fileName);
     }
 }
