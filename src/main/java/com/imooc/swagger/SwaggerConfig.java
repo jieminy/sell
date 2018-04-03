@@ -1,7 +1,7 @@
 package com.imooc.swagger;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -19,14 +19,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-//@ComponentScan({"com.imooc.seller.controller"})
 public class SwaggerConfig {
     @Bean
     public Docket buildDocket(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInf())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.imooc"))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
     }

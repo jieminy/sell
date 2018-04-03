@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
- * Created by 廖师兄
+ * Created by JieMin
  * 2017-06-18 23:31
  */
 @Data

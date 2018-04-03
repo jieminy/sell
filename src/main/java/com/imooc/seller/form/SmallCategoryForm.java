@@ -3,13 +3,12 @@ package com.imooc.seller.form;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by JM
+ * Created by JieMin
+ * 2017-06-18 23:31
  */
 @Data
 @ApiModel(value = "SmallCategoryForm", description = "小类目对象")

@@ -1,8 +1,11 @@
 package com.imooc.dataobject;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -12,7 +15,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "seller_info",uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
-public class SellerInfo {
+public class SellerInfo implements UserDetails {
 
     @Id
     @Column(length = 32)
@@ -29,4 +32,29 @@ public class SellerInfo {
 
     private Date createTime;
     private Date updateTime;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }
