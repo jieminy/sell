@@ -168,7 +168,7 @@ public class SellerProductController {
 
     @PutMapping("/upload")
     @ApiOperation(value = "上传图片", notes = "上传图片", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResultVO upload(@RequestParam("multipartFile")MultipartFile multipartFile){
+    public ResultVO upload(@RequestParam("files")MultipartFile multipartFile){
         if (multipartFile.isEmpty() || StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
             throw new SellException(ResultEnum.IMAGE_NOT_EXIST);
         }

@@ -231,6 +231,10 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
 
+        orderDTOList.forEach(orderDTO -> {
+            orderDTO.setOrderDetailList(orderDetailRepository.findByOrderId(orderDTO.getOrderId()));
+        });
+
         return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
 }
