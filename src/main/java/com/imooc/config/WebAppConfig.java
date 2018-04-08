@@ -27,7 +27,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
         MultipartConfigFactory configFactory = new MultipartConfigFactory();
         configFactory.setMaxFileSize("2MB");
         configFactory.setMaxRequestSize("10MB");
-        configFactory.setLocation(location);
+//        configFactory.setLocation(location);
         return configFactory.createMultipartConfig();
     }
 }

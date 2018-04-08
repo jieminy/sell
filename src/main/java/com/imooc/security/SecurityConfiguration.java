@@ -33,27 +33,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .disable();
 
         //anMatcher permit
-        http
-                .authorizeRequests()
-                .antMatchers("/sell/css/**", "/tkreport/images/**", "/sell/favicon.ico", "/sell/login", "/sell/js/**")
-                .permitAll();
-
-        //authentication
-        http
-                .formLogin()
-                .loginPage("/sell/login")
-                .defaultSuccessUrl("/sell/index")
-                .and()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated();
-
-        //logout
-        http
-                .logout()
-                .deleteCookies("JESSIONID")
-                .invalidateHttpSession(true)
-                .permitAll();
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/sell/css/**", "/tkreport/images/**", "/sell/favicon.ico", "/sell/login", "/sell/js/**")
+//                .permitAll();
+//
+//        //authentication
+//        http
+//                .formLogin()
+//                .loginPage("/sell/login")
+//                .defaultSuccessUrl("/sell/index")
+//                .and()
+//                .authorizeRequests()
+//                .anyRequest()
+//                .authenticated();
+//
+//        //logout
+//        http
+//                .logout()
+//                .deleteCookies("JESSIONID")
+//                .invalidateHttpSession(true)
+//                .permitAll();
 
         //sessionManagement
 //		http

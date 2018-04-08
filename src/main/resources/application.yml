@@ -47,3 +47,9 @@ projectUrl:
 
 image:
  location: F:/IdeaProjects/sell/src/main/resources/public/images/
+
+qiniu:
+  accessKey: LyAwucGV3VuuXq8wlQpjuqrIJUEBz7sjAqpk2pC3
+  secretKey: 4p41oLyrMQs-M4a3BMrg2kmae530ID3q0JbDqMz0
+  bucket: gongyuxian
+  path: p6uht0p00.bkt.clouddn.com
