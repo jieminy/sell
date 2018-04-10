@@ -15,4 +15,11 @@ public class JsonUtil {
         Gson gson = gsonBuilder.create();
         return gson.toJson(object);
     }
+
+    public static Object toObj(String json, Class clzz) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(json, clzz);
+    }
 }
