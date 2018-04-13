@@ -1,14 +1,11 @@
 package com.imooc.dataobject;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.imooc.common.enums.ProductStatusEnum;
 import com.imooc.common.utils.EnumUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -73,7 +70,7 @@ public class ProductInfo {
     @ApiModelProperty(hidden = true)
     private int count = 0;
 
-    @JsonIgnore
+    //    @JsonIgnore
     public ProductStatusEnum getProductStatusEnum() {
         return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
     }

@@ -2,9 +2,8 @@ package com.imooc.dataobject;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,24 +12,32 @@ import java.util.Date;
  */
 @Entity
 @Data
-public class Advertisement {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Advertisement implements Serializable {
     /**
      * id
      */
     @Id
-    @Column(length = 32)
-    private String advId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer advId;
 
     /**
      * 图片路径
      */
-    @Column(length = 128)
-    private String pic;
+    @Column(length = 1000)
+    protected String pic;
 
     /**
      * 类别id
      */
-    private Integer categoryId;
-    private Date createTime;
-    private Date updateTime;
+    protected Integer categoryId;
+
+    /**
+     * 广告类别
+     */
+    protected String type;
+
+
+    protected Date createTime;
+    protected Date updateTime;
 }
