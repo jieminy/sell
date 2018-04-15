@@ -1,6 +1,6 @@
 package com.imooc.seller.service;
 
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dto.OrderDTO;
 import com.lly835.bestpay.model.PayResponse;
 import com.lly835.bestpay.model.RefundResponse;
 

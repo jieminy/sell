@@ -1,12 +1,12 @@
 package com.imooc.seller.service.impl;
 
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.utils.JsonUtil;
+import com.imooc.common.utils.MathUtil;
 import com.imooc.exception.SellException;
 import com.imooc.seller.service.OrderService;
 import com.imooc.seller.service.PayService;
-import com.imooc.common.utils.JsonUtil;
-import com.imooc.common.utils.MathUtil;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
 import com.lly835.bestpay.model.PayRequest;
 import com.lly835.bestpay.model.PayResponse;

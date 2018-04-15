@@ -1,16 +1,13 @@
 package com.imooc.buyer.service.impl;
 
-import com.imooc.buyer.dto.OrderDTO;
-import com.imooc.common.enums.ResultEnum;
-import com.imooc.dataobject.ReceiverInfo;
-import com.imooc.exception.SellException;
 import com.imooc.buyer.service.BuyerService;
+import com.imooc.common.dto.OrderDTO;
+import com.imooc.common.enums.ResultEnum;
+import com.imooc.exception.SellException;
 import com.imooc.seller.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by 廖师兄

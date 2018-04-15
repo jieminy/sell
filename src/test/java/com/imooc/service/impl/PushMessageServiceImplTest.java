@@ -1,6 +1,6 @@
 package com.imooc.service.impl;
 
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.seller.service.OrderService;
 import com.imooc.seller.service.impl.PushMessageServiceImpl;
 import org.junit.Test;

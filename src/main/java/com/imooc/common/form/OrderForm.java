@@ -1,4 +1,4 @@
-package com.imooc.seller.form;
+package com.imooc.common.form;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

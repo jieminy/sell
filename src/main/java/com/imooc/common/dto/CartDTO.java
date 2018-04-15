@@ -1,4 +1,4 @@
-package com.imooc.buyer.dto;
+package com.imooc.common.dto;
 
 import lombok.Data;
 

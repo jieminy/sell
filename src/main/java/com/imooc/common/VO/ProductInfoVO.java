@@ -1,30 +1,51 @@
 package com.imooc.common.VO;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 /**
- * 商品详情
- * Created by 廖师兄
- * 2017-05-12 14:25
+ * @Author: JieMin
+ * @Description:
+ * @Date: created in 17:38 2018/3/31
  */
 @Data
+@ApiModel(value = "ProductInfo", description = "商品")
 public class ProductInfoVO {
-
-    @JsonProperty("id")
+    @ApiModelProperty("商品id")
     private String productId;
 
-    @JsonProperty("name")
+    /** 名字. */
+    @ApiModelProperty("商品名称")
     private String productName;
 
-    @JsonProperty("price")
+    /** 单价. */
+    @ApiModelProperty("商品单价")
     private BigDecimal productPrice;
 
-    @JsonProperty("description")
+    /** 库存. */
+    @ApiModelProperty("商品销量")
+    private Integer productSales;
+
+    /** 描述. */
+    @ApiModelProperty("商品描述")
     private String productDescription;
 
-    @JsonProperty("icon")
+    /** 小图. */
+    @ApiModelProperty("商品图标地址")
     private String productIcon;
+
+    @ApiModelProperty(hidden = true)
+    private Integer parentCategoryId;
+
+    @ApiModelProperty("类目id")
+    private Integer categoryId;
+
+    @ApiModelProperty(name = "根类目", hidden = true)
+    private String parentCategoryName;
+
+    @ApiModelProperty(name = "类目", hidden = true)
+    private String categoryName;
 }

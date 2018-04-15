@@ -1,7 +1,7 @@
 package com.imooc.service.impl;
 
-import com.imooc.dataobject.OrderDetail;
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dataobject.OrderDetail;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.common.enums.OrderStatusEnum;
 import com.imooc.common.enums.PayStatusEnum;
 import com.imooc.seller.service.impl.OrderServiceImpl;

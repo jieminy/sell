@@ -1,12 +1,12 @@
-package com.imooc.buyer.converter;
+package com.imooc.common.converter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.imooc.dataobject.OrderDetail;
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dataobject.OrderDetail;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.form.OrderForm;
 import com.imooc.exception.SellException;
-import com.imooc.seller.form.OrderForm;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

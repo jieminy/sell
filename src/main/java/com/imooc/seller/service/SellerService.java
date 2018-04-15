@@ -1,7 +1,7 @@
 package com.imooc.seller.service;
 
-import com.imooc.dataobject.SellerInfo;
-import com.imooc.seller.form.SellerInfoForm;
+import com.imooc.common.dataobject.SellerInfo;
+import com.imooc.common.form.SellerInfoForm;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.imooc.buyer.repository;
 
-import com.imooc.dataobject.ReceiverInfo;
+import com.imooc.common.dataobject.ReceiverInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

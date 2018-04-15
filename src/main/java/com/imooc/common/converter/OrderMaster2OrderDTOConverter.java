@@ -1,7 +1,7 @@
-package com.imooc.buyer.converter;
+package com.imooc.common.converter;
 
-import com.imooc.dataobject.OrderMaster;
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dataobject.OrderMaster;
+import com.imooc.common.dto.OrderDTO;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;

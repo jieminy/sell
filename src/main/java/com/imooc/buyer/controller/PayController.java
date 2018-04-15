@@ -1,6 +1,6 @@
 package com.imooc.buyer.controller;
 
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.seller.service.OrderService;

@@ -1,14 +1,12 @@
-package com.imooc.dataobject;
+package com.imooc.common.dataobject;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +22,8 @@ public class Category {
      * id
      */
     @Id
-    private Integer ctgId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer categoryId;
 
     /**
      * 父id
@@ -58,13 +57,18 @@ public class Category {
     /**
      * 商品
      */
-    @Transient
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH}, mappedBy = "categoryId")
+    @Where(clause = "product_status = 0")
     private List<ProductInfo> productInfos;
 
     @Generated(GenerationTime.INSERT)
+//    @Column(columnDefinition="timestamp default current_timestamp")
     private Date createTime;
 
-    //    @Column(columnDefinition="timestamp default current_timestamp comment '活动开始时间'")
     @Generated(GenerationTime.ALWAYS)
+//    @Column(columnDefinition="timestamp default current_timestamp on update current_timestamp")
     private Date updateTime;
+
+    @Transient
+    private List<Category> childCategories;
 }

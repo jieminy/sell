@@ -1,4 +1,4 @@
-package com.imooc.dataobject;
+package com.imooc.common.dataobject;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,7 +6,6 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,14 +15,18 @@ import java.util.List;
 @DynamicUpdate
 @Data
 @ApiModel(value = "ProductCategory", description = "商品类目")
-public class ProductCategory{
+public class ProductCategory {
 
-    /** 类目id. */
+    /**
+     * 类目id.
+     */
     @Id
     @GeneratedValue
     private Integer categoryId;
 
-    /** 类目名字. */
+    /**
+     * 类目名字.
+     */
     @ApiModelProperty(value = "类目名称")
     private String categoryName;
 
@@ -33,7 +36,7 @@ public class ProductCategory{
     @ApiModelProperty(hidden = true)
     private Date updateTime;
 
-    @OneToMany(cascade={CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "categoryId")
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "categoryId")
     @ApiModelProperty(hidden = true)
     private List<ProductSmallCategory> productSmallCategories = new ArrayList<>();
 

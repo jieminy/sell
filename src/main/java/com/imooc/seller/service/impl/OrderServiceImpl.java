@@ -1,19 +1,19 @@
 package com.imooc.seller.service.impl;
 
-import com.imooc.buyer.converter.OrderMaster2OrderDTOConverter;
-import com.imooc.dataobject.OrderDetail;
-import com.imooc.dataobject.OrderMaster;
-import com.imooc.dataobject.ProductInfo;
-import com.imooc.buyer.dto.CartDTO;
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.buyer.repository.OrderMasterRepository;
+import com.imooc.common.converter.OrderMaster2OrderDTOConverter;
+import com.imooc.common.dataobject.OrderDetail;
+import com.imooc.common.dataobject.OrderMaster;
+import com.imooc.common.dataobject.ProductInfo;
+import com.imooc.common.dto.CartDTO;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.common.enums.OrderStatusEnum;
 import com.imooc.common.enums.PayStatusEnum;
 import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.utils.KeyUtil;
 import com.imooc.exception.SellException;
 import com.imooc.seller.repository.OrderDetailRepository;
-import com.imooc.buyer.repository.OrderMasterRepository;
 import com.imooc.seller.service.*;
-import com.imooc.common.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 

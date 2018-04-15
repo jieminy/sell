@@ -1,7 +1,7 @@
 package com.imooc.seller.controller;
 
-import com.imooc.buyer.dto.OrderDTO;
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.exception.SellException;
@@ -18,11 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-import springfox.documentation.annotations.ApiIgnore;
-
-import java.awt.*;
-import java.util.Map;
 
 /**
  * 卖家端订单

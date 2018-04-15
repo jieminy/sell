@@ -1,13 +1,13 @@
 package com.imooc.seller.controller;
 
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.dataobject.SellerInfo;
+import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.form.SellerInfoForm;
 import com.imooc.common.utils.KeyUtil;
 import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.config.ProjectUrlConfig;
-import com.imooc.dataobject.SellerInfo;
-import com.imooc.common.enums.ResultEnum;
 import com.imooc.exception.SellException;
-import com.imooc.seller.form.SellerInfoForm;
 import com.imooc.seller.service.SellerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,7 +16,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/seller/user")
-@Api(description = "用户接口")
+@Api(description = "卖家用户接口")
 public class SellerUserController {
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.imooc.repository;
 
-import com.imooc.dataobject.AdvProduct;
+import com.imooc.common.dataobject.AdvProduct;
 import com.imooc.seller.repository.AdvProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

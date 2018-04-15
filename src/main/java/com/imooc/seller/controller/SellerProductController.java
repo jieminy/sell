@@ -1,20 +1,18 @@
 package com.imooc.seller.controller;
 
+import com.imooc.common.VO.ProductInfoVO;
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.dataobject.Category;
+import com.imooc.common.dataobject.ProductInfo;
 import com.imooc.common.enums.ProductStatusEnum;
 import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.form.ProductForm;
 import com.imooc.common.utils.KeyUtil;
 import com.imooc.common.utils.QiNiuUtil;
 import com.imooc.common.utils.ResultVOUtil;
-import com.imooc.dataobject.ProductCategory;
-import com.imooc.dataobject.ProductInfo;
-import com.imooc.dataobject.ProductSmallCategory;
 import com.imooc.exception.SellException;
-import com.imooc.seller.dto.ProductInfoVO;
-import com.imooc.seller.form.ProductForm;
 import com.imooc.seller.service.CategoryService;
 import com.imooc.seller.service.ProductService;
-import com.imooc.seller.service.impl.SmallCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,13 +26,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/seller/product")
-@Api(description = "商品接口")
+@Api(description = "卖家商品接口")
 @Slf4j
 public class SellerProductController {
 
@@ -43,9 +42,6 @@ public class SellerProductController {
 
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private SmallCategoryService smallCategoryService;
 
     @Autowired
     private QiNiuUtil qiNiuUtil;
@@ -60,16 +56,11 @@ public class SellerProductController {
     @ApiOperation(value = "查询商品", notes = "type = 0上架 1下架", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO<List<ProductInfoVO>> list(@RequestParam(value = "type", defaultValue = "0") Integer productStatus) {
         List<ProductInfo> productInfos;
-        List<ProductCategory> productCategories = categoryService.findAll();
-        List<ProductSmallCategory> productSmallCategories = smallCategoryService.findAll();
-        Map<Integer,ProductSmallCategory> smallCategoryMap = new HashMap<>();
-        productSmallCategories.forEach(smallCategory-> {
-            smallCategoryMap.put(smallCategory.getSmallCategoryId(), smallCategory);
-        });
-        Map<Integer, ProductCategory> productCategoryMap = new HashMap<>();
-        productCategories.forEach(category -> {
-            productCategoryMap.put(category.getCategoryId(),category);
-        });
+        Map<Integer, Category> categoryMap = new HashMap<>();
+        List<Category> categories = categoryService.findAll();
+        categories.forEach(category ->
+                categoryMap.put(category.getCategoryId(), category)
+        );
         if(productStatus == 0){
             productInfos  = productService.findUpAll();
         }else{
@@ -79,9 +70,10 @@ public class SellerProductController {
         productInfos.forEach(productInfo -> {
             ProductInfoVO productInfoVO = new ProductInfoVO();
             BeanUtils.copyProperties(productInfo, productInfoVO);
-            productInfoVO.setSmallCategoryName(smallCategoryMap.get(productInfoVO.getSmallCategoryId()).getSmallCategoryName());
-            productInfoVO.setCategoryId(smallCategoryMap.get(productInfoVO.getSmallCategoryId()).getCategoryId());
-            productInfoVO.setCategoryName(productCategoryMap.get(productInfoVO.getCategoryId()).getCategoryName());
+            productInfoVO.setCategoryName(categoryMap.get(productInfoVO.getCategoryId()).getName());
+            Integer parentId = categoryMap.get(productInfoVO.getCategoryId()).getParentId();
+            productInfoVO.setParentCategoryId(parentId);
+            productInfoVO.setParentCategoryName(categoryMap.get(parentId).getName());
             productInfoVOS.add(productInfoVO);
         });
         return ResultVOUtil.success(productInfoVOS);
@@ -169,27 +161,27 @@ public class SellerProductController {
     @PutMapping("/upload")
     @ApiOperation(value = "上传图片", notes = "上传图片", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResultVO upload(@RequestParam("files")MultipartFile multipartFile){
-        if (multipartFile.isEmpty() || StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
-            throw new SellException(ResultEnum.IMAGE_NOT_EXIST);
-        }
-        String contentType = multipartFile.getContentType();
-        if (!contentType.contains("")) {
-            throw new SellException(ResultEnum.IMAGE_FORMAT_ERROR);
-        }
-        String fileName = multipartFile.getOriginalFilename();
-        String url = "";
-        log.info("上传图片：name={},contentType={}",fileName,contentType);
-        try {
-            FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream();
-            String suffix = fileName.substring(fileName.indexOf('.'),fileName.length());
-            fileName = UUID.randomUUID().toString();
-            url = qiNiuUtil.uploadImg(fileInputStream, fileName + suffix);
-            if ("".equals(url)) {
-                throw new SellException(ResultEnum.IMAGE_UPLOAD_FAILED);
-            }
-        }catch (IOException e){
-            throw new SellException(ResultEnum.IMAGE_UPLOAD_FAILED);
-        }
-        return ResultVOUtil.success(url);
+//        if (multipartFile.isEmpty() || StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
+//            throw new SellException(ResultEnum.IMAGE_NOT_EXIST);
+//        }
+//        String contentType = multipartFile.getContentType();
+//        if (!contentType.contains("")) {
+//            throw new SellException(ResultEnum.IMAGE_FORMAT_ERROR);
+//        }
+//        String fileName = multipartFile.getOriginalFilename();
+//        String url = "";
+//        log.info("上传图片：name={},contentType={}",fileName,contentType);
+//        try {
+//            FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream();
+//            String suffix = fileName.substring(fileName.indexOf('.'),fileName.length());
+//            fileName = UUID.randomUUID().toString();
+//            url = qiNiuUtil.uploadImg(fileInputStream, fileName + suffix);
+//            if ("".equals(url)) {
+//                throw new SellException(ResultEnum.IMAGE_UPLOAD_FAILED);
+//            }
+//        }catch (IOException e){
+//            throw new SellException(ResultEnum.IMAGE_UPLOAD_FAILED);
+//        }
+        return ResultVOUtil.success();
     }
 }

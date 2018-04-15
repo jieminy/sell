@@ -1,12 +1,10 @@
-package com.imooc.buyer.dto;
+package com.imooc.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.imooc.dataobject.OrderDetail;
+import com.imooc.common.dataobject.OrderDetail;
 import com.imooc.common.enums.OrderStatusEnum;
 import com.imooc.common.enums.PayStatusEnum;
 import com.imooc.common.utils.EnumUtil;
-import com.imooc.common.utils.serializer.Date2LongSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

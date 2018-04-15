@@ -55,7 +55,7 @@ public enum ResultEnum {
 
     USER_EXIST(29, "用户已存在"),
 
-    IMAGE_NOT_EXIST(30, "图片不存在"),
+    IMAGE_NOT_EXIST(30, "请选择图片"),
 
     IMAGE_FORMAT_ERROR(31, "图片格式化错误"),
 

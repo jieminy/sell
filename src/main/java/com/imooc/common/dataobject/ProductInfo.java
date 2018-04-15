@@ -1,4 +1,4 @@
-package com.imooc.dataobject;
+package com.imooc.common.dataobject;
 
 import com.imooc.common.enums.ProductStatusEnum;
 import com.imooc.common.utils.EnumUtil;
@@ -27,37 +27,51 @@ public class ProductInfo {
     @ApiModelProperty("商品id")
     private String productId;
 
-    /** 名字. */
+    /**
+     * 名字.
+     */
     @Column(length = 64)
     @ApiModelProperty("商品名称")
     private String productName;
 
-    /** 单价. */
+    /**
+     * 单价.
+     */
     @Column(length = 8, precision = 2)
     @ApiModelProperty("商品单价")
     private BigDecimal productPrice;
 
-    /** 销量. */
+    /**
+     * 销量.
+     */
     @ApiModelProperty("商品销量")
     private Integer productSales;
 
-    /** 描述. */
+    /**
+     * 描述.
+     */
     @Column(length = 64)
     @ApiModelProperty("商品描述")
     private String productDescription;
 
-    /** 小图. */
+    /**
+     * 小图.
+     */
     @Column(length = 512)
     @ApiModelProperty("商品图标地址")
     private String productIcon;
 
-    /** 状态, 0正常1下架. */
+    /**
+     * 状态, 0正常1下架.
+     */
     @ApiModelProperty("商品上下架")
     private Integer productStatus = ProductStatusEnum.UP.getCode();
 
-    /** 小类目id. */
+    /**
+     * 小类目id.
+     */
     @ApiModelProperty("小类目id")
-    private Integer smallCategoryId;
+    private Integer categoryId;
 
     @ApiModelProperty(hidden = true)
     @GeneratedValue()

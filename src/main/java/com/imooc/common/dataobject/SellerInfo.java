@@ -1,4 +1,4 @@
-package com.imooc.dataobject;
+package com.imooc.common.dataobject;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "seller_info",uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(name = "seller_info", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class SellerInfo implements UserDetails {
 
     @Id

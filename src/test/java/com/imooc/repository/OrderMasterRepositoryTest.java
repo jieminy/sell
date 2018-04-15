@@ -1,7 +1,7 @@
 package com.imooc.repository;
 
 import com.imooc.buyer.repository.OrderMasterRepository;
-import com.imooc.dataobject.OrderMaster;
+import com.imooc.common.dataobject.OrderMaster;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

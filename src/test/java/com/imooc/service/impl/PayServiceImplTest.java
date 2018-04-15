@@ -1,6 +1,6 @@
 package com.imooc.service.impl;
 
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.seller.service.OrderService;
 import com.imooc.seller.service.PayService;
 import lombok.extern.slf4j.Slf4j;

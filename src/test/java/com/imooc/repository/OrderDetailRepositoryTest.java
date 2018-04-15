@@ -1,6 +1,6 @@
 package com.imooc.repository;
 
-import com.imooc.dataobject.OrderDetail;
+import com.imooc.common.dataobject.OrderDetail;
 import com.imooc.seller.repository.OrderDetailRepository;
 import org.junit.Assert;
 import org.junit.Test;

@@ -2,10 +2,10 @@ package com.imooc.buyer.controller;
 
 import com.imooc.buyer.service.IReceiverInfoService;
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.dataobject.ReceiverInfo;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.common.utils.KeyUtil;
 import com.imooc.common.utils.ResultVOUtil;
-import com.imooc.dataobject.ReceiverInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/buyer/receiver")
-@Api(description = "收获地址管理")
+@Api(description = "买家收获地址管理")
 public class BuyerAddressController {
     @Autowired
     private IReceiverInfoService receiverInfoService;

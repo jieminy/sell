@@ -1,6 +1,6 @@
 package com.imooc.service.impl;
 
-import com.imooc.dataobject.ProductInfo;
+import com.imooc.common.dataobject.ProductInfo;
 import com.imooc.common.enums.ProductStatusEnum;
 import com.imooc.seller.service.impl.ProductServiceImpl;
 import org.junit.Assert;

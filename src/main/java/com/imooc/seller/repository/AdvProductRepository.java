@@ -1,6 +1,6 @@
 package com.imooc.seller.repository;
 
-import com.imooc.dataobject.AdvProduct;
+import com.imooc.common.dataobject.AdvProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
