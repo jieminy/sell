@@ -51,7 +51,8 @@ public class Category {
     /**
      * 广告
      */
-    @Transient
+//    @Transient
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH}, mappedBy = "categoryId")
     private List<Advertisement> advertisements;
 
     /**
@@ -59,16 +60,26 @@ public class Category {
      */
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH}, mappedBy = "categoryId")
     @Where(clause = "product_status = 0")
+//    @Transient
     private List<ProductInfo> productInfos;
 
-    @Generated(GenerationTime.INSERT)
-//    @Column(columnDefinition="timestamp default current_timestamp")
+//    @Generated(GenerationTime.INSERT)
+    /**
+     * 创建时间.
+     */
+    @Column(columnDefinition="timestamp default current_timestamp")
     private Date createTime;
 
-    @Generated(GenerationTime.ALWAYS)
-//    @Column(columnDefinition="timestamp default current_timestamp on update current_timestamp")
+//    @Generated(GenerationTime.ALWAYS)
+    /**
+     * 更新时间.
+     */
+    @Column(columnDefinition="timestamp default current_timestamp on update current_timestamp")
     private Date updateTime;
 
+    /**
+     * 存放子类目
+     */
     @Transient
     private List<Category> childCategories;
 }

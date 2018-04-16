@@ -54,12 +54,6 @@ public class CategoryDetailVO {
     private Date updateTime;
 
     /**
-     * 广告
-     */
-    @ApiModelProperty("广告")
-    private List<Advertisement> advertisements;
-
-    /**
      * 商品
      */
     @ApiModelProperty("商品")

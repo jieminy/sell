@@ -1,5 +1,6 @@
 package com.imooc.common.VO;
 
+import com.imooc.common.dataobject.Advertisement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -53,4 +54,10 @@ public class CategoryVO {
 
     @ApiModelProperty("子类目")
     private List<CategoryVO> childCategories;
+
+    /**
+     * 广告
+     */
+    private List<Advertisement> advertisements;
+
 }

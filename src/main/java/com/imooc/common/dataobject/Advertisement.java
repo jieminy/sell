@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author itw_yinjm
@@ -27,6 +28,12 @@ public class Advertisement implements Serializable {
     @Column(length = 1000)
     protected String pic;
 
+    @Transient
+    /**
+     * 图片地址数组
+     */
+    protected List<String> picList;
+
     /**
      * 类别id
      */
@@ -35,9 +42,18 @@ public class Advertisement implements Serializable {
     /**
      * 广告类别
      */
+    @Column(length = 4)
     protected String type;
 
+    /**
+     * 创建时间.
+     */
+    @Column(columnDefinition="timestamp default current_timestamp")
+    private Date createTime;
 
-    protected Date createTime;
-    protected Date updateTime;
+    /**
+     * 更新时间.
+     */
+    @Column(columnDefinition="timestamp default current_timestamp on update current_timestamp")
+    private Date updateTime;
 }

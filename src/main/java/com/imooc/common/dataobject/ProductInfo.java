@@ -73,11 +73,16 @@ public class ProductInfo {
     @ApiModelProperty("小类目id")
     private Integer categoryId;
 
-    @ApiModelProperty(hidden = true)
-    @GeneratedValue()
+    /**
+     * 创建时间.
+     */
+    @Column(columnDefinition="timestamp default current_timestamp")
     private Date createTime;
 
-    @ApiModelProperty(hidden = true)
+    /**
+     * 更新时间.
+     */
+    @Column(columnDefinition="timestamp default current_timestamp on update current_timestamp")
     private Date updateTime;
 
     @Transient

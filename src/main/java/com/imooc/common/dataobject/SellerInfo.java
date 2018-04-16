@@ -30,7 +30,16 @@ public class SellerInfo implements UserDetails {
 
     private boolean admin;
 
+    /**
+     * 创建时间.
+     */
+    @Column(columnDefinition="timestamp default current_timestamp")
     private Date createTime;
+
+    /**
+     * 更新时间.
+     */
+    @Column(columnDefinition="timestamp default current_timestamp on update current_timestamp")
     private Date updateTime;
 
     @Override

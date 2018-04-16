@@ -2,6 +2,7 @@ package com.imooc.common.converter;
 
 import com.imooc.common.VO.CategoryDetailVO;
 import com.imooc.common.VO.CategoryVO;
+import com.imooc.common.dataobject.Advertisement;
 import com.imooc.common.dataobject.Category;
 import org.springframework.beans.BeanUtils;
 
@@ -24,7 +25,6 @@ public class DBToVO {
         List<CategoryVO> categoryVOS = new ArrayList<>();
         categories.forEach(category -> {
             CategoryVO categoryVO = new CategoryVO();
-//            BeanUtils.copyProperties(category, categoryVO);
             recursiveAssign(category, categoryVO);
             categoryVOS.add(categoryVO);
         });

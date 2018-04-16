@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
@@ -33,30 +34,35 @@ public class OrderMaster {
      * 买家名字.
      */
     @ApiModelProperty("姓名")
+    @Column(length = 32)
     private String buyerName;
 
     /**
      * 买家手机号.
      */
     @ApiModelProperty("手机号")
+    @Column(length = 11)
     private String buyerPhone;
 
     /**
      * 买家地址.
      */
     @ApiModelProperty("地址")
+    @Column(length = 256)
     private String buyerAddress;
 
     /**
      * 买家微信Openid.
      */
     @ApiModelProperty("openId")
+    @Column(length = 32)
     private String buyerOpenid;
 
     /**
      * 订单总金额.
      */
     @ApiModelProperty("总金额")
+    @Column(length = 8, precision = 2)
     private BigDecimal orderAmount;
 
     /**
@@ -74,11 +80,13 @@ public class OrderMaster {
     /**
      * 创建时间.
      */
+    @Column(columnDefinition="timestamp default current_timestamp")
     private Date createTime;
 
     /**
      * 更新时间.
      */
+    @Column(columnDefinition="timestamp default current_timestamp on update current_timestamp")
     private Date updateTime;
 
 }

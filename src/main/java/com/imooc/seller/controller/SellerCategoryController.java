@@ -9,7 +9,6 @@ import com.imooc.common.form.CategoryForm;
 import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.exception.SellException;
 import com.imooc.seller.service.CategoryService;
-import com.imooc.seller.service.impl.SmallCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,9 +33,6 @@ public class SellerCategoryController {
 
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private SmallCategoryService smallCategoryService;
 
     /**
      * 查询某根类目及其二级类目

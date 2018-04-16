@@ -1,7 +1,7 @@
 package com.imooc.repository;
 
-import com.imooc.common.dataobject.ProductCategory;
-import com.imooc.seller.repository.ProductCategoryRepository;
+import com.imooc.common.dataobject.Category;
+import com.imooc.seller.repository.CategoryRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,19 +22,19 @@ import java.util.List;
 public class ProductCategoryRepositoryTest {
 
     @Autowired
-    private ProductCategoryRepository repository;
+    private CategoryRepository repository;
 
     @Test
     public void findOneTest() {
-        ProductCategory productCategory = repository.findOne(1);
+        Category productCategory = repository.findOne(1);
         System.out.println(productCategory.toString());
     }
 
     @Test
     @Transactional
     public void saveTest() {
-        ProductCategory productCategory = new ProductCategory("男生最爱");
-        ProductCategory result = repository.save(productCategory);
+        Category productCategory = new Category();
+        Category result = repository.save(productCategory);
         Assert.assertNotNull(result);
 //        Assert.assertNotEquals(null, result);
     }
@@ -43,7 +43,7 @@ public class ProductCategoryRepositoryTest {
     public void findByCategoryTypeInTest() {
         List<Integer> list = Arrays.asList(2,3,4);
 
-        List<ProductCategory> result = repository.findByCategoryIdIn(list);
+        List<Category> result = repository.findByCategoryIdIn(list);
         Assert.assertNotEquals(0, result.size());
     }
 
@@ -51,8 +51,8 @@ public class ProductCategoryRepositoryTest {
     public void updateTest() {
 //        ProductCategory productCategory = repository.findOne(4);
 //        productCategory.setCategoryName("男生最爱1");
-        ProductCategory productCategory = new ProductCategory("男生最爱");
-        ProductCategory result = repository.save(productCategory);
+        Category productCategory = new Category();
+        Category result = repository.save(productCategory);
         Assert.assertEquals(productCategory, result);
     }
 }
