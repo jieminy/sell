@@ -103,6 +103,7 @@ public class SellerUserController {
             if (encrypt.equals(sellerInfo.getPassword())) {
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("islogin", true);
+                request.getSession().setMaxInactiveInterval(3600);
                 return ResultVOUtil.success();
             } else {
                 return ResultVOUtil.error(ResultEnum.LOGIN_FAIL.getCode(), ResultEnum.LOGIN_FAIL.getMessage());
