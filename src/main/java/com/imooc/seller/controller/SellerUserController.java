@@ -6,6 +6,7 @@ import com.imooc.common.enums.ResultEnum;
 import com.imooc.common.form.SellerInfoForm;
 import com.imooc.common.utils.KeyUtil;
 import com.imooc.common.utils.ResultVOUtil;
+import com.imooc.common.utils.SHAUtil;
 import com.imooc.config.ProjectUrlConfig;
 import com.imooc.exception.SellException;
 import com.imooc.seller.service.SellerService;
@@ -20,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -61,9 +63,11 @@ public class SellerUserController {
         }
         BeanUtils.copyProperties(sellerInfoForm,sellerInfo);
         try{
+            String password = sellerInfo.getPassword();
+            sellerInfo.setPassword(SHAUtil.encryptSHA(password));
             sellerService.save(sellerInfo);
             return ResultVOUtil.success();
-        }catch (SellException e){
+        } catch (Exception e) {
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
     }
@@ -87,6 +91,26 @@ public class SellerUserController {
         return ResultVOUtil.success(infoList);
     }
 
+    @PostMapping("/login")
+    @ApiOperation(value = "登陆", notes = "登陆", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO login(HttpServletRequest request, String username, String password) {
+        try {
+            String encrypt = SHAUtil.encryptSHA(password);
+            SellerInfo sellerInfo = sellerService.findSellerUsername(username);
+            if (sellerInfo == null) {
+                return ResultVOUtil.error(ResultEnum.USER_NOT_EXIST.getCode(), ResultEnum.USER_NOT_EXIST.getMessage());
+            }
+            if (encrypt.equals(sellerInfo.getPassword())) {
+                request.getSession().setAttribute("username", username);
+                request.getSession().setAttribute("islogin", true);
+                return ResultVOUtil.success();
+            } else {
+                return ResultVOUtil.error(ResultEnum.LOGIN_FAIL.getCode(), ResultEnum.LOGIN_FAIL.getMessage());
+            }
+        } catch (Exception e) {
+            return ResultVOUtil.error(ResultEnum.LOGIN_FAIL.getCode(), ResultEnum.LOGIN_FAIL.getMessage());
+        }
+    }
 
 
 }

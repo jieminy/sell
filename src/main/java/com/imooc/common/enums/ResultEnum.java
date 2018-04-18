@@ -15,6 +15,10 @@ public enum ResultEnum {
 
     SYSTEM_ERROR(2, "系统错误"),
 
+    NEED_LOGIN(3, "用户未登录"),
+
+    SESSION_EXPIRED(4, "请重新登陆"),
+
     PRODUCT_NOT_EXIST(10, "商品不存在"),
 
     PRODUCT_STOCK_ERROR(11, "商品库存不正确"),

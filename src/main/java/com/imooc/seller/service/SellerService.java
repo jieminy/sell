@@ -24,4 +24,5 @@ public interface SellerService {
     void delete(String sellerId);
 
     List<SellerInfoForm> findall();
+
 }
