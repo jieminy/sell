@@ -7,6 +7,7 @@ import {NgZorroAntdModule} from "ng-zorro-antd";
 import {AuthService} from "./auth.service";
 import {AuthGuardService} from "./auth-guard.service";
 import {StatusPipe} from './status.pipe';
+import {UserAuthInterceptorProviders} from "./user-auth.interceptor";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {StatusPipe} from './status.pipe';
   ],
   declarations: [StatusPipe],
   providers: [
+    UserAuthInterceptorProviders,
     httpInterceptorProviders,
     AuthService,
     AuthGuardService

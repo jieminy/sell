@@ -24,32 +24,14 @@ export class CategoryService {
     return this.http.post<any>('seller/category/save', category).toPromise();
   }
 
-  // 删除小类目
-  delSmallCategoryById(smallCategoryId): Promise<AjaxResult<Object>> {
-    return this.http.get<any>('seller/smallCategory/del', {
-      params: {smallCategoryId}
-    }).toPromise();
-  }
-
-  // 新增或者删除小类目
-  saveSmallCategory(smallCategory: SmallCategoryItem): Promise<AjaxResult<Object>> {
-    return this.http.post<any>('seller/smallCategory/save', smallCategory).toPromise();
-  }
-
 }
 
 export class CategoryItem {
   categoryId?: number;
-  categoryName?: string;
+  parentId?: number;
+  pic?: string;
+  name?: string;
   createTime?: number;
-  productSmallCategories?: SmallCategoryItem[];
+  childCategories?: CategoryItem[];
   updateTime?: number;
-}
-
-export class SmallCategoryItem {
-  categoryId?: number;
-  categoryName?: string;
-  smallCategoryId?: number;
-  smallCategoryName?: number;
-  smallPic?: string;
 }

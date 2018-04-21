@@ -26,7 +26,7 @@
     <td nz-td>{{data.productDescription}}</td>
     <td nz-td>{{data.productPrice | currency:'￥' }}</td>
     <td nz-td>{{data.productSales}}</td>
-    <td nz-td>{{data.smallCategoryName}}</td>
+    <td nz-td>{{data.parentCategoryName}} - {{data.categoryName}}</td>
     <td nz-td>
       <a href="javascript:" (click)="editShop(data)">修改商品</a>
       <a href="javascript:" (click)="onShop(data)">上架商品</a>

@@ -56,6 +56,7 @@ export class OfflineShopListQueryComponent implements OnInit {
   proxyModal(title, shop, callback) {
     const modal = this.nzModal.open({
       title: title,
+      width: '930px',
       content: ShopEditComponent,
       componentParams: {shop},
       footer: false,
