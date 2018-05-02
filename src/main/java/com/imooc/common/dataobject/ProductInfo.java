@@ -7,7 +7,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -62,6 +65,43 @@ public class ProductInfo {
     private String productIcon;
 
     /**
+     * 详情图
+     */
+    @Column(length = 1028)
+    private String detailIcons;
+
+    /**
+     * 轮播图
+     */
+    @Column(length = 1028)
+    private String swipeIcons;
+
+    /**
+     * 重量
+     */
+    @Column(length = 32)
+    private String weight;
+
+    /**
+     * 包装
+     */
+    @Column(length = 32)
+    private String packing;
+
+    /**
+     * 保质期
+     */
+    @Column(length = 32)
+    private String shelfLife;
+
+    /**
+     * 储藏方式
+     */
+    @Column(length = 32)
+    private String storageMode;
+
+    /**
+     *
      * 状态, 0正常1下架.
      */
     @ApiModelProperty("商品上下架")

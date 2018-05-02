@@ -2,22 +2,28 @@ package com.imooc.buyer.controller;
 
 import com.imooc.common.VO.CategoryDetailVO;
 import com.imooc.common.VO.CategoryVO;
+import com.imooc.common.VO.ProductInfoVO;
 import com.imooc.common.VO.ResultVO;
 import com.imooc.common.converter.DBToVO;
 import com.imooc.common.dataobject.Category;
+import com.imooc.common.dataobject.ProductInfo;
 import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.seller.service.CategoryService;
+import com.imooc.seller.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,6 +39,8 @@ public class BuyerProductController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private ProductService productService;
 
     /**
      * 查询所有一级类目
@@ -62,6 +70,17 @@ public class BuyerProductController {
         List<Category> categories = categoryService.findByLevel(2, parentId, pageRequest);
         List<CategoryDetailVO> categoryVOS = DBToVO.getCategoryDetailVO(categories);
         return ResultVOUtil.success(categoryVOS);
+    }
+
+    @GetMapping("/one")
+    @ApiOperation(value = "查询商品详情", notes = "查询商品详情", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO one(@Param("商品id") String proId) {
+        ProductInfo productInfo = productService.findOne(proId);
+        ProductInfoVO productInfoVO = new ProductInfoVO();
+        BeanUtils.copyProperties(productInfo, productInfoVO);
+        List<String> detailIcons = Arrays.asList(productInfoVO.getDetailIcons().split(";"));
+        productInfoVO.setDetailIconList(detailIcons);
+        return ResultVOUtil.success(productInfoVO);
     }
 
 }

@@ -11,13 +11,19 @@ public enum ResultEnum {
 
     SUCCESS(0, "成功"),
 
-    PARAM_ERROR(1, "参数不正确"),
+    FAIL(1, "失败"),
 
-    SYSTEM_ERROR(2, "系统错误"),
+    NEED_LOGIN(2, "用户未登录"),
 
-    NEED_LOGIN(3, "用户未登录"),
+    PARAM_ERROR(3, "参数不正确"),
 
-    SESSION_EXPIRED(4, "请重新登陆"),
+    SYSTEM_ERROR(4, "系统错误"),
+
+    SESSION_EXPIRED(5, "请重新登陆"),
+
+    LOGIN_PASSWORD_ERROR(6, "密码错误"),
+
+    LOGIN_USER_NOT_EXIST(7, "用户不存在"),
 
     PRODUCT_NOT_EXIST(10, "商品不存在"),
 

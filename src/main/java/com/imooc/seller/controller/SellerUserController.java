@@ -98,7 +98,7 @@ public class SellerUserController {
             String encrypt = SHAUtil.encryptSHA(password);
             SellerInfo sellerInfo = sellerService.findSellerUsername(username);
             if (sellerInfo == null) {
-                return ResultVOUtil.error(ResultEnum.USER_NOT_EXIST.getCode(), ResultEnum.USER_NOT_EXIST.getMessage());
+                return ResultVOUtil.error(ResultEnum.FAIL.getCode(), ResultEnum.LOGIN_USER_NOT_EXIST.getMessage());
             }
             if (encrypt.equals(sellerInfo.getPassword())) {
                 request.getSession().setAttribute("username", username);
@@ -106,10 +106,10 @@ public class SellerUserController {
                 request.getSession().setMaxInactiveInterval(3600);
                 return ResultVOUtil.success();
             } else {
-                return ResultVOUtil.error(ResultEnum.LOGIN_FAIL.getCode(), ResultEnum.LOGIN_FAIL.getMessage());
+                return ResultVOUtil.error(ResultEnum.FAIL.getCode(), ResultEnum.LOGIN_PASSWORD_ERROR.getMessage());
             }
         } catch (Exception e) {
-            return ResultVOUtil.error(ResultEnum.LOGIN_FAIL.getCode(), ResultEnum.LOGIN_FAIL.getMessage());
+            return ResultVOUtil.error(ResultEnum.FAIL.getCode(), ResultEnum.FAIL.getMessage());
         }
     }
 

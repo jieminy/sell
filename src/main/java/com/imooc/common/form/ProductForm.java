@@ -31,7 +31,6 @@ public class ProductForm {
 
     /** 库存. */
     @ApiModelProperty("商品销量")
-    @NotNull
     private Integer productSales;
 
     /** 描述. */

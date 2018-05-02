@@ -124,12 +124,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
-        Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
+    public List<OrderDTO> findList(String buyerOpenid) {
+        List<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid);
 
-        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
-
-        return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage);
+        orderDTOList.forEach(orderDTO ->
+                orderDTO.setOrderDetailList(orderDetailRepository.findByOrderId(orderDTO.getOrderId()))
+        );
+        return orderDTOList;
     }
 
     @Override

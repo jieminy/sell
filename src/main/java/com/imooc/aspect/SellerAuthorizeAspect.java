@@ -1,7 +1,5 @@
 package com.imooc.aspect;
 
-import com.imooc.common.enums.ResultEnum;
-import com.imooc.exception.SellerAuthorizeException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -9,11 +7,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by 廖师兄
@@ -33,16 +26,16 @@ public class SellerAuthorizeAspect {
 
     @Before("verify()")
     public void doVerify() {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        HttpSession session = request.getSession();
-        if (session == null) {
-            throw new SellerAuthorizeException(ResultEnum.SESSION_EXPIRED.getCode(), ResultEnum.SESSION_EXPIRED.getMessage());
-        }
-        Boolean islogin = (Boolean) request.getSession().getAttribute("islogin");
-        if (islogin == null) {
-            throw new SellerAuthorizeException(ResultEnum.NEED_LOGIN.getCode(), ResultEnum.NEED_LOGIN.getMessage());
-        }
+//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest request = attributes.getRequest();
+//        HttpSession session = request.getSession();
+//        if (session == null) {
+//            throw new SellerAuthorizeException(ResultEnum.SESSION_EXPIRED.getCode(), ResultEnum.SESSION_EXPIRED.getMessage());
+//        }
+//        Boolean islogin = (Boolean) request.getSession().getAttribute("islogin");
+//        if (islogin == null) {
+//            throw new SellerAuthorizeException(ResultEnum.NEED_LOGIN.getCode(), ResultEnum.NEED_LOGIN.getMessage());
+//        }
 //
 //        //查询cookie
 //        Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);

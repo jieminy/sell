@@ -9,7 +9,6 @@ import com.imooc.common.form.OrderForm;
 import com.imooc.exception.SellException;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -25,7 +24,7 @@ public class OrderForm2OrderDTOConverter {
         orderDTO.setBuyerOpenid(orderForm.getOpenid());
         orderDTO.setOrderAmount(orderForm.getOrderAmount());
 
-        List<OrderDetail> orderDetailList = new ArrayList<>();
+        List<OrderDetail> orderDetailList;
         try {
             orderDetailList = gson.fromJson(orderForm.getItems(),
                     new TypeToken<List<OrderDetail>>() {

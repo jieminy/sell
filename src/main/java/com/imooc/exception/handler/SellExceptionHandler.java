@@ -26,6 +26,7 @@ public class SellExceptionHandler {
     //拦截登录异常
     //http://sell.natapp4.cc/sell/wechat/qrAuthorize?returnUrl=http://sell.natapp4.cc/sell/seller/login
     @ExceptionHandler(value = SellerAuthorizeException.class)
+    @ResponseBody
     public ResultVO handlerAuthorizeException(SellerAuthorizeException e) {
         return ResultVOUtil.error(e.getCode(), e.getMessage());
     }

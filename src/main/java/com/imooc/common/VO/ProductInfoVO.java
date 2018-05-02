@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @Author: JieMin
@@ -37,6 +38,32 @@ public class ProductInfoVO {
     @ApiModelProperty("商品图标地址")
     private String productIcon;
 
+    private String detailIcons;
+
+    private String swipeIcons;
+
+    private List<String> detailIconList;
+
+    /**
+     * 重量
+     */
+    private String weight;
+
+    /**
+     * 包装
+     */
+    private String packing;
+
+    /**
+     * 保质期
+     */
+    private String shelfLife;
+
+    /**
+     * 储藏方式
+     */
+    private String storageMode;
+
     @ApiModelProperty(hidden = true)
     private Integer parentCategoryId;
 
@@ -48,4 +75,6 @@ public class ProductInfoVO {
 
     @ApiModelProperty(name = "类目", hidden = true)
     private String categoryName;
+
+    private int count = 0;
 }

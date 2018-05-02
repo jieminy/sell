@@ -2,16 +2,15 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/sell?characterEncoding=utf-8&useSSL=false
+    password: e0DEFycZjjTI
+    url: jdbc:mysql://123.206.81.151:3306/apart_sell?characterEncoding=utf-8&useSSL=false
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        hbm2ddl:
-#          auto: update
-#    open-in-view: true
+    show-sql: true
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+    open-in-view: true
   jackson:
     default-property-inclusion: non_null
     date-format: yyyy-MM-dd HH:mm:ss
@@ -22,7 +21,7 @@ spring:
 
 server:
   context-path: /sell
-  port: 8082
+  port: 8080
 #logging:
 #  pattern:
 #    console: "%d - %msg%n"
@@ -32,8 +31,8 @@ server:
 #    com.imooc.LoggerTest: debug
 
 wechat:
-  appId: wx4f166bfc8a364fb1
-  appSecret: 8ddb39cf6ebd8db200f6879f34883d32
+  mpAppId: wxd898fcb01713c658
+  mpAppSecret: 47ccc303338cee6e62894fxxxxxxxxxxx
   openAppId: wx6ad144e54af67d87
   openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
   mchId: 1483469312
