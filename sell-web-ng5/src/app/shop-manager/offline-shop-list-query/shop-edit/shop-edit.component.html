@@ -14,19 +14,25 @@
       </div>
     </div>
   </div>
+
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label for="productIcon" nz-form-item-required>商品图片</label>
+      <label nz-form-item-required>商品图片</label>
     </div>
-    <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-input [nzSize]="'large'" formControlName="productIcon"
-                [nzId]="'productIcon'"></nz-input>
-      <div nz-form-explain
-           *ngIf="getFormControl('productIcon').dirty&&getFormControl('productIcon').hasError('required')">
-        请输入商品图片！
-      </div>
+    <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-upload class="avatar-uploader"
+                 nzAction="common/image/upload"
+                 nzListType="picture-card"
+                 [(nzFileList)]="productIcon"
+                 [nzShowButton]="productIcon.length < 1"
+                 [nzBeforeUpload]="beforeUpload"
+                 [nzPreview]="handlePreview">
+        <div class="ant-upload-text" *ngIf="!productIcon.length">上传商品图片</div>
+        <img *ngIf="productIcon.length" [src]="productIcon[0].url || productIcon[0].thumbUrl" class="avatar">
+      </nz-upload>
     </div>
   </div>
+
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
       <label for="productDescription" nz-form-item-required>商品描述</label>
@@ -41,6 +47,7 @@
       </div>
     </div>
   </div>
+
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
       <label nz-form-item-required>商品价格</label>
@@ -59,13 +66,13 @@
       <label nz-form-item-required>商品大类</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-select formControlName="categoryId" nzPlaceHolder="请选择大类目"
+      <nz-select formControlName="parentCategoryId" nzPlaceHolder="请选择大类目"
                  (nzOpenChange)="setSmallCategory()" [nzSize]="'large'">
         <nz-option *ngFor="let category of categoryList"
-                   [nzLabel]="category.categoryName" [nzValue]="category.categoryId"></nz-option>
+                   [nzLabel]="category.name" [nzValue]="category.categoryId"></nz-option>
       </nz-select>
       <div nz-form-explain
-           *ngIf="getFormControl('categoryId').dirty&&getFormControl('categoryId').hasError('required')">
+           *ngIf="getFormControl('parentCategoryId').dirty&&getFormControl('parentCategoryId').hasError('required')">
         请输入商品大类！
       </div>
     </div>
@@ -75,14 +82,64 @@
       <label nz-form-item-required>商品小类</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-select formControlName="smallCategoryId" nzPlaceHolder="请选择小类目" [nzSize]="'large'">
-        <nz-option *ngFor="let smallCategory of smallCategoryList" [nzLabel]="smallCategory.smallCategoryName"
-                   [nzValue]="smallCategory.smallCategoryId"></nz-option>
+      <nz-select formControlName="categoryId" nzPlaceHolder="请选择小类目" [nzSize]="'large'">
+        <nz-option *ngFor="let smallCategory of smallCategoryList" [nzLabel]="smallCategory.name"
+                   [nzValue]="smallCategory.categoryId"></nz-option>
       </nz-select>
       <div nz-form-explain
-           *ngIf="getFormControl('smallCategoryId').dirty&&getFormControl('smallCategoryId').hasError('required')">
+           *ngIf="getFormControl('categoryId').dirty&&getFormControl('categoryId').hasError('required')">
         请输入商品小类！
       </div>
+    </div>
+  </div>
+
+  <div nz-form-item nz-row>
+    <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      <label nz-form-item-required>商品轮播图片</label>
+    </div>
+    <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        nzAction="common/image/upload"
+        nzListType="picture-card"
+        [(nzFileList)]="swipeIcons"
+        [nzShowButton]="swipeIcons.length < 5"
+        [nzMultiple]="true"
+        [nzBeforeUpload]="beforeUpload"
+        [nzPreview]="handlePreview">
+        <i class="anticon anticon-plus"></i>
+        <div class="ant-upload-text">上传轮播图</div>
+      </nz-upload>
+      <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+                (nzOnCancel)="previewVisible=false">
+        <ng-template #modalContent>
+          <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }"/>
+        </ng-template>
+      </nz-modal>
+    </div>
+  </div>
+
+
+  <div nz-form-item nz-row>
+    <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      <label nz-form-item-required>商品详情图片</label>
+    </div>
+    <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        nzAction="common/image/upload"
+        nzListType="picture-card"
+        [(nzFileList)]="detailIcons"
+        [nzMultiple]="true"
+        [nzBeforeUpload]="beforeUpload"
+        [nzPreview]="handlePreview">
+        <i class="anticon anticon-plus"></i>
+        <div class="ant-upload-text">上传详情图</div>
+      </nz-upload>
+      <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+                (nzOnCancel)="previewVisible=false">
+        <ng-template #modalContent>
+          <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }"/>
+        </ng-template>
+      </nz-modal>
     </div>
   </div>
 

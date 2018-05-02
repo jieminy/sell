@@ -6,7 +6,7 @@ interface NodeModule {
 }
 
 interface AjaxResult<T> {
-  code: number;
+  code: number; // 0 成功，1 失败，2 未登录
   msg: string;
   data: T;
 }
