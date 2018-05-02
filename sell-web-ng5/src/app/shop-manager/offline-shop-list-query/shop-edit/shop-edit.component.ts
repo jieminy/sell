@@ -41,7 +41,7 @@ export class ShopEditComponent extends CommonModal implements OnInit, OnDestroy 
       categoryId: [null, Validators.required],
       parentCategoryId: [null, Validators.required],
       productName: [null, Validators.required],
-      productIcon: [null, Validators.required],
+      productIcon: [null],
       productDescription: [null, Validators.required],
       productPrice: [null, Validators.required],
     });
