@@ -1,5 +1,6 @@
 package com.imooc.common.dataobject;
 
+import com.imooc.common.enums.DistributeEnum;
 import com.imooc.common.enums.OrderStatusEnum;
 import com.imooc.common.enums.PayStatusEnum;
 import io.swagger.annotations.ApiModel;
@@ -76,6 +77,22 @@ public class OrderMaster {
      */
     @ApiModelProperty("支付状态")
     private Integer payStatus = PayStatusEnum.WAIT.getCode();
+
+    /**
+     * 配送时间
+     */
+    @Column(length = 32)
+    private String distributeTime;
+
+    /**
+     * 配送方式
+     */
+    private Integer distributeType = DistributeEnum.SELF_PICK.getCode();
+
+    /**
+     * 取货码
+     */
+    private Integer orderCode;
 
     /**
      * 创建时间.

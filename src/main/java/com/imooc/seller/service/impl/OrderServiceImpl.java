@@ -216,12 +216,21 @@ public class OrderServiceImpl implements OrderService {
         orderDTO.setPayStatus(PayStatusEnum.SUCCESS.getCode());
         OrderMaster orderMaster = new OrderMaster();
         BeanUtils.copyProperties(orderDTO, orderMaster);
+
+        //获取取货码
+        Integer orderCode = orderMasterRepository.findMaxOrderCode(orderDTO.getBuyerOpenid());
+        if (orderCode == null) {
+            orderCode = 1;
+        } else {
+            orderCode++;
+        }
+        orderMaster.setOrderCode(orderCode);
+        orderDTO.setOrderCode(orderCode);
         OrderMaster updateResult = orderMasterRepository.save(orderMaster);
         if (updateResult == null) {
             log.error("【订单支付完成】更新失败, orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
-
         return orderDTO;
     }
 

@@ -95,4 +95,13 @@ public class BuyerOrderController {
         buyerService.cancelOrder(openid, orderId);
         return ResultVOUtil.success();
     }
+
+    @GetMapping("/paid")
+    @ApiOperation(value = "完成支付订单", notes = "需要openid orderId", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO paid(@RequestParam("openid") String openid,
+                         @RequestParam("orderId") String orderId) {
+        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
+        orderService.paid(orderDTO);
+        return ResultVOUtil.success(orderDTO);
+    }
 }

@@ -11,7 +11,7 @@ spring:
 #      hibernate:
 #        hbm2ddl:
 #          auto: update
-#    open-in-view: true
+    open-in-view: true
   jackson:
     default-property-inclusion: non_null
     date-format: yyyy-MM-dd HH:mm:ss

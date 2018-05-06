@@ -68,7 +68,7 @@ public class PayController {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         //得到小程序传过来的价格，注意这里的价格必须为整数，1代表1分，所以传过来的值必须*100；
-//        int fee = (int)(orderDTO.getOrderAmount().floatValue() * 100);
+        int fee = (int) (orderDTO.getOrderAmount().floatValue() * 100);
 
         //时间戳
         String times = System.currentTimeMillis() + "";
@@ -78,7 +78,7 @@ public class PayController {
         packageParams.put("nonce_str", times);//时间戳
         packageParams.put("body", payConfig.getTitle());//支付主体
         packageParams.put("out_trade_no", orderDTO.getOrderId());//订单编号
-        packageParams.put("total_fee", 100);//价格
+        packageParams.put("total_fee", fee);//价格
         // packageParams.put("spbill_create_ip", getIp2(request));这里之前加了ip，但是总是获取sign失败，原因不明，之后就注释掉了
         packageParams.put("notify_url", payConfig.getNotifyUrl() + "/notify");//支付返回地址，不用纠结这个东西，我就是随便写了一个接口，内容什么都没有
         packageParams.put("trade_type", payConfig.getTradeType());//这个api有，固定的

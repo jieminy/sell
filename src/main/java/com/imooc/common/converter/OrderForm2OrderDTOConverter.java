@@ -23,6 +23,8 @@ public class OrderForm2OrderDTOConverter {
         orderDTO.setBuyerAddress(orderForm.getAddress());
         orderDTO.setBuyerOpenid(orderForm.getOpenid());
         orderDTO.setOrderAmount(orderForm.getOrderAmount());
+        orderDTO.setDistributeType(orderForm.getDistributeType());
+        orderDTO.setDistributeTime(orderForm.getDistributeTime());
 
         List<OrderDetail> orderDetailList;
         try {

@@ -137,6 +137,7 @@ public class SellerProductController {
                 productInfo = productService.findOne(form.getProductId());
             } else {
                 form.setProductId(KeyUtil.genUniqueKey());
+                productInfo.setProductSales(0);
             }
             BeanUtils.copyProperties(form, productInfo);
             productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());

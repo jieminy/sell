@@ -2,6 +2,7 @@ package com.imooc.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.imooc.common.dataobject.OrderDetail;
+import com.imooc.common.enums.DistributeEnum;
 import com.imooc.common.enums.OrderStatusEnum;
 import com.imooc.common.enums.PayStatusEnum;
 import com.imooc.common.utils.EnumUtil;
@@ -55,6 +56,24 @@ public class OrderDTO {
     @ApiModelProperty("支付状态")
     private Integer payStatus;
 
+    /**
+     * 配送时间
+     */
+    @ApiModelProperty("配送时间")
+    private String distributeTime;
+
+    /**
+     * 配送方式
+     */
+    @ApiModelProperty("配送方式")
+    private Integer distributeType;
+
+    /**
+     * 取货码
+     */
+    @ApiModelProperty("取货码")
+    private Integer orderCode;
+
     /** 创建时间. */
 //    @JsonSerialize(using = Date2LongSerializer.class)
     @ApiModelProperty(hidden = true)
@@ -77,4 +96,10 @@ public class OrderDTO {
     public PayStatusEnum getPayStatusEnum() {
         return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
     }
+
+    @JsonIgnore
+    public DistributeEnum getDistributeEnum() {
+        return EnumUtil.getByCode(distributeType, DistributeEnum.class);
+    }
+
 }

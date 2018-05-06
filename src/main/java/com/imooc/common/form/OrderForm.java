@@ -55,4 +55,16 @@ public class OrderForm {
      */
     @NotNull(message = "总金额不能为空")
     private BigDecimal orderAmount;
+
+    /**
+     * 配送时间
+     */
+    @NotNull(message = "配送时间不能为空")
+    private String distributeTime;
+
+    /**
+     * 配送方式
+     */
+    @NotNull(message = "配送方式不能为空")
+    private Integer distributeType;
 }
