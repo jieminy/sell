@@ -7,10 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -53,7 +50,7 @@ public class ProductInfo {
     /**
      * 描述.
      */
-    @Column(length = 64)
+    @Column(length = 128)
     @ApiModelProperty("商品描述")
     private String productDescription;
 
@@ -112,6 +109,13 @@ public class ProductInfo {
      */
     @ApiModelProperty("小类目id")
     private Integer categoryId;
+
+    /**
+     * 活动id
+     */
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "atv_id")
+    private Activity activity;
 
     /**
      * 创建时间.

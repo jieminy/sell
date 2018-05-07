@@ -2,8 +2,6 @@ package com.imooc.common.dataobject;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -51,7 +49,6 @@ public class Category {
     /**
      * 广告
      */
-//    @Transient
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH}, mappedBy = "categoryId")
     private List<Advertisement> advertisements;
 
@@ -60,7 +57,6 @@ public class Category {
      */
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH}, mappedBy = "categoryId")
     @Where(clause = "product_status = 0")
-//    @Transient
     private List<ProductInfo> productInfos;
 
 //    @Generated(GenerationTime.INSERT)

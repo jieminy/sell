@@ -69,7 +69,9 @@ public enum ResultEnum {
 
     IMAGE_FORMAT_ERROR(31, "图片格式化错误"),
 
-    IMAGE_UPLOAD_FAILED(32,"上传失败")
+    IMAGE_UPLOAD_FAILED(32, "上传失败"),
+
+    ACTIVITY_NOT_EXIST(41, "商品活动不存在")
 
     ;
 

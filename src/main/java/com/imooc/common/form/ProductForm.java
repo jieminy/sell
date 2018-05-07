@@ -78,5 +78,8 @@ public class ProductForm {
     @ApiModelProperty("储藏方式")
     private String storageMode;
 
+    @ApiModelProperty("活动id")
+    private String atvId;
+
 
 }
