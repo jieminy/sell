@@ -33,4 +33,5 @@ public interface OrderService {
     /** 查询订单列表. */
     Page<OrderDTO> findList(Pageable pageable);
 
+    List<OrderDTO> statistic(String stDate, String edDate, Integer orderStatus, Integer payStatus);
 }

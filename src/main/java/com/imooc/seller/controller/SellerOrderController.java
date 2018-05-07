@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * 卖家端订单
  * Created by JieMin
@@ -99,5 +101,24 @@ public class SellerOrderController {
             log.error("【卖家端完结订单】发生异常{}", e);
             return ResultVOUtil.error(e.getCode(),e.getMessage());
         }
+    }
+
+    /**
+     * 根据订单状态和支付状态统计订单
+     *
+     * @param stDate
+     * @param edDate
+     * @param orderStatus
+     * @param payStatus
+     * @return
+     */
+    @GetMapping("/statistic")
+    @ApiOperation(value = "统计订单", notes = "待支付(0,0) 配送中(0,1) 已取消(2,0) 已撤单(2,1) 已完结(1,1) ", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO statistic(String stDate, String edDate, Integer orderStatus, Integer payStatus) {
+        List<OrderDTO> orderDTOList = orderService.statistic(stDate,
+                edDate,
+                orderStatus,
+                orderStatus);
+        return ResultVOUtil.success(orderDTOList);
     }
 }

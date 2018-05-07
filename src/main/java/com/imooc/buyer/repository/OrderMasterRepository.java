@@ -20,4 +20,15 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
             "where buyer_openid = :openid " +
             "and DATE_FORMAT (update_time,'Y%-m%-d%') = DATE_FORMAT(NOW(),'Y%-m%-d%')", nativeQuery = true)
     Integer findMaxOrderCode(@Param("openid") String openid);
+
+    @Query(value = "SELECT * " +
+            "FROM torder_master " +
+            "WHERE DATE_FORMAT(update_time, 'Y%-m%-%d') >= :stDate " +
+            "AND DATE_FORMAT(update_time, 'Y%-m%-%d') <= :edDate " +
+            "AND order_status = :orderStatus " +
+            "AND pay_status = :payStatus", nativeQuery = true)
+    List<OrderMaster> statistic(@Param("stDate") String stDate,
+                                @Param("edDate") String edDate,
+                                @Param("orderStatus") Integer orderStatus,
+                                @Param("payStatus") Integer payStatus);
 }

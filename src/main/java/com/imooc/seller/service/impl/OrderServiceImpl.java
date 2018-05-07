@@ -246,4 +246,15 @@ public class OrderServiceImpl implements OrderService {
 
         return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
+
+    @Override
+    public List<OrderDTO> statistic(String stDate, String edDate, Integer orderStatus, Integer payStatus) {
+        List<OrderMaster> orderMasters = orderMasterRepository.statistic(stDate, edDate, orderStatus, payStatus);
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasters);
+
+        orderDTOList.forEach(orderDTO -> {
+            orderDTO.setOrderDetailList(orderDetailRepository.findByOrderId(orderDTO.getOrderId()));
+        });
+        return orderDTOList;
+    }
 }
