@@ -25,6 +25,7 @@ public class OrderForm2OrderDTOConverter {
         orderDTO.setOrderAmount(orderForm.getOrderAmount());
         orderDTO.setDistributeType(orderForm.getDistributeType());
         orderDTO.setDistributeTime(orderForm.getDistributeTime());
+        orderDTO.setFreight(orderForm.getFreight());
 
         List<OrderDetail> orderDetailList;
         try {

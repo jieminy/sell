@@ -95,6 +95,12 @@ public class OrderMaster {
     private Integer orderCode;
 
     /**
+     * 运费
+     */
+    @Column(length = 8, precision = 2)
+    private BigDecimal freight;
+
+    /**
      * 创建时间.
      */
     @Column(columnDefinition="timestamp default current_timestamp")

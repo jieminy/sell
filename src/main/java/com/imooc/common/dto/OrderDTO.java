@@ -74,6 +74,12 @@ public class OrderDTO {
     @ApiModelProperty("取货码")
     private Integer orderCode;
 
+    /**
+     * 运费
+     */
+    @ApiModelProperty("运费")
+    private BigDecimal freight;
+
     /** 创建时间. */
 //    @JsonSerialize(using = Date2LongSerializer.class)
     @ApiModelProperty(hidden = true)

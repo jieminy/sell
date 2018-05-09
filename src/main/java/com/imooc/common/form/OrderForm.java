@@ -67,4 +67,9 @@ public class OrderForm {
      */
     @NotNull(message = "配送方式不能为空")
     private Integer distributeType;
+
+    /**
+     * 运费
+     */
+    private BigDecimal freight = new BigDecimal(0);
 }
