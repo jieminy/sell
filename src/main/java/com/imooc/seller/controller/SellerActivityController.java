@@ -15,7 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,15 +34,15 @@ public class SellerActivityController {
     @Autowired
     private IActivityService activityService;
 
-    @RequestMapping("list")
+    @GetMapping("list")
     @ApiOperation(value = "查询所有活动", notes = "查询所有活动", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO list() {
         return ResultVOUtil.success(activityService.findAll());
     }
 
-    @RequestMapping("save")
+    @PostMapping("save")
     @ApiOperation(value = "保存/修改", notes = "提供id为修改，反之为保存", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO saveOrUpdate(@Valid @RequestBody ActivityForm activityForm,
+    public ResultVO saveOrUpdate(@Valid ActivityForm activityForm,
                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new SellException(ResultEnum.PARAM_ERROR);
@@ -60,7 +61,7 @@ public class SellerActivityController {
         return ResultVOUtil.success();
     }
 
-    @RequestMapping("del")
+    @GetMapping("del")
     @ApiOperation(value = "删除", notes = "根据id删除", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO del(String atvId) {
         activityService.delete(atvId);

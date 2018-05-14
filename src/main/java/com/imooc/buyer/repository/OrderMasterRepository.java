@@ -41,8 +41,8 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
             "\torder_master om\n" +
             "LEFT JOIN order_detail od ON od.order_id = om.order_id\n" +
             "WHERE\n" +
-            "\tDATE_FORMAT(update_time, '%Y-%m-%d') >= '2018-05-01'\n" +
-            "AND DATE_FORMAT(update_time, '%Y-%m-%d') <= '2018-05-01'\n" +
+            "\tDATE_FORMAT(update_time, '%Y-%m-%d') >= :stDate\n" +
+            "AND DATE_FORMAT(update_time, '%Y-%m-%d') <= :edDate\n" +
             "AND order_status = '1'\n" +
             "AND pay_status = '1'\n" +
             "GROUP BY\n" +

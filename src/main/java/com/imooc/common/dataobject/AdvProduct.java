@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  * @author itw_yinjm
@@ -18,5 +19,8 @@ public class AdvProduct extends Advertisement {
      */
     @Column(length = 32)
     private String productId;
+
+    @Transient
+    private String categoryName;
 
 }

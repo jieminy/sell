@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -34,14 +35,14 @@ public class AdvProductController {
 
     @GetMapping("/list")
     @ApiOperation(value = "查询所有", notes = "查询所有商品广告", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO list() {
+    public ResultVO<AdvProduct> list() {
         List<AdvProduct> advProducts = advProductService.findAll();
         return ResultVOUtil.success(advProducts);
     }
 
     @PostMapping("/save")
     @ApiOperation(value = "新增或修改", notes = "id不为空为修改否则为新增", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO save(AdvProductForm advProductForm, BindingResult bindingResult) {
+    public ResultVO save(@Valid AdvProductForm advProductForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
