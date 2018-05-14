@@ -71,7 +71,9 @@ public enum ResultEnum {
 
     IMAGE_UPLOAD_FAILED(32, "上传失败"),
 
-    ACTIVITY_NOT_EXIST(41, "商品活动不存在")
+    ACTIVITY_NOT_EXIST(41, "商品活动不存在"),
+
+    ADV_NOT_EXTIST(51, "广告不存在")
 
     ;
 

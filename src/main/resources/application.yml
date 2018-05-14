@@ -24,14 +24,6 @@ server:
   context-path: /sell
   port: 8082
 
-#logging:
-#  pattern:
-#    console: "%d - %msg%n"
-##  path: /var/log/tomcat/
-#  file: /var/log/tomcat/sell.log
-#  level:
-#    com.imooc.LoggerTest: debug
-
 wechat:
   appId: wx4f166bfc8a364fb1
   appSecret: 8ddb39cf6ebd8db200f6879f34883d32
@@ -48,7 +40,6 @@ projectUrl:
   wechatMpAuthorize: https://51vr.mynatapp.cc
   wechatOpenAuthorize: https://51vr.mynatapp.cc
   sell: https://51vr.mynatapp.cc
-
 
 qiniu:
   accessKey: LyAwucGV3VuuXq8wlQpjuqrIJUEBz7sjAqpk2pC3
