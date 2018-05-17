@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -78,8 +77,6 @@ public class BuyerProductController {
         ProductInfo productInfo = productService.findOne(proId);
         ProductInfoVO productInfoVO = new ProductInfoVO();
         BeanUtils.copyProperties(productInfo, productInfoVO);
-        List<String> detailIcons = Arrays.asList(productInfoVO.getDetailIcons().split(";"));
-        productInfoVO.setDetailIconList(detailIcons);
         return ResultVOUtil.success(productInfoVO);
     }
 

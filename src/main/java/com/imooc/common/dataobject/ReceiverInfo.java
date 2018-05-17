@@ -1,6 +1,7 @@
 package com.imooc.common.dataobject;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,7 @@ public class ReceiverInfo {
      */
     @Column(length = 64)
     @NotNull
+    @NotEmpty
     private String openid;
 
     /**
@@ -32,6 +34,7 @@ public class ReceiverInfo {
      */
     @Column(length = 12)
     @NotNull
+    @NotEmpty
     private String phone;
 
     /**
@@ -39,6 +42,7 @@ public class ReceiverInfo {
      */
     @Column(length = 32)
     @NotNull
+    @NotEmpty
     private String name;
 
     /**
@@ -46,6 +50,7 @@ public class ReceiverInfo {
      */
     @NotNull
     @Column(length = 256)
+    @NotEmpty
     private String address;
 
     /**
@@ -53,6 +58,7 @@ public class ReceiverInfo {
      */
     @NotNull
     @Column(length = 256)
+    @NotEmpty
     private String detail;
 
     /**
