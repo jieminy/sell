@@ -16,7 +16,8 @@ public class PayConfig {
     private String appId;
     private String appSecret;
     private final String title = "公寓鲜支付";
-    private final String notifyUrl = "/sell/pay";
+    private final String notifyUrl;
     private final String tradeType = "JSAPI";
     private final String apiKey = "51VH03mx78j0gindrijxJYs6qJY76q8Y";
+    private final String mchId = "1502953181";
 }

@@ -67,18 +67,14 @@ public class PayController {
         if (orderDTO == null) {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
-        //得到小程序传过来的价格，注意这里的价格必须为整数，1代表1分，所以传过来的值必须*100；
-        int fee = (int) (orderDTO.getOrderAmount().floatValue() * 100);
-
-        //时间戳
         String times = System.currentTimeMillis() + "";
-        SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
+        SortedMap<Object, Object> packageParams = new TreeMap<>();
         packageParams.put("appid", payConfig.getAppId());
-        packageParams.put("mch_id", "1502953181");
+        packageParams.put("mch_id", payConfig.getMchId());
         packageParams.put("nonce_str", times);//时间戳
         packageParams.put("body", payConfig.getTitle());//支付主体
         packageParams.put("out_trade_no", orderDTO.getOrderId());//订单编号
-        packageParams.put("total_fee", fee);//价格
+        packageParams.put("total_fee", (int) (orderDTO.getOrderAmount().floatValue() * 100));//价格 得到小程序传过来的价格，注意这里的价格必须为整数，1代表1分，所以传过来的值必须*100；
         // packageParams.put("spbill_create_ip", getIp2(request));这里之前加了ip，但是总是获取sign失败，原因不明，之后就注释掉了
         packageParams.put("notify_url", payConfig.getNotifyUrl() + "/notify");//支付返回地址，不用纠结这个东西，我就是随便写了一个接口，内容什么都没有
         packageParams.put("trade_type", payConfig.getTradeType());//这个api有，固定的
@@ -88,15 +84,15 @@ public class PayController {
         packageParams.put("sign", sign);
         //转成XML
         String requestXML = PayUtil.getRequestXml(packageParams);
-        System.out.println(requestXML);
+        log.info("requestXML:" + requestXML);
         //得到含有prepay_id的XML
         String resXml = HttpUtil.postData("https://api.mch.weixin.qq.com/pay/unifiedorder", requestXML);
-        System.out.println(resXml);
+        log.info("responseXml:" + resXml);
         //解析XML存入Map
         Map map;
         try {
             map = XMLUtil.doXMLParse(resXml);
-            System.out.println(map);
+            log.info("xml to map:" + map.toString());
         } catch (Exception e) {
             throw new RuntimeException();
         }
@@ -113,12 +109,6 @@ public class PayController {
         String paySign = PayUtil.createSign("UTF-8", packageP, payConfig.getApiKey());
         packageP.put("paySign", paySign);
         //将packageP数据返回给小程序
-//        Gson gson = new Gson();
-//        String json = gson.toJson(packageP);
-//        PrintWriter pw = response.getWriter();
-//        System.out.println(json);
-//        pw.write(json);
-//        pw.close();
         return ResultVOUtil.success(packageP);
     }
 
