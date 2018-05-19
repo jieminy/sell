@@ -1,7 +1,7 @@
 package com.imooc.seller.service.impl;
 
-import com.imooc.dataobject.ProductInfo;
-import com.imooc.buyer.dto.CartDTO;
+import com.imooc.common.dataobject.ProductInfo;
+import com.imooc.common.dto.CartDTO;
 import com.imooc.common.enums.ProductStatusEnum;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.exception.SellException;

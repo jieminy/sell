@@ -1,6 +1,6 @@
 package com.imooc.security;
 
-import com.imooc.dataobject.SellerInfo;
+import com.imooc.common.dataobject.SellerInfo;
 import com.imooc.seller.repository.SellerInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

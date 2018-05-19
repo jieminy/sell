@@ -1,7 +1,7 @@
 package com.imooc.common.enums;
 
 /**
- * Created by 廖师兄
+ * Created by Jiemin
  * 2017-07-16 18:16
  */
 public interface CodeEnum {

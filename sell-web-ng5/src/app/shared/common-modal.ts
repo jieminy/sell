@@ -4,7 +4,7 @@ import {NzModalSubject} from "ng-zorro-antd";
 export class CommonModal {
   validateForm: FormGroup;
 
-  constructor(private subject: NzModalSubject) {
+  constructor(protected subject: NzModalSubject) {
   }
 
   emitDataOutside() {

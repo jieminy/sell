@@ -2,8 +2,7 @@ package com.imooc.buyer.service.impl;
 
 import com.imooc.buyer.repository.ReceiverInfoRepository;
 import com.imooc.buyer.service.IReceiverInfoService;
-import com.imooc.common.utils.KeyUtil;
-import com.imooc.dataobject.ReceiverInfo;
+import com.imooc.common.dataobject.ReceiverInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

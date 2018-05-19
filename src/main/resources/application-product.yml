@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: giMIk9ZVIQcN
+    url: jdbc:mysql://localhost:3306/sell?characterEncoding=utf-8&useSSL=false
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+    open-in-view: true
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    host: localhost
+    port: 6379
+
+server:
+  context-path: /sell
+  port: 8082
+
+wechat:
+  appId: wx4f166bfc8a364fb1
+  apiKey: 51VH03mx78j0gindrijxJYs6qJY76q8Y
+  appSecret: 8ddb39cf6ebd8db200f6879f34883d32
+  openAppId: wx6ad144e54af67d87
+  openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
+  mchId: 1502953181
+  notifyUrl: http://sell.natapp4.cc/sell/pay/notify
+
+
+projectUrl:
+  wechatMpAuthorize: https://51vr.mynatapp.cc
+  wechatOpenAuthorize: https://51vr.mynatapp.cc
+  sell: https://51vr.mynatapp.cc
+
+qiniu:
+  accessKey: n-1uaH_IDq0r_cBhRcshJhiNK6b1egFV8i3-4QwL
+  secretKey: I2TvGFK6UTBqLJOhwdklnzlsPHg5zl5YAXVpeoCc
+  bucket: gongyuxian
+  path: pic.gongyuxian.com

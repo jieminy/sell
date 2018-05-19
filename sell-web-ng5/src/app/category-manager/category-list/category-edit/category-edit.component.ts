@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NzModalSubject} from "ng-zorro-antd";
-import {CategoryItem, SmallCategoryItem} from "../../category.service";
+import {CategoryItem} from "../../category.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CommonModal} from "../../../shared/common-modal";
 
@@ -12,8 +12,12 @@ import {CommonModal} from "../../../shared/common-modal";
 export class CategoryEditComponent extends CommonModal implements OnInit {
   @Input()
   category: CategoryItem;
+
   @Input()
-  smallCategory: SmallCategoryItem;
+  smallCategory: CategoryItem;
+
+  @Input()
+  parentCategory: CategoryItem;
 
   validateForm: FormGroup;
 
@@ -25,17 +29,18 @@ export class CategoryEditComponent extends CommonModal implements OnInit {
   ngOnInit() {
     if (this.category) {
       this.validateForm = this.fb.group({
+        parentId: [-1],
         categoryId: [null],
-        categoryName: [null, [Validators.required]],
+        name: [null, [Validators.required]],
       });
       this.validateForm.patchValue(this.category);
     } else {
       this.validateForm = this.fb.group({
-        categoryName: [null],
+        parentId: [null],
+        parentCategoryName: [this.parentCategory.name, null],
         categoryId: [null],
-        smallCategoryId: [null],
-        smallCategoryName: [null, [Validators.required]],
-        smallPic: [null, [Validators.required]],
+        name: [null, [Validators.required]],
+        pic: [null],
       });
       this.validateForm.patchValue(this.smallCategory);
     }

@@ -19,14 +19,14 @@
   </tr>
   </thead>
   <tbody nz-tbody>
-  <ng-container *ngFor="let data of nzTable.data">
+  <ng-container *ngFor="let category of nzTable.data">
     <tr nz-tbody-tr>
       <td nz-td nzExpand>
-        <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
+        <nz-row-expand-icon [(nzExpand)]="category.expand"></nz-row-expand-icon>
       </td>
-      <td nz-td>{{data.categoryName}}</td>
-      <td nz-td>{{data.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-      <td nz-td>{{data.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td nz-td>{{category.name}}</td>
+      <td nz-td>{{category.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td nz-td>{{category.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       <td nz-td>
         <nz-dropdown>
           <a class="ant-dropdown-link" nz-dropdown>
@@ -34,22 +34,22 @@
           </a>
           <ul nz-menu>
             <li nz-menu-item>
-              <a href="javascript:" (click)="createSmallCategory(data)">添加子类目</a>
+              <a href="javascript:" (click)="createSmallCategory(category)">添加子类目</a>
             </li>
             <li nz-menu-item>
-              <a href="javascript:" (click)="editCategory(data)">修改类目名称</a>
+              <a href="javascript:" (click)="editCategory(category)">修改类目名称</a>
             </li>
             <li nz-menu-item>
-              <a href="javascript:" (click)="delCategory(data)">删除类目</a>
+              <a href="javascript:" (click)="delCategory(category)">删除类目</a>
             </li>
           </ul>
         </nz-dropdown>
       </td>
     </tr>
-    <ng-container *ngIf="data.expand">
-      <tr nz-tbody-tr *ngFor="let smallCategory of data.productSmallCategories">
+    <ng-container *ngIf="category.expand">
+      <tr nz-tbody-tr *ngFor="let smallCategory of category.childCategories">
         <td nz-td nzExpand></td>
-        <td nz-td>{{smallCategory.smallCategoryName}}</td>
+        <td nz-td>{{smallCategory.name}}</td>
         <td nz-td>{{smallCategory.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
         <td nz-td>{{smallCategory.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
         <td nz-td>
@@ -59,7 +59,7 @@
             </a>
             <ul nz-menu>
               <li nz-menu-item>
-                <a href="javascript:" (click)="editSmallCategory(smallCategory,data)">修改类目名称</a>
+                <a href="javascript:" (click)="editSmallCategory(smallCategory,category)">修改类目名称</a>
               </li>
               <li nz-menu-item>
                 <a href="javascript:" (click)="delSmallCategory(smallCategory)">删除类目</a>

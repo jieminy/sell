@@ -1,12 +1,12 @@
 package com.imooc.seller.service.impl;
 
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.utils.JsonUtil;
+import com.imooc.common.utils.MathUtil;
 import com.imooc.exception.SellException;
 import com.imooc.seller.service.OrderService;
 import com.imooc.seller.service.PayService;
-import com.imooc.common.utils.JsonUtil;
-import com.imooc.common.utils.MathUtil;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
 import com.lly835.bestpay.model.PayRequest;
 import com.lly835.bestpay.model.PayResponse;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class PayServiceImpl implements PayService {
 
-    private static final String ORDER_NAME = "微信点餐订单";
+    private static final String ORDER_NAME = "公寓鲜订单";
 
     @Autowired
     private BestPayServiceImpl bestPayService;

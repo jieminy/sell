@@ -11,9 +11,19 @@ public enum ResultEnum {
 
     SUCCESS(0, "成功"),
 
-    PARAM_ERROR(1, "参数不正确"),
+    FAIL(1, "失败"),
 
-    SYSTEM_ERROR(2, "系统错误"),
+    NEED_LOGIN(2, "用户未登录"),
+
+    PARAM_ERROR(3, "参数不正确"),
+
+    SYSTEM_ERROR(4, "系统错误"),
+
+    SESSION_EXPIRED(5, "请重新登陆"),
+
+    LOGIN_PASSWORD_ERROR(6, "密码错误"),
+
+    LOGIN_USER_NOT_EXIST(7, "用户不存在"),
 
     PRODUCT_NOT_EXIST(10, "商品不存在"),
 
@@ -55,11 +65,15 @@ public enum ResultEnum {
 
     USER_EXIST(29, "用户已存在"),
 
-    IMAGE_NOT_EXIST(30, "图片不存在"),
+    IMAGE_NOT_EXIST(30, "请选择图片"),
 
     IMAGE_FORMAT_ERROR(31, "图片格式化错误"),
 
-    IMAGE_UPLOAD_FAILED(32,"上传失败")
+    IMAGE_UPLOAD_FAILED(32, "上传失败"),
+
+    ACTIVITY_NOT_EXIST(41, "商品活动不存在"),
+
+    ADV_NOT_EXTIST(51, "广告不存在")
 
     ;
 

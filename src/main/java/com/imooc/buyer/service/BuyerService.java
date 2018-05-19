@@ -1,6 +1,6 @@
 package com.imooc.buyer.service;
 
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.common.dto.OrderDTO;
 
 /**
  * 买家

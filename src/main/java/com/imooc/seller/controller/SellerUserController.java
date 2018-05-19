@@ -1,13 +1,14 @@
 package com.imooc.seller.controller;
 
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.dataobject.SellerInfo;
+import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.form.SellerInfoForm;
 import com.imooc.common.utils.KeyUtil;
 import com.imooc.common.utils.ResultVOUtil;
+import com.imooc.common.utils.SHAUtil;
 import com.imooc.config.ProjectUrlConfig;
-import com.imooc.dataobject.SellerInfo;
-import com.imooc.common.enums.ResultEnum;
 import com.imooc.exception.SellException;
-import com.imooc.seller.form.SellerInfoForm;
 import com.imooc.seller.service.SellerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,11 +17,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -32,7 +33,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/seller/user")
-@Api(description = "用户接口")
+@Api(description = "卖家用户接口")
 public class SellerUserController {
 
     @Autowired
@@ -62,9 +63,11 @@ public class SellerUserController {
         }
         BeanUtils.copyProperties(sellerInfoForm,sellerInfo);
         try{
+            String password = sellerInfo.getPassword();
+            sellerInfo.setPassword(SHAUtil.encryptSHA(password));
             sellerService.save(sellerInfo);
             return ResultVOUtil.success();
-        }catch (SellException e){
+        } catch (Exception e) {
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
     }
@@ -88,6 +91,27 @@ public class SellerUserController {
         return ResultVOUtil.success(infoList);
     }
 
+    @PostMapping("/login")
+    @ApiOperation(value = "登陆", notes = "登陆", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO login(HttpServletRequest request, String username, String password) {
+        try {
+            String encrypt = SHAUtil.encryptSHA(password);
+            SellerInfo sellerInfo = sellerService.findSellerUsername(username);
+            if (sellerInfo == null) {
+                return ResultVOUtil.error(ResultEnum.FAIL.getCode(), ResultEnum.LOGIN_USER_NOT_EXIST.getMessage());
+            }
+            if (encrypt.equals(sellerInfo.getPassword())) {
+                request.getSession().setAttribute("username", username);
+                request.getSession().setAttribute("islogin", true);
+                request.getSession().setMaxInactiveInterval(3600);
+                return ResultVOUtil.success();
+            } else {
+                return ResultVOUtil.error(ResultEnum.FAIL.getCode(), ResultEnum.LOGIN_PASSWORD_ERROR.getMessage());
+            }
+        } catch (Exception e) {
+            return ResultVOUtil.error(ResultEnum.FAIL.getCode(), ResultEnum.FAIL.getMessage());
+        }
+    }
 
 
 }

@@ -1,7 +1,7 @@
 package com.imooc.seller.service.impl;
 
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.config.WechatAccountConfig;
-import com.imooc.buyer.dto.OrderDTO;
 import com.imooc.seller.service.PushMessageService;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.exception.WxErrorException;

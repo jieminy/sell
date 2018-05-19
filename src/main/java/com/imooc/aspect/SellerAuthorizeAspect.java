@@ -28,6 +28,14 @@ public class SellerAuthorizeAspect {
     public void doVerify() {
 //        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 //        HttpServletRequest request = attributes.getRequest();
+//        HttpSession session = request.getSession();
+//        if (session == null) {
+//            throw new SellerAuthorizeException(ResultEnum.SESSION_EXPIRED.getCode(), ResultEnum.SESSION_EXPIRED.getMessage());
+//        }
+//        Boolean islogin = (Boolean) request.getSession().getAttribute("islogin");
+//        if (islogin == null) {
+//            throw new SellerAuthorizeException(ResultEnum.NEED_LOGIN.getCode(), ResultEnum.NEED_LOGIN.getMessage());
+//        }
 //
 //        //查询cookie
 //        Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);

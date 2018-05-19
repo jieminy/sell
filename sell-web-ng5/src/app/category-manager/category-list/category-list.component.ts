@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CategoryItem, CategoryService, SmallCategoryItem} from "../category.service";
+import {CategoryItem, CategoryService} from "../category.service";
 import {NzMessageService, NzModalService} from "ng-zorro-antd";
 import {CategoryEditComponent} from "./category-edit/category-edit.component";
 
@@ -60,34 +60,31 @@ export class CategoryListComponent implements OnInit {
 
   // 小类操作
   // 新增小类
-  createSmallCategory(category: CategoryItem) {
-    const smallCategory: SmallCategoryItem = {
-      categoryId: category.categoryId,
-      categoryName: category.categoryName,
-      smallCategoryId: null,
-      smallCategoryName: null,
-      smallPic: null
+  createSmallCategory(parentCategory: CategoryItem) {
+    const smallCategory: CategoryItem = {
+      parentId: parentCategory.categoryId,
+      name: null,
+      pic: null
     };
-    this.proxyModal('添加小类目', {smallCategory}, async (data) => {
-      return await this.categoryService.saveSmallCategory(data);
+    this.proxyModal('添加小类目', {smallCategory, parentCategory}, async (data) => {
+      return await this.categoryService.saveCategory(data);
     });
   }
 
   // 修改小类
-  editSmallCategory(smallCategory: SmallCategoryItem, category: CategoryItem) {
-    smallCategory.categoryName = category.categoryName;
-    this.proxyModal('修改小类目', {smallCategory}, async (data) => {
-      return await this.categoryService.saveSmallCategory(data);
+  editSmallCategory(smallCategory: CategoryItem, parentCategory: CategoryItem) {
+    this.proxyModal('修改小类目', {smallCategory, parentCategory}, async (data) => {
+      return await this.categoryService.saveCategory(data);
     });
   }
 
   // 删除小类
-  delSmallCategory(smallCategory: SmallCategoryItem) {
+  delSmallCategory(smallCategory: CategoryItem) {
     this.nzModal.confirm({
       title: '删除小类目',
       content: '确定删除此小类目吗？',
       onOk: async () => {
-        const result = await this.categoryService.delSmallCategoryById(smallCategory.smallCategoryId);
+        const result = await this.categoryService.delCategoryById(smallCategory.categoryId);
         this.nzMessage.info(result.msg);
         if (result.code === 0) {
           this.queryList();

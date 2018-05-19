@@ -51,13 +51,15 @@ export class ShopService {
 export class ShopItem {
   productDescription: string;
   productIcon: string;
+  swipeIcons: string;
+  detailIcons: string;
   productId: string;
   productName: string;
   productPrice: number;
   productSales: number;
   productStatus: number;
+  parentCategoryId: number;
+  parentCategoryName: string;
   categoryId: number;
   categoryName: number;
-  smallCategoryId: number;
-  smallCategoryName: string;
 }

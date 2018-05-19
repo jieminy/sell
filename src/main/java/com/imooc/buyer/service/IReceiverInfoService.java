@@ -1,6 +1,6 @@
 package com.imooc.buyer.service;
 
-import com.imooc.dataobject.ReceiverInfo;
+import com.imooc.common.dataobject.ReceiverInfo;
 
 import java.util.List;
 

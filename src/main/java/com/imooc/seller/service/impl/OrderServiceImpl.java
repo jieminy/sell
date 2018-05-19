@@ -1,19 +1,19 @@
 package com.imooc.seller.service.impl;
 
-import com.imooc.buyer.converter.OrderMaster2OrderDTOConverter;
-import com.imooc.dataobject.OrderDetail;
-import com.imooc.dataobject.OrderMaster;
-import com.imooc.dataobject.ProductInfo;
-import com.imooc.buyer.dto.CartDTO;
-import com.imooc.buyer.dto.OrderDTO;
+import com.imooc.buyer.repository.OrderMasterRepository;
+import com.imooc.common.converter.OrderMaster2OrderDTOConverter;
+import com.imooc.common.dataobject.OrderDetail;
+import com.imooc.common.dataobject.OrderMaster;
+import com.imooc.common.dataobject.ProductInfo;
+import com.imooc.common.dto.CartDTO;
+import com.imooc.common.dto.OrderDTO;
 import com.imooc.common.enums.OrderStatusEnum;
 import com.imooc.common.enums.PayStatusEnum;
 import com.imooc.common.enums.ResultEnum;
+import com.imooc.common.utils.KeyUtil;
 import com.imooc.exception.SellException;
 import com.imooc.seller.repository.OrderDetailRepository;
-import com.imooc.buyer.repository.OrderMasterRepository;
 import com.imooc.seller.service.*;
-import com.imooc.common.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -126,12 +124,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
-        Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
+    public List<OrderDTO> findList(String buyerOpenid) {
+        List<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid);
 
-        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
-
-        return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage);
+        orderDTOList.forEach(orderDTO ->
+                orderDTO.setOrderDetailList(orderDetailRepository.findByOrderId(orderDTO.getOrderId()))
+        );
+        return orderDTOList;
     }
 
     @Override
@@ -216,12 +216,21 @@ public class OrderServiceImpl implements OrderService {
         orderDTO.setPayStatus(PayStatusEnum.SUCCESS.getCode());
         OrderMaster orderMaster = new OrderMaster();
         BeanUtils.copyProperties(orderDTO, orderMaster);
+
+        //获取取货码
+        Integer orderCode = orderMasterRepository.findMaxOrderCode(orderDTO.getBuyerOpenid());
+        if (orderCode == null) {
+            orderCode = 1;
+        } else {
+            orderCode++;
+        }
+        orderMaster.setOrderCode(orderCode);
+        orderDTO.setOrderCode(orderCode);
         OrderMaster updateResult = orderMasterRepository.save(orderMaster);
         if (updateResult == null) {
             log.error("【订单支付完成】更新失败, orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
-
         return orderDTO;
     }
 
@@ -236,5 +245,16 @@ public class OrderServiceImpl implements OrderService {
         });
 
         return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+    }
+
+    @Override
+    public List<OrderDTO> statistic(String stDate, String edDate, Integer orderStatus, Integer payStatus) {
+        List<OrderMaster> orderMasters = orderMasterRepository.statistic(stDate, edDate, orderStatus, payStatus);
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasters);
+
+        orderDTOList.forEach(orderDTO -> {
+            orderDTO.setOrderDetailList(orderDetailRepository.findByOrderId(orderDTO.getOrderId()));
+        });
+        return orderDTOList;
     }
 }
