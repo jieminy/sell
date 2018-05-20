@@ -19,21 +19,29 @@ public class ProductForm {
     @ApiModelProperty("商品id")
     private String productId;
 
-    /** 名字. */
+    /**
+     * 名字.
+     */
     @ApiModelProperty("商品名称")
     @NotNull
     private String productName;
 
-    /** 单价. */
+    /**
+     * 单价.
+     */
     @ApiModelProperty("商品单价")
     @NotNull
     private BigDecimal productPrice;
 
-    /** 描述. */
+    /**
+     * 描述.
+     */
     @ApiModelProperty("商品描述")
     private String productDescription;
 
-    /** 小图. */
+    /**
+     * 小图.
+     */
     @ApiModelProperty("商品图标地址")
     private String productIcon;
 

@@ -1,6 +1,5 @@
 package com.imooc.common.VO;
 
-import com.imooc.common.dataobject.Advertisement;
 import com.imooc.common.dataobject.ProductInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

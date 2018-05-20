@@ -19,7 +19,7 @@ public interface OrderService {
     OrderDTO findOne(String orderId);
 
     /** 查询订单列表. */
-    List<OrderDTO> findList(String buyerOpenid);
+    List<OrderDTO> findList(String buyerOpenid, Pageable pageable);
 
     /** 取消订单. */
     OrderDTO cancel(OrderDTO orderDTO);
@@ -34,4 +34,6 @@ public interface OrderService {
     Page<OrderDTO> findList(Pageable pageable);
 
     List<OrderDTO> statistic(String stDate, String edDate, Integer orderStatus, Integer payStatus);
+
+    List<OrderDTO> findByStatus(Integer orderStatus, Integer payStatus);
 }

@@ -1,6 +1,7 @@
 package com.imooc;
 
 import com.imooc.buyer.repository.OrderMasterRepository;
+import com.imooc.common.audio.Music;
 import com.imooc.common.dataobject.ProductInfo;
 import com.imooc.seller.repository.ProductInfoRepository;
 import org.junit.Test;
@@ -24,11 +25,16 @@ public class SellApplicationTests {
 	@Test
 	public void contextLoads() {
         Integer test = orderMasterRepository.findMaxOrderCode("oof0D5iVEnzb5Hq9FW4BvgNa02tM");
-	}
+    }
 
     @Test
     public void activity() {
         List<ProductInfo> productInfos = productInfoRepository.findByProductStatus(0);
         System.out.print(productInfos.get(0).toString());
+    }
+
+    @Test
+    public void testMusic() {
+        Music.play();
     }
 }

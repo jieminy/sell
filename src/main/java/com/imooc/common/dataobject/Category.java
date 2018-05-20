@@ -63,14 +63,14 @@ public class Category {
     /**
      * 创建时间.
      */
-    @Column(columnDefinition="timestamp default current_timestamp")
+    @Column(columnDefinition = "timestamp default current_timestamp")
     private Date createTime;
 
 //    @Generated(GenerationTime.ALWAYS)
     /**
      * 更新时间.
      */
-    @Column(columnDefinition="timestamp default current_timestamp on update current_timestamp")
+    @Column(columnDefinition = "timestamp default current_timestamp on update current_timestamp")
     private Date updateTime;
 
     /**

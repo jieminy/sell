@@ -11,8 +11,10 @@ import com.imooc.exception.SellException;
 import com.imooc.seller.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -68,12 +70,15 @@ public class BuyerOrderController {
     //订单列表
     @GetMapping("/list")
     @ApiOperation(value = "查询订单列表", notes = "根据用户的openid查询所有订单", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO<List<OrderDTO>> list(@RequestParam("openid") String openid) {
+    public ResultVO<OrderDTO> list(@ApiParam("openid") @RequestParam("openid") String openid,
+                                   @ApiParam("页数") @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                   @ApiParam("容量") @RequestParam(value = "size", defaultValue = "3") Integer size) {
         if (StringUtils.isEmpty(openid)) {
             log.error("【查询订单列表】openid为空");
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
-        List<OrderDTO> orderDTOPage = orderService.findList(openid);
+        PageRequest pageRequest = new PageRequest(page - 1, size);
+        List<OrderDTO> orderDTOPage = orderService.findList(openid, pageRequest);
         return ResultVOUtil.success(orderDTOPage);
     }
 

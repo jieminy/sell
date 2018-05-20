@@ -2,6 +2,8 @@ package com.imooc.buyer.repository;
 
 import com.imooc.common.VO.StaProductVO;
 import com.imooc.common.dataobject.OrderMaster;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public interface OrderMasterRepository extends JpaRepository<OrderMaster, String> {
 
-    List<OrderMaster> findByBuyerOpenid(String buyerOpenid);
+    Page<OrderMaster> findByBuyerOpenidOrderByCreateTimeDesc(String buyerOpenid, Pageable pageable);
 
     @Query(value = "select max(order_code) " +
             "from order_master " +
@@ -50,4 +52,7 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
             "\tproduct_name", nativeQuery = true)
     List<StaProductVO> statisticProNum(@Param("stDate") String stDate,
                                        @Param("edDate") String edDate);
+
+    List<OrderMaster> findByOrderStatusAndPayStatus(@Param("orderStatus") Integer orderStatus,
+                                                    @Param("payStatus") Integer payStatus);
 }

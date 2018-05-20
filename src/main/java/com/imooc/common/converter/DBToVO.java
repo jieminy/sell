@@ -2,7 +2,6 @@ package com.imooc.common.converter;
 
 import com.imooc.common.VO.CategoryDetailVO;
 import com.imooc.common.VO.CategoryVO;
-import com.imooc.common.dataobject.Advertisement;
 import com.imooc.common.dataobject.Category;
 import org.springframework.beans.BeanUtils;
 

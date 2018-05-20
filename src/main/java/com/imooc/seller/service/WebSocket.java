@@ -11,7 +11,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
- * Created by 廖师兄
+ * Created by Jiemin
  * 2017-07-30 23:19
  */
 @Component

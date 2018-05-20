@@ -1,21 +1,22 @@
 package com.imooc.websocket;
 
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.RestController;
+
+import lombok.extern.slf4j.Slf4j;
+
+import javax.websocket.OnOpen;
+import javax.websocket.server.ServerEndpoint;
 
 /**
  * @author itw_yinjm
  * @date 2018/5/18
  */
-@RestController
-@MessageMapping("/notify")
+@ServerEndpoint("/endpoint")
+@Slf4j
 public class WebSocketController {
 
-    @MessageMapping("/pay")
-    @SendTo("/topic/seller")
-    public AricResponse say() {
-        return new AricResponse("success");
+    @OnOpen
+    public void onOpen() {
+        log.info("onOpen");
     }
 }
 

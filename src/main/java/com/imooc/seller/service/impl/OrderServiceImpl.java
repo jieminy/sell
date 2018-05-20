@@ -1,6 +1,7 @@
 package com.imooc.seller.service.impl;
 
 import com.imooc.buyer.repository.OrderMasterRepository;
+import com.imooc.common.audio.Music;
 import com.imooc.common.converter.OrderMaster2OrderDTOConverter;
 import com.imooc.common.dataobject.OrderDetail;
 import com.imooc.common.dataobject.OrderMaster;
@@ -124,10 +125,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> findList(String buyerOpenid) {
-        List<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid);
-
-        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage);
+    public List<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
+        Page orderMasterPage = orderMasterRepository.findByBuyerOpenidOrderByCreateTimeDesc(buyerOpenid, pageable);
+        List<OrderMaster> orderDTOS = orderMasterPage.getContent();
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderDTOS);
         orderDTOList.forEach(orderDTO ->
                 orderDTO.setOrderDetailList(orderDetailRepository.findByOrderId(orderDTO.getOrderId()))
         );
@@ -231,6 +232,7 @@ public class OrderServiceImpl implements OrderService {
             log.error("【订单支付完成】更新失败, orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
+        Music.play();
         return orderDTO;
     }
 
@@ -257,4 +259,13 @@ public class OrderServiceImpl implements OrderService {
         });
         return orderDTOList;
     }
+
+    @Override
+    public List<OrderDTO> findByStatus(Integer orderStatus, Integer payStatus) {
+        List<OrderMaster> orderMasters = orderMasterRepository.findByOrderStatusAndPayStatus(orderStatus, payStatus);
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasters);
+        return orderDTOList;
+    }
+
+
 }
