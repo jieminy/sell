@@ -87,6 +87,7 @@ public class ProductForm {
     private String storageMode;
 
     @ApiModelProperty("活动id")
+    @NotNull
     private String atvId;
 
 

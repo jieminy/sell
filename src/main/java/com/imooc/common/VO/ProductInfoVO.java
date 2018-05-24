@@ -79,5 +79,11 @@ public class ProductInfoVO {
     @ApiModelProperty(name = "类目", hidden = true)
     private String categoryName;
 
+    @ApiModelProperty(name = "活动")
+    private String atvId;
+
+    @ApiModelProperty(name = "描述")
+    private String atvDes;
+
     private int count = 0;
 }

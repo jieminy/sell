@@ -36,8 +36,8 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
                                 @Param("payStatus") Integer payStatus);
 
     @Query(value = "SELECT\n" +
-            "\tproduct_id,\n" +
-            "\tproduct_name,\n" +
+            "\tproduct_id as productId,\n" +
+            "\tproduct_name as productName,\n" +
             "\tcount(*) num\n" +
             "FROM\n" +
             "\torder_master om\n" +

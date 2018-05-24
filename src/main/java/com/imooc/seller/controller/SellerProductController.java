@@ -2,6 +2,7 @@ package com.imooc.seller.controller;
 
 import com.imooc.common.VO.ProductInfoVO;
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.dataobject.Activity;
 import com.imooc.common.dataobject.Category;
 import com.imooc.common.dataobject.ProductInfo;
 import com.imooc.common.enums.ProductStatusEnum;
@@ -23,7 +24,6 @@ import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class SellerProductController {
      */
     @GetMapping("/list")
     @ApiOperation(value = "查询商品", notes = "type = 0上架 1下架", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO<List<ProductInfoVO>> list(@RequestParam(value = "type", defaultValue = "0") Integer productStatus) {
+    public ResultVO<ProductInfoVO> list(@RequestParam(value = "type", defaultValue = "0") Integer productStatus) {
         List<ProductInfo> productInfos;
         Map<Integer, Category> categoryMap = new HashMap<>();
         List<Category> categories = categoryService.findAll();
@@ -74,6 +74,8 @@ public class SellerProductController {
             Integer parentId = categoryMap.get(productInfoVO.getCategoryId()).getParentId();
             productInfoVO.setParentCategoryId(parentId);
             productInfoVO.setParentCategoryName(categoryMap.get(parentId).getName());
+            productInfoVO.setAtvId(productInfo.getActivity().getAtvId());
+            productInfoVO.setAtvDes(productInfo.getActivity().getDes());
             productInfoVOS.add(productInfoVO);
         });
         return ResultVOUtil.success(productInfoVOS);
@@ -141,6 +143,9 @@ public class SellerProductController {
             }
             BeanUtils.copyProperties(form, productInfo);
             productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+            Activity activity = new Activity();
+            activity.setAtvId(form.getAtvId());
+            productInfo.setActivity(activity);
             productService.save(productInfo);
             return ResultVOUtil.success();
         } catch (SellException e) {
@@ -159,30 +164,4 @@ public class SellerProductController {
         }
     }
 
-    @PutMapping("/upload")
-    @ApiOperation(value = "上传图片", notes = "上传图片", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResultVO upload(@RequestParam("files")MultipartFile multipartFile){
-//        if (multipartFile.isEmpty() || StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
-//            throw new SellException(ResultEnum.IMAGE_NOT_EXIST);
-//        }
-//        String contentType = multipartFile.getContentType();
-//        if (!contentType.contains("")) {
-//            throw new SellException(ResultEnum.IMAGE_FORMAT_ERROR);
-//        }
-//        String fileName = multipartFile.getOriginalFilename();
-//        String url = "";
-//        log.info("上传图片：name={},contentType={}",fileName,contentType);
-//        try {
-//            FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream();
-//            String suffix = fileName.substring(fileName.indexOf('.'),fileName.length());
-//            fileName = UUID.randomUUID().toString();
-//            url = qiNiuUtil.uploadImg(fileInputStream, fileName + suffix);
-//            if ("".equals(url)) {
-//                throw new SellException(ResultEnum.IMAGE_UPLOAD_FAILED);
-//            }
-//        }catch (IOException e){
-//            throw new SellException(ResultEnum.IMAGE_UPLOAD_FAILED);
-//        }
-        return ResultVOUtil.success();
-    }
 }
