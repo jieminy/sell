@@ -18,6 +18,12 @@ const routes: Route[] = [
       {path: 'order-manager', loadChildren: './order-manager/order-manager.module#OrderManagerModule'},
       {path: 'category-manager', loadChildren: './category-manager/category-manager.module#CategoryManagerModule'},
       {path: 'user-manager', loadChildren: './user-manager/user-manager.module#UserManagerModule'},
+      {
+        path: 'adv-product-manager',
+        loadChildren: './adv-product-manager/adv-product-manager.module#AdvProductManagerModule'
+      },
+      {path: 'activity-manager', loadChildren: './activity-manager/activity-manager.module#ActivityManagerModule'},
+      {path: 'statistic-manager', loadChildren: './statistic-manager/statistic-manager.module#StatisticManagerModule'},
     ]
   },
   {

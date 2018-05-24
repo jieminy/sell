@@ -64,11 +64,10 @@
 
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label nz-form-item-required>重量</label>
+      <label nz-form-item-required for="weight">重量</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-input-number [nzSize]="'large'" [nzMin]="0"
-                       formControlName="weight"></nz-input-number>
+      <nz-input [nzSize]="'large'" nzId="weight" formControlName="weight"></nz-input>
       <div nz-form-explain
            *ngIf="getFormControl('weight').dirty&&getFormControl('weight').hasError('required')">
         请输入商品重量！
@@ -77,11 +76,11 @@
   </div>
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label nz-form-item-required>包装</label>
+      <label for="packing" nz-form-item-required>包装</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-input-number [nzSize]="'large'" [nzMin]="0"
-                       formControlName="packing"></nz-input-number>
+      <nz-input [nzSize]="'large'" nzId="packing"
+                formControlName="packing"></nz-input>
       <div nz-form-explain
            *ngIf="getFormControl('packing').dirty&&getFormControl('packing').hasError('required')">
         请输入商品包装！
@@ -90,11 +89,11 @@
   </div>
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label nz-form-item-required>保质期</label>
+      <label for="shelfLife" nz-form-item-required>保质期</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-input-number [nzSize]="'large'" [nzMin]="0"
-                       formControlName="shelfLife"></nz-input-number>
+      <nz-input [nzSize]="'large'" nzId="shelfLife"
+                formControlName="shelfLife"></nz-input>
       <div nz-form-explain
            *ngIf="getFormControl('shelfLife').dirty&&getFormControl('shelfLife').hasError('required')">
         请输入商品保质期！
@@ -103,11 +102,11 @@
   </div>
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label nz-form-item-required>储藏方式</label>
+      <label for="storageMode" nz-form-item-required>储藏方式</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-      <nz-input-number [nzSize]="'large'" [nzMin]="0"
-                       formControlName="storageMode"></nz-input-number>
+      <nz-input [nzSize]="'large'" nzId="storageMode"
+                formControlName="storageMode"></nz-input>
       <div nz-form-explain
            *ngIf="getFormControl('storageMode').dirty&&getFormControl('storageMode').hasError('required')">
         请输入商品储藏方式！
@@ -201,7 +200,7 @@
     <button nz-button nzType="primary" type="submit" nzSize="large" [nzLoading]="">
       保 存
     </button>
-    <button nz-button nzType="default" nzSize="large" (click)="handleCancel($event)">
+    <button nz-button type="button" nzType="default" nzSize="large" (click)="handleCancel($event)">
       取 消
     </button>
   </div>

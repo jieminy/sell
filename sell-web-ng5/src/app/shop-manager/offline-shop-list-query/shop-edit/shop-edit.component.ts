@@ -50,7 +50,7 @@ export class ShopEditComponent extends CommonModal implements OnInit, OnDestroy 
       shelfLife: [null, Validators.required], // 保质期
       storageMode: [null, Validators.required], // 储藏方式
     });
-    this.validateForm.patchValue(this.shop);
+    this.validateForm.patchValue(this.shop as any);
 
     if (this.shop.productIcon) {
       this.productIcon.push(

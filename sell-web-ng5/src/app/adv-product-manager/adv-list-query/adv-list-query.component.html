@@ -1,0 +1,30 @@
+<nz-table #nzTable
+          [nzDataSource]="dataList"
+          [nzPageSize]="10"
+          [nzLoading]="_loading"
+          nzShowTitle="true" nzBordered="true" nzIsPagination="true" nzSize="small">
+  <div nz-table-title class="text-right">
+    <button nz-button nzType="primary"
+            type="button" (click)="createAdv()">添加广告
+    </button>
+  </div>
+  <thead nz-thead>
+  <tr>
+    <th nz-th><span>图片</span></th>
+    <th nz-th><span>类目名称</span></th>
+    <th nz-th nzWidth="150px"><span>操作</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <tr nz-tbody-tr *ngFor="let adv of nzTable.data">
+    <td nz-td>
+      <img [src]="adv.pic" width="200">
+    </td>
+    <td nz-td>{{adv.categoryName}}</td>
+    <td nz-td>
+      <a href="javascript:" (click)="editAdv(adv)">修改</a>
+      <a href="javascript:" (click)="removeAdv(adv)">删除</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
