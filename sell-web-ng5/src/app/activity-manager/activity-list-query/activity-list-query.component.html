@@ -1,0 +1,32 @@
+<nz-table #nzTable
+          [nzDataSource]="dataList"
+          [nzPageSize]="10"
+          [nzLoading]="_loading"
+          nzShowTitle="true" nzBordered="true" nzIsPagination="true" nzSize="small">
+  <div nz-table-title class="text-right">
+    <button nz-button nzType="primary"
+            type="button" (click)="createAdv()">添加广告
+    </button>
+  </div>
+  <thead nz-thead>
+  <tr>
+    <th nz-th><span>小图标</span></th>
+    <th nz-th><span>折扣</span></th>
+    <th nz-th><span>描述</span></th>
+    <th nz-th nzWidth="150px"><span>操作</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <tr nz-tbody-tr *ngFor="let atv of nzTable.data">
+    <td nz-td>
+      <img [src]="atv.icon" width="100">
+    </td>
+    <td nz-td>{{atv.discount}}</td>
+    <td nz-td>{{atv.des}}</td>
+    <td nz-td>
+      <a href="javascript:" (click)="editAtv(atv)">修改</a>
+      <a href="javascript:" (click)="removeAtv(atv)">删除</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

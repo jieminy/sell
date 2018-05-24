@@ -26,7 +26,10 @@ export function makeMenu(currentUser: User): MenuItem[] {
         {name: '已下架商品查询', route: '/main/shop-manager/offline-list'},
       ]
     },
-    {name: '类目管理', route: '/main/category-manager/list', icon: 'fork'}
+    {name: '类目管理', route: '/main/category-manager/list', icon: 'fork'},
+    {name: '活动管理', route: '/main/activity-manager/list', icon: 'fork'},
+    {name: '广告管理', route: '/main/adv-product-manager/list', icon: 'fork'},
+    {name: '统计管理', route: '/main/statistic-manager/list', icon: 'fork'},
   ];
   if (currentUser.admin) {
     menus.push({name: '用户管理', route: '/main/user-manager/list', icon: 'user'});

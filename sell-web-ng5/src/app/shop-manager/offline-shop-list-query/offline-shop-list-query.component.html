@@ -16,6 +16,7 @@
     <th nz-th><span>商品价格</span></th>
     <th nz-th><span>商品销量</span></th>
     <th nz-th><span>商品类目</span></th>
+    <th nz-th><span>商品活动</span></th>
     <th nz-th nzWidth="150px"><span>操作</span></th>
   </tr>
   </thead>
@@ -27,6 +28,7 @@
     <td nz-td>{{data.productPrice | currency:'￥' }}</td>
     <td nz-td>{{data.productSales}}</td>
     <td nz-td>{{data.parentCategoryName}} - {{data.categoryName}}</td>
+    <td nz-td>{{data.atvDes}}</td>
     <td nz-td>
       <a href="javascript:" (click)="editShop(data)">修改商品</a>
       <a href="javascript:" (click)="onShop(data)">上架商品</a>
