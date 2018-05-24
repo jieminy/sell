@@ -145,6 +145,22 @@
       </div>
     </div>
   </div>
+  <div nz-form-item nz-row>
+    <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      <label nz-form-item-required>商品活动</label>
+    </div>
+    <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <nz-select formControlName="atvId" nzPlaceHolder="请选择活动" [nzSize]="'large'">
+        <nz-option *ngFor="let atv of atvList"
+                   [nzLabel]="atv.des" [nzValue]="atv.atvId">
+        </nz-option>
+      </nz-select>
+      <div nz-form-explain
+           *ngIf="getFormControl('atvId').dirty&&getFormControl('atvId').hasError('required')">
+        请选择商品活动！
+      </div>
+    </div>
+  </div>
 
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">

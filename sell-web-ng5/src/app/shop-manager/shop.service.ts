@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CategoryItem} from "../category-manager/category.service";
+import {ActivityItem} from "../activity-manager/activity.service";
 
 @Injectable()
 export class ShopService {
@@ -18,6 +19,11 @@ export class ShopService {
   // 查询所有大类目
   getCategoryAll(): Promise<AjaxResult<CategoryItem[]>> {
     return this.http.get<any>('seller/category/all').toPromise();
+  }
+
+  // 查询活动列表
+  getAtvList(): Promise<AjaxResult<ActivityItem[]>> {
+    return this.http.get<any>('activity/list').toPromise();
   }
 
   // 上架
@@ -60,6 +66,8 @@ export class ShopItem {
   productStatus: number;
   parentCategoryId: number;
   parentCategoryName: string;
+  atvId: string;
+  atvDes: string;
   categoryId: number;
   categoryName: number;
 }

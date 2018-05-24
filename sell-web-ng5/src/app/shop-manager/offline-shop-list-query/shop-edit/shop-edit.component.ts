@@ -4,6 +4,7 @@ import {CommonModal} from "../../../shared/common-modal";
 import {NzMessageService, NzModalSubject, UploadFile} from "ng-zorro-antd";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoryItem} from "../../../category-manager/category.service";
+import {ActivityItem} from "../../../activity-manager/activity.service";
 
 @Component({
   selector: 'app-shop-edit',
@@ -19,6 +20,7 @@ export class ShopEditComponent extends CommonModal implements OnInit, OnDestroy 
 
   categoryList: CategoryItem[];
   smallCategoryList: CategoryItem[];
+  atvList: ActivityItem[];
 
   productIcon = [];
   swipeIcons = [];
@@ -38,6 +40,8 @@ export class ShopEditComponent extends CommonModal implements OnInit, OnDestroy 
   async ngOnInit() {
     this.validateForm = this.fb.group({
       productId: [null],
+      atvId: [null],
+      atvDes: [null],
       categoryId: [null, Validators.required],
       parentCategoryId: [null, Validators.required],
       productName: [null, Validators.required],
@@ -64,8 +68,9 @@ export class ShopEditComponent extends CommonModal implements OnInit, OnDestroy 
       this.swipeIcons = (JSON.parse(this.shop.swipeIcons) || []).map(this.makeFileObj);
     }
 
-    const result = await this.shopService.getCategoryAll();
-    this.categoryList = result.data;
+    this.categoryList = (await this.shopService.getCategoryAll()).data;
+
+    this.atvList = (await this.shopService.getAtvList()).data;
     this.setSmallCategory();
   }
 
