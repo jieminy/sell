@@ -1,8 +1,10 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {NzMessageService, NzModalSubject, UploadFile} from "ng-zorro-antd";
+import {NzMessageService, NzModalSubject, NzOptionComponent, UploadFile} from "ng-zorro-antd";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CommonModal} from "../../../shared/common-modal";
 import {AdvItem, AdvService} from "../../adv.service";
+import {CategoryItem} from "../../../category-manager/category.service";
+import {ShopItem} from "../../../shop-manager/shop.service";
 
 @Component({
   selector: 'app-adv-edit',
@@ -15,6 +17,8 @@ export class AdvEditComponent extends CommonModal implements OnInit, OnDestroy {
   @Input()
   adv: AdvItem;
   validateForm: FormGroup;
+  categoryList: CategoryItem[];
+  productList: ShopItem[];
 
   previewImage = '';
   previewVisible = false;
@@ -40,6 +44,9 @@ export class AdvEditComponent extends CommonModal implements OnInit, OnDestroy {
     });
     this.validateForm.patchValue(this.adv as any);
 
+    this.advService.getCategoryAll().then(result => this.categoryList = result.data);
+    this.advService.queryAllProduct('0').then(result => this.productList = result.data);
+
     if (this.adv.pic) {
       this.pics = [this.makeFileObj(this.adv.pic)];
     }
@@ -64,6 +71,10 @@ export class AdvEditComponent extends CommonModal implements OnInit, OnDestroy {
       }
     });
     this.subject.next(advItem);
+  }
+
+  filterOption(input: string, option: NzOptionComponent): boolean {
+    return option.nzLabel.includes(input);
   }
 
   // 上传文件之前检测文件是否为图片
