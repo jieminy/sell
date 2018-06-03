@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -29,6 +30,7 @@ public class ActivityForm {
      * 折扣
      */
     @ApiModelProperty("折扣")
+    @NotNull
     private BigDecimal discount;
 
     /**

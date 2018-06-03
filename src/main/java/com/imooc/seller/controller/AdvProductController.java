@@ -13,10 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -42,7 +39,7 @@ public class AdvProductController {
 
     @PostMapping("/save")
     @ApiOperation(value = "新增或修改", notes = "id不为空为修改否则为新增", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO save(@Valid AdvProductForm advProductForm, BindingResult bindingResult) {
+    public ResultVO save(@Valid @RequestBody AdvProductForm advProductForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new SellException(ResultEnum.PARAM_ERROR);
         }

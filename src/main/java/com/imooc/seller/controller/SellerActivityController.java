@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -42,7 +39,7 @@ public class SellerActivityController {
 
     @PostMapping("save")
     @ApiOperation(value = "保存/修改", notes = "提供id为修改，反之为保存", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO saveOrUpdate(@Valid ActivityForm activityForm,
+    public ResultVO saveOrUpdate(@Valid @RequestBody ActivityForm activityForm,
                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new SellException(ResultEnum.PARAM_ERROR);
@@ -57,6 +54,7 @@ public class SellerActivityController {
             }
         }
         BeanUtils.copyProperties(activityForm, activity);
+        activity.setType(1);
         activityService.save(activity);
         return ResultVOUtil.success();
     }

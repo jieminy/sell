@@ -7,7 +7,6 @@ import com.imooc.seller.service.OrderService;
 import com.imooc.seller.service.WebSocket;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -28,7 +27,7 @@ public class AutoCancelOrder {
     @Autowired
     private OrderService orderService;
 
-    @Scheduled(cron = "0/5 * * * * ?")
+    //    @Scheduled(cron = "0/5 * * * * ?")
     public void autoCancel() {
         log.info("autoCancel");
         webSocket.sendMessage("1");
