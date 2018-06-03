@@ -3,21 +3,7 @@
 
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label for="categoryId" nz-form-item-required>类目名称</label>
-    </div>
-    <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-input [nzSize]="'large'" formControlName="categoryId"
-                [nzId]="'categoryId'"></nz-input>
-      <div nz-form-explain
-           *ngIf="getFormControl('categoryId').dirty&&getFormControl('categoryId').hasError('required')">
-        请选择类目！
-      </div>
-    </div>
-  </div>
-
-  <div nz-form-item nz-row>
-    <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label nz-form-item-required>活动图片</label>
+      <label nz-form-item-required>广告图片</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
       <nz-upload class="avatar-uploader"
@@ -27,7 +13,7 @@
                  [nzShowButton]="pics.length < 1"
                  [nzBeforeUpload]="beforeUpload"
                  [nzPreview]="handlePreview">
-        <div class="ant-upload-text" *ngIf="!pics.length">上传活动图片</div>
+        <div class="ant-upload-text" *ngIf="!pics.length">上传广告图片</div>
         <img *ngIf="pics.length" [src]="pics[0].url || pics[0].thumbUrl" class="avatar">
       </nz-upload>
 
@@ -36,11 +22,29 @@
 
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      <label for="categoryId" nz-form-item-required>类目名称</label>
+    </div>
+    <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <nz-select formControlName="categoryId" nzPlaceHolder="请选择类目" [nzSize]="'large'">
+        <nz-option *ngFor="let category of categoryList"
+                   [nzLabel]="category.name" [nzValue]="category.categoryId"></nz-option>
+      </nz-select>
+      <div nz-form-explain
+           *ngIf="getFormControl('categoryId').dirty&&getFormControl('categoryId').hasError('required')">
+        请选择类目！
+      </div>
+    </div>
+  </div>
+
+  <div nz-form-item nz-row>
+    <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
       <label for="productId" nz-form-item-required>活动商品</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-input [nzSize]="'large'" formControlName="productId"
-                [nzId]="'productId'"></nz-input>
+      <nz-select formControlName="categoryId" nzPlaceHolder="请选择活动商品" [nzSize]="'large'">
+        <nz-option *ngFor="let product of productList"
+                   [nzLabel]="product.productName" [nzValue]="product.productId"></nz-option>
+      </nz-select>
       <div nz-form-explain
            *ngIf="getFormControl('productId').dirty&&getFormControl('productId').hasError('required')">
         请选择商品！

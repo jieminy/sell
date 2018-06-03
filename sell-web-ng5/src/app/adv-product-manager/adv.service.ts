@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {CategoryItem} from "../category-manager/category.service";
+import {ShopItem} from "../shop-manager/shop.service";
 
 @Injectable()
 export class AdvService {
@@ -35,6 +37,18 @@ export class AdvService {
    */
   save(adv: AdvItem): Promise<AjaxResult<any>> {
     return this.http.post<any>('adv/product/save', adv).toPromise();
+  }
+
+  // 查询所有大类目
+  getCategoryAll(): Promise<AjaxResult<CategoryItem[]>> {
+    return this.http.get<any>('seller/category/all').toPromise();
+  }
+
+  // 查询所有商品
+  queryAllProduct(type = '0'): Promise<AjaxResult<ShopItem[]>> {
+    return this.http.get<any>('seller/product/list', {
+      params: {type}
+    }).toPromise();
   }
 }
 

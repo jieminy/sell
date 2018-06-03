@@ -28,24 +28,24 @@ export class ActivityListQueryComponent implements OnInit {
     this._loading = false;
   }
 
-  // 创建广告
+  // 创建活动
   createAdv() {
-    this.proxyModal('添加广告', {}, async (data) => {
+    this.proxyModal('添加活动', {}, async (data) => {
       return this.activityService.save(data);
     });
   }
 
-  // 修改广告
+  // 修改活动
   editAtv(activityItem: ActivityItem) {
-    this.proxyModal('修改广告', activityItem, async (data) => {
+    this.proxyModal('修改活动', activityItem, async (data) => {
       return this.activityService.save(data);
     });
   }
 
-  // 删除广告
+  // 删除活动
   removeAtv(activityItem: ActivityItem) {
     this.nzModal.confirm({
-      content: '确定删除此广告？',
+      content: '确定删除此活动？',
       onOk: async () => {
         await this.activityService.removeAdv(activityItem);
         this.queryList();
