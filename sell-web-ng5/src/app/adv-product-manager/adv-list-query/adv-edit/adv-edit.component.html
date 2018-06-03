@@ -41,7 +41,7 @@
       <label for="productId" nz-form-item-required>活动商品</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <nz-select formControlName="categoryId" nzPlaceHolder="请选择活动商品" [nzSize]="'large'">
+      <nz-select formControlName="productId" nzPlaceHolder="请选择活动商品" [nzSize]="'large'">
         <nz-option *ngFor="let product of productList"
                    [nzLabel]="product.productName" [nzValue]="product.productId"></nz-option>
       </nz-select>
