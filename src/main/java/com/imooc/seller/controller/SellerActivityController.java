@@ -47,6 +47,7 @@ public class SellerActivityController {
         Activity activity = new Activity();
         if (StringUtils.isEmpty(activityForm.getAtvId()) == true) {
             activityForm.setAtvId(KeyUtil.genUniqueKey());
+            activity.setType(1);
         } else {
             activity = activityService.findById(activityForm.getAtvId());
             if (activity == null) {
@@ -54,7 +55,6 @@ public class SellerActivityController {
             }
         }
         BeanUtils.copyProperties(activityForm, activity);
-        activity.setType(1);
         activityService.save(activity);
         return ResultVOUtil.success();
     }

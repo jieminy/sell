@@ -51,6 +51,7 @@ public class AdvProductController {
             }
         } else {
             advProduct = new AdvProduct();
+            advProduct.setType("1");
         }
         BeanUtils.copyProperties(advProductForm, advProduct);
         advProductService.save(advProduct);
