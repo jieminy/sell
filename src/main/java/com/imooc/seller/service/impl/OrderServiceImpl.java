@@ -166,9 +166,9 @@ public class OrderServiceImpl implements OrderService {
 //        productService.increaseStock(cartDTOList);
 
         //如果已支付, 需要退款
-        if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
-            payService.refund(orderDTO);
-        }
+//        if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
+//            payService.refund(orderDTO);
+//        }
 
         return orderDTO;
     }
@@ -265,6 +265,32 @@ public class OrderServiceImpl implements OrderService {
         List<OrderMaster> orderMasters = orderMasterRepository.findByOrderStatusAndPayStatus(orderStatus, payStatus);
         List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasters);
         return orderDTOList;
+    }
+
+//    @Override
+//    public List<OrderDTO> findByOrderStatus(Integer orderStatus){
+//        List<OrderMaster> orderMasters = orderMasterRepository.findByOrOrderStatus(orderStatus);
+//        return OrderMaster2OrderDTOConverter.convert(orderMasters);
+//    }
+
+    @Override
+    public List<OrderDTO> findByPayStatus(Integer payStatus) {
+        List<OrderMaster> orderMasters = orderMasterRepository.findByPayStatus(payStatus);
+        return OrderMaster2OrderDTOConverter.convert(orderMasters);
+    }
+
+    @Override
+    public Page<OrderDTO> findUnfinished(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findByOrOrderStatus(OrderStatusEnum.NEW.getCode(), pageable);
+        List<OrderDTO> orderDTOS = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+        return new PageImpl<>(orderDTOS, pageable, orderMasterPage.getTotalElements());
+    }
+
+    @Override
+    public Page<OrderDTO> findHistory(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findByOrderStatusNot(OrderStatusEnum.NEW.getCode(), pageable);
+        List<OrderDTO> orderDTOS = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+        return new PageImpl<>(orderDTOS, pageable, orderMasterPage.getTotalElements());
     }
 
 

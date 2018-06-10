@@ -2,6 +2,9 @@ package com.imooc.common.converter;
 
 import com.imooc.common.dataobject.OrderMaster;
 import com.imooc.common.dto.OrderDTO;
+import com.imooc.common.enums.OrderStatusEnum;
+import com.imooc.common.enums.PayStatusEnum;
+import com.imooc.common.utils.EnumUtil;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
@@ -17,6 +20,8 @@ public class OrderMaster2OrderDTOConverter {
 
         OrderDTO orderDTO = new OrderDTO();
         BeanUtils.copyProperties(orderMaster, orderDTO);
+        orderDTO.setOrderStatusDes(EnumUtil.getByCode(orderDTO.getOrderStatus(), OrderStatusEnum.class).getMessage());
+        orderDTO.setPayStatusDes(EnumUtil.getByCode(orderDTO.getPayStatus(), PayStatusEnum.class).getMessage());
         return orderDTO;
     }
 

@@ -56,6 +56,12 @@ public class OrderDTO {
     @ApiModelProperty("支付状态")
     private Integer payStatus;
 
+    @ApiModelProperty("状态描述")
+    private String orderStatusDes;
+
+    @ApiModelProperty("支付状态")
+    private String payStatusDes;
+
     /**
      * 配送时间
      */

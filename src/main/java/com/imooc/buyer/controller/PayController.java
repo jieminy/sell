@@ -147,4 +147,130 @@ public class PayController {
         //返回给微信处理结果
         return new ModelAndView("pay/success");
     }
+
+//    @RequestMapping(value = "/refund", method = RequestMethod.GET)
+//    public @ResponseBody Map<String, Object> refund(String id,String user) {
+//        Map<String,Object> result = new HashMap<String,Object>();
+//        String currTime = PayUtil.getCurrTime();
+//        String strTime = currTime.substring(8, currTime.length());
+//        String strRandom = PayUtil.buildRandom(4) + "";
+//        String nonceStr = strTime + strRandom;
+//        String outRefundNo = "wx@re@"+PayUtil.getTimeStamp();
+//        String outTradeNo = "";
+//
+//        DecimalFormat df = new DecimalFormat("######0");
+//        String fee = String.valueOf(df.format((Double.valueOf(payLog.getTotalFee())*100)));
+//        SortedMap<String, String> packageParams = new TreeMap<String, String>();
+//        packageParams.put("appid", appId);
+//        packageParams.put("mch_id", mchId);//微信支付分配的商户号
+//        packageParams.put("nonce_str", nonceStr);//随机字符串，不长于32位
+//        packageParams.put("op_user_id", mchId);//操作员帐号, 默认为商户号
+//        //out_refund_no只能含有数字、字母和字符_-|*@
+//        packageParams.put("out_refund_no", outRefundNo);//商户系统内部的退款单号，商户系统内部唯一，同一退款单号多次请求只退一笔
+//        packageParams.put("out_trade_no", outTradeNo);//商户侧传给微信的订单号32位
+//        packageParams.put("refund_fee", fee);
+//        packageParams.put("total_fee", fee);
+//        packageParams.put("transaction_id", payLog.getTransactionId());//微信生成的订单号，在支付通知中有返回
+//        String sign = PayUtil.createSign(packageParams,key);
+//
+//        String refundUrl = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+//        String xmlParam="<xml>"+
+//                "<appid>"+appId+"</appid>"+
+//                "<mch_id>"+mchId+"</mch_id>"+
+//                "<nonce_str>"+nonceStr+"</nonce_str>"+
+//                "<op_user_id>"+mchId+"</op_user_id>"+
+//                "<out_refund_no>"+outRefundNo+"</out_refund_no>"+
+//                "<out_trade_no>"+outTradeNo+"</out_trade_no>"+
+//                "<refund_fee>"+fee+"</refund_fee>"+
+//                "<total_fee>"+fee+"</total_fee>"+
+//                "<transaction_id>"+payLog.getTransactionId()+"</transaction_id>"+
+//                "<sign>"+sign+"</sign>"+
+//                "</xml>";
+//        String resultStr = PayUtil.post(refundUrl, xmlParam);
+//        //解析结果
+//        try {
+//            Map map =  doXMLParse(resultStr);
+//            String returnCode = map.get("return_code").toString();
+//            if(returnCode.equals("SUCCESS")){
+//                String resultCode = map.get("result_code").toString();
+//                if(resultCode.equals("SUCCESS")){
+//                    ProfPayLog profPayLog = new ProfPayLog();
+//                    profPayLog.setCreatedAt(new Date());
+//                    profPayLog.setSource(payLog.getSource());
+//                    profPayLog.setTotalFee(payLog.getTotalFee());
+//                    profPayLog.setTradeNo(payLog.getTradeNo());
+//                    profPayLog.setTransactionId(map.get("refund_id").toString());
+//                    profPayLog.setUserId(user);
+//                    profPayLog.setType(ProfPayLog.Type.Refund);
+//                    profPayLog = wxappOrderService.save(profPayLog);
+//                    result.put("status", "success");
+//                }else{
+//                    result.put("status", "fail");
+//                }
+//            }else{
+//                result.put("status", "fail");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            result.put("status", "fail");
+//        }
+//        return result;
+//    }
+//
+//    public static String post(String url, String xmlParam){
+//        StringBuilder sb = new StringBuilder();
+//        try {
+//            KeyStore keyStore  = KeyStore.getInstance("PKCS12");
+//            FileInputStream instream = new FileInputStream(new File(""));
+//            try {
+//                keyStore.load(instream, "商户id".toCharArray());
+//            } finally {
+//                instream.close();
+//            }
+//
+//            // 证书
+//            SSLContext sslcontext = SSLContexts.custom()
+//                    .loadKeyMaterial(keyStore, "商户id".toCharArray())
+//                    .build();
+//            // 只允许TLSv1协议
+//            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+//                    sslcontext,
+//                    new String[] { "TLSv1" },
+//                    null,
+//                    SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+//            //创建基于证书的httpClient,后面要用到
+//            CloseableHttpClient client = HttpClients.custom()
+//                    .setSSLSocketFactory(sslsf)
+//                    .build();
+//
+//            HttpPost httpPost = new HttpPost(url);//退款接口
+//            StringEntity reqEntity  = new StringEntity(xmlParam);
+//            // 设置类型
+//            reqEntity.setContentType("application/x-www-form-urlencoded");
+//            httpPost.setEntity(reqEntity);
+//            CloseableHttpResponse response;
+//            response = client.execute(httpPost);
+//            try {
+//                HttpEntity entity = response.getEntity();
+//                System.out.println(response.getStatusLine());
+//                if (entity != null) {
+//                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent(),"UTF-8"));
+//                    String text="";
+//                    while ((text = bufferedReader.readLine()) != null) {
+//                        sb.append(text);
+//                    }
+//                }
+//                EntityUtils.consume(entity);
+//            } catch(Exception e){
+//                e.printStackTrace();
+//            }finally {
+//                try {
+//                    response.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 }

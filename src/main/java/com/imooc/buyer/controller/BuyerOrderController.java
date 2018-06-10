@@ -72,7 +72,7 @@ public class BuyerOrderController {
     @ApiOperation(value = "查询订单列表", notes = "根据用户的openid查询所有订单", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO<OrderDTO> list(@ApiParam("openid") @RequestParam("openid") String openid,
                                    @ApiParam("页数") @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                   @ApiParam("容量") @RequestParam(value = "size", defaultValue = "3") Integer size) {
+                                   @ApiParam("容量") @RequestParam(value = "size", defaultValue = "5") Integer size) {
         if (StringUtils.isEmpty(openid)) {
             log.error("【查询订单列表】openid为空");
             throw new SellException(ResultEnum.PARAM_ERROR);

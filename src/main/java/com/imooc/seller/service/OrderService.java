@@ -36,4 +36,12 @@ public interface OrderService {
     List<OrderDTO> statistic(String stDate, String edDate, Integer orderStatus, Integer payStatus);
 
     List<OrderDTO> findByStatus(Integer orderStatus, Integer payStatus);
+
+//    List<OrderDTO> findByOrderStatus(Integer orderStatus);
+
+    List<OrderDTO> findByPayStatus(Integer payStatus);
+
+    Page<OrderDTO> findUnfinished(Pageable pageable);
+
+    Page<OrderDTO> findHistory(Pageable pageable);
 }

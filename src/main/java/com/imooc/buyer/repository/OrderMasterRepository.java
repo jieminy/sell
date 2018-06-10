@@ -55,4 +55,12 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
 
     List<OrderMaster> findByOrderStatusAndPayStatus(@Param("orderStatus") Integer orderStatus,
                                                     @Param("payStatus") Integer payStatus);
+
+    Page<OrderMaster> findByOrOrderStatus(@Param("orderStatus") Integer orderStatus, Pageable pageable);
+
+    Page<OrderMaster> findByOrderStatusNot(@Param("orderStatus") Integer orderStatus, Pageable pageable);
+
+    List<OrderMaster> findByPayStatus(@Param("payStatus") Integer payStatus);
+
+
 }

@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,18 +36,24 @@ public class SellerOrderController {
 
     /**
      * 订单列表
-     * @param page 第几页, 从1页开始
-     * @param size 一页有多少条数据
      * @return
      */
     @GetMapping("/list")
     @ApiOperation(value = "查询订单", notes = "分页查询订单", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO<Page<OrderDTO>> list(@ApiParam("页数") @RequestParam(value = "page", defaultValue = "1") Integer page,
-                         @ApiParam("容量") @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PageRequest request = new PageRequest(page - 1, size);
-        Page<OrderDTO> orderDTOPage = orderService.findList(request);
-        return ResultVOUtil.success(orderDTOPage);
+    public ResultVO<OrderDTO> list(@ApiParam("页数") @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                   @ApiParam("容量") @RequestParam(value = "size", defaultValue = "15") Integer size) {
+        PageRequest pageRequest = new PageRequest(page - 1, size);
+        return ResultVOUtil.success(orderService.findUnfinished(pageRequest));
     }
+
+    @GetMapping("/list/history")
+    @ApiOperation(value = "查询订单", notes = "分页查询订单", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO<OrderDTO> listOfHistory(@ApiParam("页数") @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                            @ApiParam("容量") @RequestParam(value = "size", defaultValue = "15") Integer size) {
+        PageRequest pageRequest = new PageRequest(page - 1, size);
+        return ResultVOUtil.success(orderService.findHistory(pageRequest));
+    }
+
 
     /**
      * 取消订单
