@@ -8,7 +8,11 @@ export class OrderService {
   }
 
   queryOrderAll(): Promise<AjaxResult<PagingResult<OrderItem[]>>> {
-    return this.http.get<any>('seller/order/list').toPromise();
+    return this.http.get<any>('seller/order/list', {params: {size: '99999'}}).toPromise();
+  }
+
+  queryHistoryOrderAll(): Promise<AjaxResult<PagingResult<OrderItem[]>>> {
+    return this.http.get<any>('seller/order/list/history', {params: {size: '99999'}}).toPromise();
   }
 
   // 取消订单

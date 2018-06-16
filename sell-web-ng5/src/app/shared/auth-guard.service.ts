@@ -18,11 +18,12 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 
   // 判断用户是否登录
   isLogin() {
-    if (this.authService.currentUser) {
-      return true;
-    }
-
-    // 如果没有登录权限，则跳转到登录页
-    this.router.navigate(['/login']);
+    return this.authService.isLogin().then(isLogin => {
+      // 如果没有登录权限，则跳转到登录页
+      if (!isLogin) {
+        this.router.navigate(['/login']);
+      }
+      return isLogin;
+    });
   }
 }

@@ -23,7 +23,7 @@ export class HistoryOrderListQueryComponent implements OnInit {
 
   async queryList() {
     this._loading = true;
-    const result = await this.orderService.queryOrderAll()
+    const result = await this.orderService.queryHistoryOrderAll();
     this._loading = false;
     this.dataList = result.data.content;
   }
