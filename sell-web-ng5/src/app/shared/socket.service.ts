@@ -27,7 +27,8 @@ export class SocketService {
     };
 
     function createSocket() {
-      self.socket = new WebSocket(`ws:${self.host}${self.socketPath}`);
+      const ws = location.protocol === 'https:' ? 'wss' : 'ws';
+      self.socket = new WebSocket(`${ws}:${self.host}${self.socketPath}`);
     }
   }
 
