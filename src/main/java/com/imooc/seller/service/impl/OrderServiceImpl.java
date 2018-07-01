@@ -1,7 +1,6 @@
 package com.imooc.seller.service.impl;
 
 import com.imooc.buyer.repository.OrderMasterRepository;
-import com.imooc.common.audio.Music;
 import com.imooc.common.converter.OrderMaster2OrderDTOConverter;
 import com.imooc.common.dataobject.OrderDetail;
 import com.imooc.common.dataobject.OrderMaster;
@@ -72,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
 //                    .multiply(new BigDecimal(orderDetail.getProductQuantity()))
 //                    .add(orderAmount);
 
-            //订单详情入库
+            //销量
             orderDetail.setDetailId(KeyUtil.genUniqueKey());
             orderDetail.setOrderId(orderId);
 //            BeanUtils.copyProperties(productInfo, orderDetail);
@@ -98,8 +97,7 @@ public class OrderServiceImpl implements OrderService {
         ).collect(Collectors.toList());
         productService.increaseSales(cartDTOList);
 
-        //发送websocket消息
-        webSocket.sendMessage(orderDTO.getOrderId());
+
 
         return orderDTO;
     }
@@ -193,7 +191,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //推送微信模版消息
-        pushMessageService.orderStatus(orderDTO);
+//        pushMessageService.orderStatus(orderDTO);
 
         return orderDTO;
     }
@@ -219,7 +217,7 @@ public class OrderServiceImpl implements OrderService {
         BeanUtils.copyProperties(orderDTO, orderMaster);
 
         //获取取货码
-        Integer orderCode = orderMasterRepository.findMaxOrderCode(orderDTO.getBuyerOpenid());
+        Integer orderCode = orderMasterRepository.findMaxOrderCode();
         if (orderCode == null) {
             orderCode = 1;
         } else {
@@ -232,7 +230,9 @@ public class OrderServiceImpl implements OrderService {
             log.error("【订单支付完成】更新失败, orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
-        Music.play();
+        //发送websocket消息
+        webSocket.sendMessage(orderDTO.getOrderId());
+
         return orderDTO;
     }
 

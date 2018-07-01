@@ -1,6 +1,5 @@
 package com.imooc.buyer.repository;
 
-import com.imooc.common.VO.StaProductVO;
 import com.imooc.common.dataobject.OrderMaster;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,14 +19,13 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
 
     @Query(value = "select max(order_code) " +
             "from order_master " +
-            "where buyer_openid = :openid " +
-            "and DATE_FORMAT (update_time,'Y%-m%-d%') = DATE_FORMAT(NOW(),'Y%-m%-d%')", nativeQuery = true)
-    Integer findMaxOrderCode(@Param("openid") String openid);
+            "where DATE_FORMAT (create_time,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')", nativeQuery = true)
+    Integer findMaxOrderCode();
 
     @Query(value = "SELECT * " +
             "FROM torder_master " +
-            "WHERE DATE_FORMAT(update_time, 'Y%-m%-%d') >= :stDate " +
-            "AND DATE_FORMAT(update_time, 'Y%-m%-%d') <= :edDate " +
+            "WHERE DATE_FORMAT(update_time, ''%Y-%m-%d'') >= :stDate " +
+            "AND DATE_FORMAT(update_time, ''%Y-%m-%d'') <= :edDate " +
             "AND order_status = :orderStatus " +
             "AND pay_status = :payStatus", nativeQuery = true)
     List<OrderMaster> statistic(@Param("stDate") String stDate,
@@ -50,8 +48,8 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
             "GROUP BY\n" +
             "\tproduct_id,\n" +
             "\tproduct_name", nativeQuery = true)
-    List<StaProductVO> statisticProNum(@Param("stDate") String stDate,
-                                       @Param("edDate") String edDate);
+    List<Object[]> statisticProNum(@Param("stDate") String stDate,
+                                   @Param("edDate") String edDate);
 
     List<OrderMaster> findByOrderStatusAndPayStatus(@Param("orderStatus") Integer orderStatus,
                                                     @Param("payStatus") Integer payStatus);

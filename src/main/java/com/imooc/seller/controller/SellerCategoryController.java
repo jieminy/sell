@@ -4,11 +4,13 @@ import com.imooc.common.VO.CategoryVO;
 import com.imooc.common.VO.ResultVO;
 import com.imooc.common.converter.DBToVO;
 import com.imooc.common.dataobject.Category;
+import com.imooc.common.dataobject.ProductInfo;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.common.form.CategoryForm;
 import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.exception.SellException;
 import com.imooc.seller.service.CategoryService;
+import com.imooc.seller.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,6 +35,9 @@ public class SellerCategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ProductService productService;
 
     /**
      * 查询某根类目及其二级类目
@@ -102,6 +107,10 @@ public class SellerCategoryController {
     @ApiOperation(value = "删除类目", notes = "根据id删除类目",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO delCategory(@ApiParam("类目id") @RequestParam("categoryId") Integer categoryId){
         try{
+            List<ProductInfo> productInfos = productService.findByCategoryId(categoryId);
+            if (productInfos != null && productInfos.size() >= 1) {
+                throw new SellException(ResultEnum.DEL_CATEGORY_ERROR);
+            }
             categoryService.delete(categoryId);
             return ResultVOUtil.success();
         }catch (SellException e){

@@ -120,4 +120,15 @@ public class ProductServiceImpl implements ProductService {
     public void delete(String productId){
         repository.delete(productId);
     }
+
+    @Override
+    public List<ProductInfo> findByCategoryId(Integer categoryId) {
+        return repository.findByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<ProductInfo> findByActivityId(String atvId) {
+        return repository.findByActivityAtvId(atvId);
+    }
 }
+

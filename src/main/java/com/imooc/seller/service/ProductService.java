@@ -41,4 +41,8 @@ public interface ProductService {
     ProductInfo offSale(String productId);
 
     void delete(String productId);
+
+    List<ProductInfo> findByCategoryId(Integer categoryId);
+
+    List<ProductInfo> findByActivityId(String atvId);
 }

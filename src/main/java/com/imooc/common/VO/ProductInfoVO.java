@@ -85,5 +85,10 @@ public class ProductInfoVO {
     @ApiModelProperty(name = "描述")
     private String atvDes;
 
+    @ApiModelProperty(name = "活动类型")
+    private Integer atvType;
+
+    @ApiModelProperty(name = "折扣")
+    private BigDecimal discount;
     private int count = 0;
 }

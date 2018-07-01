@@ -73,7 +73,11 @@ public enum ResultEnum {
 
     ACTIVITY_NOT_EXIST(1, "商品活动不存在"),
 
-    ADV_NOT_EXTIST(1, "广告不存在")
+    ADV_NOT_EXTIST(1, "广告不存在"),
+
+    DEL_CATEGORY_ERROR(1, "该类目下有绑定商品，无法删除"),
+
+    DEL_ACTIVITY_ERROR(1, "该活动下有绑定商品，无法删除")
 
     ;
 

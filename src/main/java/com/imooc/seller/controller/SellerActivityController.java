@@ -2,12 +2,14 @@ package com.imooc.seller.controller;
 
 import com.imooc.common.VO.ResultVO;
 import com.imooc.common.dataobject.Activity;
+import com.imooc.common.dataobject.ProductInfo;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.common.form.ActivityForm;
 import com.imooc.common.utils.KeyUtil;
 import com.imooc.common.utils.ResultVOUtil;
 import com.imooc.exception.SellException;
 import com.imooc.seller.service.IActivityService;
+import com.imooc.seller.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author itw_yinjm
@@ -30,6 +33,9 @@ public class SellerActivityController {
 
     @Autowired
     private IActivityService activityService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("list")
     @ApiOperation(value = "查询所有活动", notes = "查询所有活动", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,7 +53,7 @@ public class SellerActivityController {
         Activity activity = new Activity();
         if (StringUtils.isEmpty(activityForm.getAtvId()) == true) {
             activityForm.setAtvId(KeyUtil.genUniqueKey());
-            activity.setType(1);
+            activityForm.setType(1);
         } else {
             activity = activityService.findById(activityForm.getAtvId());
             if (activity == null) {
@@ -62,6 +68,10 @@ public class SellerActivityController {
     @GetMapping("del")
     @ApiOperation(value = "删除", notes = "根据id删除", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO del(String atvId) {
+        List<ProductInfo> productInfoList = productService.findByActivityId(atvId);
+        if (productInfoList != null && productInfoList.size() >= 1) {
+            throw new SellException(ResultEnum.DEL_ACTIVITY_ERROR);
+        }
         activityService.delete(atvId);
         return ResultVOUtil.success();
     }

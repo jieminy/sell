@@ -2,7 +2,6 @@ package com.imooc.buyer.controller;
 
 import com.imooc.common.VO.CategoryDetailVO;
 import com.imooc.common.VO.CategoryVO;
-import com.imooc.common.VO.ProductInfoVO;
 import com.imooc.common.VO.ResultVO;
 import com.imooc.common.converter.DBToVO;
 import com.imooc.common.dataobject.Category;
@@ -13,7 +12,6 @@ import com.imooc.seller.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
@@ -75,9 +73,7 @@ public class BuyerProductController {
     @ApiOperation(value = "查询商品详情", notes = "查询商品详情", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO one(@Param("商品id") String proId) {
         ProductInfo productInfo = productService.findOne(proId);
-        ProductInfoVO productInfoVO = new ProductInfoVO();
-        BeanUtils.copyProperties(productInfo, productInfoVO);
-        return ResultVOUtil.success(productInfoVO);
+        return ResultVOUtil.success(productInfo);
     }
 
 }

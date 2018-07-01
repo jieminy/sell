@@ -1,6 +1,7 @@
 package com.imooc.seller.controller;
 
 import com.imooc.common.VO.ResultVO;
+import com.imooc.common.VO.SellerInfoVO;
 import com.imooc.common.dataobject.SellerInfo;
 import com.imooc.common.enums.ResultEnum;
 import com.imooc.common.form.SellerInfoForm;
@@ -93,16 +94,15 @@ public class SellerUserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "登陆", notes = "登陆", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO login(HttpServletRequest request, String username, String password) {
+    public ResultVO login(HttpServletRequest request, @RequestBody SellerInfoForm sellerInfoForm) {
         try {
-            String encrypt = SHAUtil.encryptSHA(password);
-            SellerInfo sellerInfo = sellerService.findSellerUsername(username);
+            String encrypt = SHAUtil.encryptSHA(sellerInfoForm.getPassword());
+            SellerInfo sellerInfo = sellerService.findSellerUsername(sellerInfoForm.getUsername());
             if (sellerInfo == null) {
                 return ResultVOUtil.error(ResultEnum.FAIL.getCode(), ResultEnum.LOGIN_USER_NOT_EXIST.getMessage());
             }
             if (encrypt.equals(sellerInfo.getPassword())) {
-                request.getSession().setAttribute("username", username);
-                request.getSession().setAttribute("islogin", true);
+                request.getSession().setAttribute("user", sellerInfo);
                 request.getSession().setMaxInactiveInterval(3600);
                 return ResultVOUtil.success();
             } else {
@@ -111,6 +111,23 @@ public class SellerUserController {
         } catch (Exception e) {
             return ResultVOUtil.error(ResultEnum.FAIL.getCode(), ResultEnum.FAIL.getMessage());
         }
+    }
+
+    @GetMapping("/logout")
+    @ApiOperation(value = "注销", notes = "注销", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO logout(HttpServletRequest request) {
+        SellerInfo user = (SellerInfo) request.getSession().getAttribute("user");
+        request.getSession().removeAttribute("user");
+        return ResultVOUtil.success();
+    }
+
+    @GetMapping("/getCurrentUser")
+    @ApiOperation(value = "获取当前用户", notes = "获取当前用户", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO getCurrentUser(HttpServletRequest request) {
+        SellerInfo user = (SellerInfo) request.getSession().getAttribute("user");
+        SellerInfoVO sellerInfoVO = new SellerInfoVO();
+        BeanUtils.copyProperties(user, sellerInfoVO);
+        return ResultVOUtil.success(sellerInfoVO);
     }
 
 
