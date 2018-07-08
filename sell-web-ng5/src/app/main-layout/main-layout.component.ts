@@ -42,7 +42,7 @@ export class MainLayoutComponent implements OnInit {
   private async getStoreState() {
     try {
       this.storeIsOpen = await this.storeService.isOpen();
-    } catch (e: Error) {
+    } catch (e) {
       this.nzMessageService.warning(e.message || String(e));
     }
   }

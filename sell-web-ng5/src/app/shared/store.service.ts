@@ -9,10 +9,10 @@ export class StoreService {
 
   /**
    * 切换开店或者闭店
-   * @returns {Promise<AjaxResult>}
+   * @returns {Promise<AjaxResult<any>>}
    */
-  toggleStoreState(): Promise<AjaxResult> {
-    return this.http.get<AjaxResult>("mini/close/or/open").toPromise();
+  toggleStoreState(): Promise<AjaxResult<any>> {
+    return this.http.get<AjaxResult<any>>("mini/close/or/open").toPromise();
   }
 
   /**
