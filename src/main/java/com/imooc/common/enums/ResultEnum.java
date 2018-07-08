@@ -13,6 +13,8 @@ public enum ResultEnum {
 
     FAIL(1, "失败"),
 
+    MINI_NOTEXIST(1, "小程序信息不存在"),
+
     NEED_LOGIN(1, "用户未登录"),
 
     PARAM_ERROR(1, "参数不正确"),
