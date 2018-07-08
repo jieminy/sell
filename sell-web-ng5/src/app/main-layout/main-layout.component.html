@@ -1,6 +1,13 @@
 <div layout-fill layout="column">
   <nz-header style="height: 50px;">
-    公寓鲜后台管理
+    <div layout="row">
+      <div flex>公寓鲜后台管理</div>
+      <div>
+        <button type="button" nz-button (click)="toggleStoreState()">
+          {{storeIsOpen ? '关店' : '开店'}}
+        </button>
+      </div>
+    </div>
   </nz-header>
   <div flex layout="row">
     <nav style="width: 200px;">

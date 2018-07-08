@@ -10,6 +10,7 @@ import {StatusPipe} from './status.pipe';
 import {UserAuthInterceptorProviders} from "./user-auth.interceptor";
 import {AudioService} from "./audio.service";
 import {SocketService} from "./socket.service";
+import {StoreService} from "./store.service";
 
 @NgModule({
   imports: [
@@ -24,9 +25,8 @@ import {SocketService} from "./socket.service";
     UserAuthInterceptorProviders,
     httpInterceptorProviders,
     AuthService,
-    AuthGuardService,
-    AudioService,
-    SocketService
+    AuthGuardService, AudioService,
+    SocketService, StoreService
   ],
   exports: [
     CommonModule, FormsModule,

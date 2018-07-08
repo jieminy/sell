@@ -5,6 +5,7 @@ import {OrderListQueryComponent} from "./order-list-query/order-list-query.compo
 import {HistoryOrderListQueryComponent} from './history-order-list-query/history-order-list-query.component';
 import {OrderService} from "./order.service";
 import {OrderDetailComponent} from './order-detail/order-detail.component';
+import {DistributeTypePipe} from './distribute-type.pipe';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {OrderDetailComponent} from './order-detail/order-detail.component';
   declarations: [
     OrderListQueryComponent,
     HistoryOrderListQueryComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    DistributeTypePipe
   ],
   providers: [OrderService],
   entryComponents: [OrderDetailComponent]

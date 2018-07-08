@@ -58,6 +58,9 @@ export class OrderDetailItem {
   orderId: string;
   orderStatus: number;
   payStatus: number;
+  distributeTime: string; // 配送时间
+  distributeType: number; // 配送方式 1自取 2配送
+  orderCode: string; // 取货码
 }
 
 export class OrderDetailInfoItem {

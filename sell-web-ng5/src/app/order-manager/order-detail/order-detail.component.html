@@ -47,6 +47,30 @@
       <span nz-form-text>{{orderDetailItem?.buyerPhone}}</span>
     </div>
   </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>配送时间</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.distributeTime}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>配送方式</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.distributeType | distributeType}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>取货码</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.orderCode}}</span>
+    </div>
+  </div>
   <div nz-form-item flex="100" layout="row">
     <div nz-form-label nz-col [nzSpan]="6">
       <label>客户地址</label>
