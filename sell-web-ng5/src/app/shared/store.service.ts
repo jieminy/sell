@@ -20,7 +20,7 @@ export class StoreService {
    * @returns {Promise<boolean>}
    */
   isOpen(): Promise<boolean> {
-    return this.http.get<AjaxResult<MiniProgramInfo>>("mini/close/or/open").toPromise()
+    return this.http.get<AjaxResult<MiniProgramInfo>>("mini/isOpen").toPromise()
       .then<boolean>(result => {
         if (result.code === 0) {
           return result.data.status === 1;
