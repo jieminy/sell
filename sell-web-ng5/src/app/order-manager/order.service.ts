@@ -61,6 +61,8 @@ export class OrderDetailItem {
   distributeTime: string; // 配送时间
   distributeType: number; // 配送方式 1自取 2配送
   orderCode: string; // 取货码
+  createTime: string; // 下单时间
+  updateTime: string; // 更新时间
 }
 
 export class OrderDetailInfoItem {

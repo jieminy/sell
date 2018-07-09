@@ -71,6 +71,22 @@
       <span nz-form-text>{{orderDetailItem?.orderCode}}</span>
     </div>
   </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>下单时间</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.createTime}}</span>
+    </div>
+  </div>
+  <div nz-form-item flex="33" layout="row">
+    <div nz-form-label nz-col [nzSpan]="6">
+      <label>更新时间</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="14">
+      <span nz-form-text>{{orderDetailItem?.updateTime}}</span>
+    </div>
+  </div>
   <div nz-form-item flex="100" layout="row">
     <div nz-form-label nz-col [nzSpan]="6">
       <label>客户地址</label>
