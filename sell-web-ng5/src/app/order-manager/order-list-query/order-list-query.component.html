@@ -11,6 +11,9 @@
     <th nz-th><span>订单状态</span></th>
     <th nz-th><span>客户名称</span></th>
     <th nz-th><span>客户电话</span></th>
+    <th nz-th><span>客户地址</span></th>
+    <th nz-th><span>取货码</span></th>
+    <th nz-th><span>配送方式</span></th>
     <th nz-th nzWidth="180px"><span>操作</span></th>
   </tr>
   </thead>
@@ -22,6 +25,9 @@
     <td nz-td>{{data.orderStatusDes}}</td>
     <td nz-td>{{data.buyerName}}</td>
     <td nz-td>{{data.buyerPhone}}</td>
+    <td nz-td>{{data.buyerAddress}}</td>
+    <td nz-td>{{data.orderCode}}</td>
+    <td nz-td>{{data.distributeType | distributeType}}</td>
     <td nz-td>
       <a href="javascript:" (click)="showDetail(data)">查看订单</a>
       <a href="javascript:"
